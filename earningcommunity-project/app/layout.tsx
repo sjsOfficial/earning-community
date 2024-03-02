@@ -1,21 +1,21 @@
-import type { Metadata } from "next";
+'use client'
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Shared/Header";
 import Footer from "@/components/Shared/Footer";
+import { usePathname } from "next/navigation";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export const metadata: Metadata = {
-  title: "Home | Earning Community",
-  description: "Earn money by this site with trusted way",
-};
+
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+  const pathname = usePathname()
   return (
     <html lang="en">
       <body className={inter.className}>
