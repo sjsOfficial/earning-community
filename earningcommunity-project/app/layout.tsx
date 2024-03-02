@@ -25,7 +25,10 @@ export default function RootLayout({
         }
         
         {children}
-        <Footer></Footer>
+        {
+         pathname.split('/')[1]==='admin' || <Footer></Footer>
+        }
+        
         </body>
     </html>
   );
