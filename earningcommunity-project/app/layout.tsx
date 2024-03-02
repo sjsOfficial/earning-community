@@ -16,10 +16,14 @@ export default function RootLayout({
 }>) {
 
   const pathname = usePathname()
+  
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Header></Header>
+        {
+         pathname.split('/')[1]==='admin' || <Header></Header>
+        }
+        
         {children}
         <Footer></Footer>
         </body>
