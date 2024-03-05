@@ -1,3 +1,4 @@
+import HomeSlider from "@/components/HomeSlider";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -7,6 +8,7 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <main className="">
+      <HomeSlider></HomeSlider>
       <h1>Home Page t t</h1>
     </main>
   );

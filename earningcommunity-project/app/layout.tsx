@@ -20,6 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+        <div className="">
         {
          pathname.split('/')[1]==='admin' || <Header></Header>
         }
@@ -28,6 +29,7 @@ export default function RootLayout({
         {
          pathname.split('/')[1]==='admin' || <Footer></Footer>
         }
+        </div>
         
         </body>
     </html>
