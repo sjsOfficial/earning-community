@@ -31,14 +31,15 @@ export default function HomeSlider() {
     setLoaded(true);
   };
   return (
-    <div className='aspect-[2/1] lg:aspect-auto  lg:h-[890px] relative'>
+    <div className='aspect-[2/1] lg:aspect-auto  lg:h-[700px] relative'>
       {images.map((imageUrl, index) => (
         <Image
+        placeholder='blur'
           key={index}
           alt="background Image"
           src={imageUrl}
-          layout="fill"
-          objectFit="cover"
+          fill
+      style={{objectFit:"cover"}}
           className={`absolute top-0 left-0 transition-opacity duration-1000 ${
             currentImageIndex === index ? "opacity-100" : "opacity-0"
           } ${loaded ? "loaded" : ""}`}
