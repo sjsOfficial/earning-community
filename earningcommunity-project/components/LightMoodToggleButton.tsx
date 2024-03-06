@@ -23,7 +23,7 @@ export default function LightMoodToggleButton() {
   return (
     <div
       onClick={toggleDarkMode}
-      className="flex items-center justify-center py-[6px] gap-4 w-[126px] border border-darkText dark:border-lightText rounded-full cursor-pointer hover:bg-[#ffe95754] transition-colors duration-500 ease-in-out"
+      className="flex items-center justify-center py-[6px] gap-4 w-[150px] border border-darkText dark:border-lightText rounded-full cursor-pointer hover:bg-[#ffe95754] transition-colors duration-500 ease-in-out"
     >
       {isDarkMode ? (
         <svg
