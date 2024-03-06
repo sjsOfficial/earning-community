@@ -5,6 +5,7 @@ import Header from "@/components/Shared/Header";
 import Footer from "@/components/Shared/Footer";
 import { usePathname } from "next/navigation";
 import { DataProvider } from "./providers/DataProvider";
+import MobileNav from "@/components/Shared/MobileNav";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,6 +22,7 @@ export default function RootLayout({
         <DataProvider>
           <div className="dark:bg-darkBg bg-lightBg  transition-colors duration-500 ease-in-out">
             {pathname.split("/")[1] === "admin" || <Header></Header>}
+            {pathname.split("/")[1] === "admin" || <MobileNav></MobileNav>}
 
             {children}
             {pathname.split("/")[1] === "admin" || <Footer></Footer>}
