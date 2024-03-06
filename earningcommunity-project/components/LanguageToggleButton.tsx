@@ -7,7 +7,7 @@ export default function LanguageToggleButton() {
   return (
     <div
       onClick={toggleLanguage}
-      className="flex items-center justify-center py-[6px] gap-4 w-[126px] border border-[#FFFFFF] dark:border-[#000000]  rounded-full cursor-pointer hover:bg-[#ffe95754] transition-colors duration-500 ease-in-out"
+      className="flex items-center justify-center py-[6px] gap-4 w-[126px] border border-darkText dark:border-lightText  rounded-full cursor-pointer hover:bg-[#ffe95754] transition-colors duration-500 ease-in-out"
     >
        
        <svg
@@ -16,7 +16,7 @@ export default function LanguageToggleButton() {
   viewBox="0 0 20 20"
   fill="none"
   xmlns="http://www.w3.org/2000/svg"
-  className="dark:text-black text-white" // Change color using Tailwind CSS
+  className="text-darkText dark:text-lightText" // Change color using Tailwind CSS
 >
   <path
     fill-rule="evenodd"
@@ -25,7 +25,7 @@ export default function LanguageToggleButton() {
     fill="currentColor" // Use currentColor to inherit the fill color
   />
 </svg>
-      <p className="text-[#FFFFFF] dark:text-[#000000] font-medium text-[20px]">
+      <p className="text-darkText dark:text-lightText font-medium text-[20px]">
         {isEnglish ? "English" : "বাংলা"}
       </p>
     </div>

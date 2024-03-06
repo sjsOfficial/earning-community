@@ -19,7 +19,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <DataProvider>
-          <div className="">
+          <div className="dark:bg-darkBg bg-lightBg  transition-colors duration-500 ease-in-out">
             {pathname.split("/")[1] === "admin" || <Header></Header>}
 
             {children}
