@@ -1,7 +1,7 @@
 'use client'
 import Image from 'next/image'
 import React, { ChangeEvent, useEffect, useState } from 'react'
-import slider1 from '../public/slider1.png'
+import slider1 from '../../public/slider1.png'
 
 export default function HomeSlider() {
     const images = [

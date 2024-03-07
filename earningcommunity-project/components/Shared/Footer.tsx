@@ -144,7 +144,7 @@ export default function Footer() {
               </Link>
             </div>
           </div>
-          <p className="text-[20px] md:text-[24px] font-normal text-[#FFFFFF]">
+          <p className="text-[20px] md:text-[24px] font-normal text-[#FFFFFF] mb-[50px] md:mb-0">
               2024@ All rights reserved by Earning Community
             </p>
         </div>
