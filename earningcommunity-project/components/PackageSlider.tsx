@@ -49,6 +49,15 @@ const PackageSlider: React.FC<PackageCardSliderProps> = ({packageData}) => {
       sliderRef.current.slickPause();
     }
   };
+  const bgColors = [
+    "bg-blue-500",
+    "bg-green-500",
+    "bg-yellow-500",
+    "bg-red-500",
+    "bg-sky-500",
+    "bg-purple-500"
+    // Add more colors as needed
+  ];
 
   const settings: Settings = {
     pauseOnFocus: true,
@@ -92,10 +101,8 @@ const PackageSlider: React.FC<PackageCardSliderProps> = ({packageData}) => {
       <div className="slider-container">
         <Slider className="" {...settings} ref={sliderRef}>
           {
-            packageData?.map((data,i)=><PackageCard packageCardData={data} key={i} />)
+            packageData?.map((data,i)=><PackageCard  bgColor={bgColors[i % bgColors.length]} packageCardData={data} key={i} />)
           }
-          
-          
         </Slider>
       </div>
     </div>

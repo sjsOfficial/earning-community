@@ -10,5 +10,6 @@ export interface PackageCardSliderProps{
 }
 export interface PackageCardProps{
     packageCardData: PackageCardData
+    bgColor: string
 
 }

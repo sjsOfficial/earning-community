@@ -2,10 +2,10 @@ import { PackageCardProps } from "@/app/types";
 import Link from "next/link";
 import React from "react";
 
-const PackageCard:React.FC<PackageCardProps>=({packageCardData})=> {
+const PackageCard:React.FC<PackageCardProps>=({packageCardData,bgColor})=> {
     const truncatedText = packageCardData.description.length > 300 ? packageCardData.description.slice(0, 300) + "..." : packageCardData.description;
   return (
-    <div className="max-w-[380px] bg-orange-500 rounded-[10px] p-[20px] flex flex-col items-center justify-between gap-4 mx-2 h-[350px] md:h-[430px] ">
+    <div className={`max-w-[380px] ${bgColor} rounded-[10px] p-[20px] flex flex-col items-center justify-between gap-4 mx-2 h-[350px] md:h-[430px] `}>
       <h1 className="text-[20px] md:text-[24px] font-medium text-[#FFFFFF]">{packageCardData.title}</h1>
       <div className="text-center">
         <p className="text-[18px] md:text-[20px] font-medium text-[#FFFFFF]">{packageCardData.amount} ৳</p>
