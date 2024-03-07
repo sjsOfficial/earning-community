@@ -38,30 +38,8 @@ const packageData : PackageCardData[] = [
       duration: "3 months",
       description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     },
-    {
-      title: "Package 7",
-      amount: 250,
-      duration: "6 months",
-      description: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.",
-    },
-    {
-      title: "Package 8",
-      amount: 300,
-      duration: "1 year",
-      description: "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consUt enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo cons",
-    },
-    {
-      title: "Package 9",
-      amount: 350,
-      duration: "1 month",
-      description: "Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.",
-    },
-    {
-      title: "Package 10",
-      amount: 400,
-      duration: "3 months",
-      description: "Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur.",
-    },
+   
+    
   ];
 export default function Packages() {
   return (
