@@ -1,22 +1,19 @@
+import { PackageCardProps } from "@/app/types";
 import Link from "next/link";
 import React from "react";
 
-const PackageCard=()=> {
+const PackageCard:React.FC<PackageCardProps>=({packageCardData})=> {
+    const truncatedText = packageCardData.description.length > 300 ? packageCardData.description.slice(0, 300) + "..." : packageCardData.description;
   return (
-    <div className="max-w-[380px] bg-orange-500 rounded-[10px] p-[32px] flex flex-col items-center gap-4 mx-2">
-      <h1 className="text-[20px] md:text-[24px] font-medium text-[#FFFFFF]">Play Package</h1>
+    <div className="max-w-[380px] bg-orange-500 rounded-[10px] p-[20px] flex flex-col items-center justify-between gap-4 mx-2 h-[350px] md:h-[430px] ">
+      <h1 className="text-[20px] md:text-[24px] font-medium text-[#FFFFFF]">{packageCardData.title}</h1>
       <div className="text-center">
-        <p className="text-[18px] md:text-[20px] font-medium text-[#FFFFFF]">200 ৳</p>
-        <p className="text-[18px] md:text-[20px] font-medium text-[#FFFFFF]">3 months</p>
+        <p className="text-[18px] md:text-[20px] font-medium text-[#FFFFFF]">{packageCardData.amount} ৳</p>
+        <p className="text-[18px] md:text-[20px] font-medium text-[#FFFFFF]">{packageCardData.duration}</p>
       </div>
-      <p className="text-[16px] md:text-[20px] text-[#FFFFFF] text-justify">
-        Unlock a world of possibilities with our affordable and flexible
-        package. For just 200 BDT, you will gain access to our platform for a full
-        three months, giving you ample time to explore, learn, and grow. Whether
-        you are looking to enhance your skills, dive into new hobbies, or simply
-      </p>
-      <Link className="w-full" href='/'>
-        <div className="py-2 text-center bg-[#2E4053] rounded-[10px] text-[16px] md:text-[20px] text-[#FFFFFF]">
+      <p className="text-[16px] md:text-[20px] text-[#FFFFFF] text-justify line-clamp-6">{truncatedText}</p>
+      <Link className="w-full bg-[#2E4053] hover:bg-[#1b2a3e] rounded-[10px] cursor-pointer transition-colors duration-500 ease-in-out" href='/'>
+        <div className="py-2 text-center  text-[16px] md:text-[20px] text-[#FFFFFF]">
         Purchase Now
         </div>
       </Link>

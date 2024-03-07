@@ -5,6 +5,7 @@ import Slider, { Settings } from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import PackageCard from "./PackageCard";
+import { PackageCardSliderProps } from "@/app/types";
 
 interface SampleArrowProps {
   className?: string;
@@ -34,7 +35,7 @@ const SamplePrevArrow: React.FC<SampleArrowProps> = (props) => {
   );
 };
 
-const PackageSlider: React.FC = () => {
+const PackageSlider: React.FC<PackageCardSliderProps> = ({packageData}) => {
   const sliderRef = useRef<Slider>(null);
 
   const play = () => {
@@ -90,11 +91,11 @@ const PackageSlider: React.FC = () => {
     <div className="">
       <div className="slider-container">
         <Slider className="" {...settings} ref={sliderRef}>
-          <PackageCard />
-          <PackageCard />
-          <PackageCard />
-          <PackageCard />
-          <PackageCard />
+          {
+            packageData?.map((data,i)=><PackageCard packageCardData={data} key={i} />)
+          }
+          
+          
         </Slider>
       </div>
     </div>
