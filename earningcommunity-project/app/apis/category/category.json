@@ -1,0 +1,50 @@
+[
+    {
+        "title":"News & Current Affairs",
+        "bn":"খবর ও কারেন্ট অ্যাফেয়ার্স",
+        "slag":"news_affairs",
+        "icon":"/category/news.svg"
+    },
+    {
+        "title":"Funny Videos",
+        "bn":"মজার ভিডিও",
+        "slag":"funny",
+        "icon":"/category/funny.svg"
+    },
+    {
+        "title":"Games",
+        "bn":"গেমস",
+        "slag":"games",
+        "icon":"/category/games.svg"
+    },
+    {
+        "title":"Live",
+        "bn":"লাইভ",
+        "slag":"live",
+        "icon":"/category/live.svg"
+    },
+    {
+        "title":"Music",
+        "bn":"মিউজিক",
+        "slag":"music",
+        "icon":"/category/music.svg"
+    },
+    {
+        "title":"Drama & TV Shows",
+        "bn":"সঙ্গীত নাটক এবং টিভি শো",
+        "slag":"drama",
+        "icon":"/category/drama.svg"
+    },
+    {
+        "title":"Vlogs & Life Style",
+        "bn":"ভ্লগ এবং লাইফস্টাইল",
+        "slag":"vlogs",
+        "icon":"/category/vlogs.svg"
+    },
+    {
+        "title":"Education & Tutorial",
+        "bn":"শিক্ষা ও টিউটোরিয়াল",
+        "slag":"education",
+        "icon":"/category/education.svg"
+    }
+]
