@@ -2,6 +2,7 @@ import JoinUs from "@/components/Authentication/JoinUs";
 import History from "@/components/Home/History";
 import HomeSlider from "@/components/Home/HomeSlider";
 import Packages from "@/components/Home/Packages";
+import Popular from "@/components/Home/Popular";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -15,6 +16,7 @@ export default function Home() {
       <JoinUs></JoinUs>
       <Packages></Packages>
       <History></History>
+      <Popular></Popular>
     </main>
   );
 }
