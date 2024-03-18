@@ -12,3 +12,27 @@ datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
 }
+
+model Packages {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  title         String   @unique
+  price         Float
+  duration      Int      @default(1)
+  withdrawLimit Int
+  description   String
+  date          DateTime @default(now())
+}
+
+model Users{
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  gender String?
+  age DateTime?
+  phone String @unique
+  password String
+  device String?
+  deviceId String?
+  pushToken String?
+  balance Float @default(0)
+  name String
+  username String @unique
+}
