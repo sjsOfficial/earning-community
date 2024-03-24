@@ -1,42 +1,25 @@
-import { NextRequest, NextResponse, userAgent } from 'next/server'
-import jwt from "jsonwebtoken"
+import {
+  NextMiddleware,
+  NextResponse,
+  NextRequest
+} from "next/server";
+import checkAuth from "./middleware/checkAuth";
+import checkAdmin from "./middleware/checkAdmin";
 
-interface PlayLoad {
-  username: string,
-  userId: string
-}
+export type MiddlewareFactory = (middleware: NextMiddleware) => NextMiddleware;
 
-export function middleware(request: NextRequest) {
-  const url = request.nextUrl.pathname
-  const secretKey = process.env.TOKEN;
-  const agent = request.headers.get("User-Agent")
-  const agentId = request.headers.get("Agent-Id")
-  const deviceId = request.headers.get("Device-Id")
-  const token = request.headers.get("Authorization")
-
-
-  if (!agent || !deviceId || !agentId) {
-    return NextResponse.json({ error: "Invalid request sources" }, { status: 404 })
+export function stackMiddlewares(functions: MiddlewareFactory[] = [], index = 0): NextMiddleware {
+  
+  const current = functions[index];
+  if (current) {
+      const next = stackMiddlewares(functions, index + 1);
+      return current(next);
   }
-  if (url !== "/apis/user/login") {
-    const ts = token?.split(" ")?.[1]
-    if (!ts) {
-      return NextResponse.json({ error: "Empty user token" }, { status: 404 })
-    }
-    try {
-      const decoded = jwt.verify(token, secretKey ? secretKey : "ecbd") as PlayLoad
-      const { username, userId } = decoded;
-      
-
-    } catch (error) {
-      return NextResponse.json({ error: "Invalid user token" }, { status: 404 })
-    }
-  }
-
-
-  return NextResponse.next()
+  return () => NextResponse.next();
 }
+const middlewares = [checkAuth,checkAdmin];
+export default stackMiddlewares(middlewares);
 
 export const config = {
-  matcher: '/apis/user/:path*',
+  matcher: '/apis/:path*',
 }
