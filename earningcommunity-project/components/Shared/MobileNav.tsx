@@ -3,7 +3,7 @@ import React from "react";
 
 export default function MobileNav() {
   return (
-    <div className="bg-lightBg dark:bg-darkBg transition-colors duration-500 ease-in-out fixed bottom-0 z-10 w-full block md:hidden">
+    <div className="bg-lightBg dark:bg-darkBg transition-colors duration-500 ease-in-out fixed bottom-0 z-20 w-full block md:hidden">
       <div className="mx-2 my-1 flex justify-between items-center h-[50px]">
         <Link href="/">
           <div className="flex flex-col items-center ">

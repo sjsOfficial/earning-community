@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 export default function JoinUs() {
@@ -16,11 +17,13 @@ export default function JoinUs() {
               tournaments, collaborate with fellow creators, and engage with
               your audience to maximize your earnings potential.
             </p>
-            <div className="hidden md:block py-2 md:py-4 bg-[#2E4053] hover:bg-[#1b2a3e] rounded-[10px] max-w-[350px] cursor-pointer transition-colors duration-500 ease-in-out">
-              <p className="text-[#FFFFFF] font-medium teext-[14px] md:text-[20px] text-center">
-                Register Now
-              </p>
-            </div>
+            <Link href="/pages/authentication/login">
+              <div className="hidden md:block py-2 md:py-4 bg-[#2E4053] hover:bg-[#1b2a3e] rounded-[10px] max-w-[350px] cursor-pointer transition-colors duration-500 ease-in-out">
+                <p className="text-[#FFFFFF] font-medium teext-[14px] md:text-[20px] text-center">
+                  Register Now
+                </p>
+              </div>
+            </Link>
           </div>
           <div className="w-[86px] md:w-auto">
             <Image
@@ -30,11 +33,13 @@ export default function JoinUs() {
             ></Image>
           </div>
         </div>
-        <div className=" md:hidden py-2 md:py-4 bg-[#2E4053] hover:bg-[#1b2a3e] rounded-[10px] cursor-pointer transition-colors duration-500 ease-in-out">
-              <p className="text-[#FFFFFF] font-medium teext-[14px] md:text-[20px] text-center">
-                Register Now
-              </p>
-            </div>
+        <Link href="/pages/authentication/login">
+          <div className=" md:hidden py-2 md:py-4 bg-[#2E4053] hover:bg-[#1b2a3e] rounded-[10px] cursor-pointer transition-colors duration-500 ease-in-out">
+            <p className="text-[#FFFFFF] font-medium teext-[14px] md:text-[20px] text-center">
+              Register Now
+            </p>
+          </div>
+        </Link>
       </div>
     </div>
   );

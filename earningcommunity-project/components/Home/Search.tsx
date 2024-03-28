@@ -2,9 +2,9 @@ import React from "react";
 
 export default function Search() {
   return (
-    <div className="container mx-auto px-2  md:mt-[37px] fixed md:relative top-2 left-1/2 md:left-0  -translate-x-1/2 md:translate-x-0">
-      <div className="bg-[#85929E] shadow-md  flex justify-between items-center w-full py-2 md:py-4 px-4 md:px-6 rounded-full md:rounded-[10px]">
-        <p className="text-[#FFFFFF] text-[16px] md:text-[24px] font-medium">Search</p>
+    <div className="container mx-auto px-2  md:mt-[37px] fixed md:relative top-2 left-1/2 md:left-0  -translate-x-1/2 md:translate-x-0 z-20">
+      <div className="bg-[#85929E] shadow-md  flex justify-between items-center w-full py-1 md:py-4 px-4 md:px-6 rounded-full md:rounded-[10px]">
+        <p className="text-[#FFFFFF] text-[16px] md:text-[24px] font-normal md:font-medium">Search</p>
         <svg
           width="20"
           height="20"
