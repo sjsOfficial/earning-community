@@ -4,6 +4,8 @@ import { createContext, useContext, useState, useEffect } from 'react';
 type DataContextType = {
   isEnglish: boolean;
   toggleLanguage: () => void;
+  user:boolean;
+  setUser: (newValue: boolean) => void
 };
 
 const DataContext = createContext<DataContextType | undefined>(undefined);
@@ -20,6 +22,7 @@ interface Props {
   }
 export const DataProvider: React.FC<Props> = ({ children }) => {
     const [isEnglish, setIsEnglish] = useState(true);
+    const [user, setUser] = useState(false);
     // console.log(isEnglish);
     
       useEffect(() => {
@@ -37,7 +40,7 @@ export const DataProvider: React.FC<Props> = ({ children }) => {
       };
 
   return (
-    <DataContext.Provider value={{ isEnglish, toggleLanguage }}>
+    <DataContext.Provider value={{ isEnglish, toggleLanguage,user, setUser }}>
       {children}
     </DataContext.Provider>
   );

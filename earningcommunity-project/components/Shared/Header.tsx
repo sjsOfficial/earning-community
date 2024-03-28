@@ -4,8 +4,10 @@ import LightMoodToggleButton from "../LightMoodToggleButton";
 import LanguageToggleButton from "../LanguageToggleButton";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useData } from "@/app/providers/DataProvider";
 
 export default function Header() {
+  const { user } = useData();
   const pathname = usePathname();
   return (
     <div className="bg-[#ffffff91] dark:bg-[#00000080] transition-colors duration-500 ease-in-out fixed top-0 z-10 w-full">
@@ -20,7 +22,7 @@ export default function Header() {
         <div className="flex items-center gap-10">
           <Link
             href="/"
-            className={`text-darkText dark:text-lightText font-normal md:font-medium text-[16px] md:text-[20px] ${pathname === '/'? 'border-b-2 border-[#FFFFFF]':''}`}
+            className={`text-darkText dark:text-lightText font-normal md:font-medium text-[16px] md:text-[20px] ${pathname === '/'? 'border-b-2 border-[#FFFFFF]':''} ${user || 'hidden'}`}
           >
             Home
           </Link>
@@ -38,7 +40,7 @@ export default function Header() {
           </Link>
           <Link
             href="/pages/policies"
-            className={`text-darkText dark:text-lightText  font-normal md:font-medium text-[16px] md:text-[20px] ${pathname === '/pages/policies'? 'border-b-2 border-[#FFFFFF]':''}`}
+            className={`text-darkText dark:text-lightText  font-normal md:font-medium text-[16px] md:text-[20px] ${pathname === '/pages/policies'? 'border-b-2 border-[#FFFFFF]':''} ${user && 'hidden'}`}
           >
             Policies
           </Link>
