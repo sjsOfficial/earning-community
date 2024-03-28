@@ -1,10 +1,13 @@
+'use client'
+import { useData } from "@/app/providers/DataProvider";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
 export default function JoinUs() {
+  const { user } = useData();
   return (
-    <div className="container mx-auto mt-[37px]">
+    <div className={`container mx-auto mt-[37px] ${user && 'hidden'}`}>
       <div className="bg-[#85929E] mx-2 rounded-[10px] p-[20px] ">
         <div className="gap-2 flex justify-between items-center">
           <div className="w-[286px] md:w-[950px]">
