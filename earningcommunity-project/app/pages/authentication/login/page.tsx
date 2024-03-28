@@ -24,7 +24,7 @@ const LoginPage: React.FC = () => {
   };
   return (
     <div>
-      <div className="flex justify-around items-center pt-28">
+      <div className="flex flex-col md:flex-row md:justify-around gap-4 items-center md:pt-28 mx-2">
         <div className="">
           <Image
             className="h-[250px] md:h-[350px] w-[250px] md:w-[350px]"
@@ -32,22 +32,22 @@ const LoginPage: React.FC = () => {
             alt="login"
           ></Image>
         </div>
-        <div className=" bg-[#85929E] px-20 py-16 w-full max-w-[500px]">
-          <div className="flex flex-col items-center gap-4 mb-6">
-            <div className="flex justify-center items-center h-[120px] w-[120px] bg-[#80714B] rounded-full">
+        <div className=" bg-[#85929E] px-6 md:px-20 py-4 md:py-16 w-full max-w-[500px] rounded md:rounded-md">
+          <div className="flex flex-col items-center gap-4 mb-4 md:mb-6">
+            <div className="flex justify-center items-center h-[100px] md:h-[120px] w-[100px] md:w-[120px] bg-[#80714B] rounded-full">
               <Image
-                className="h-[80px] w-[80px]"
+                className="h-[60px] md:h-[80px] w-[60px] md:w-[80px]"
                 src={require("../../../../public/logo.svg")}
                 alt="logo"
               ></Image>
             </div>
-            <p className=" text-center text-[#FFFFFF] text-[20px] font-normal my-4">
+            <p className=" text-center text-[#FFFFFF] text-[16px] md:text-[20px] font-normal my-2 md:my-4">
               Get your account and start making money online by watching video
             </p>
           </div>
-          <form  onSubmit={handleSubmit} className="space-y-6">
+          <form  onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
             <div className="">
-              <label className="text-[#FFFFFF] text-[20px] font-normal">
+              <label className="text-[#FFFFFF] text-[16px] md:text-[20px] font-normal">
                 Phone Number
               </label>
               <div className="flex items-center border border-[#FFFFFF] rounded-[5px] px-4 py-2 gap-4">
@@ -80,7 +80,7 @@ const LoginPage: React.FC = () => {
               </div>
             </div>
             <div className="">
-              <label className="text-[#FFFFFF] text-[20px] font-normal">
+              <label className="text-[#FFFFFF] text-[16px] md:text-[20px] font-normal">
                 Password
               </label>
               <div className="flex items-center border border-[#FFFFFF] rounded-[5px] px-4 py-2 gap-4">
@@ -118,10 +118,10 @@ const LoginPage: React.FC = () => {
                   </p>
                 )}
               <div className="flex justify-between mt-1">
-                <p className="text-[#000000] text-[20px] font-normal underline">
+                <p className="text-[#000000] text-[16px] md:text-[20px] font-normal underline">
                   Forget Password?
                 </p>
-                <p className="text-[#000000] text-[20px] font-normal underline">
+                <p className="text-[#000000] text-[16px] md:text-[20px] font-normal underline">
                   Register Now
                 </p>
               </div>
