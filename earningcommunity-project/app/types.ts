@@ -4,6 +4,11 @@ amount: number,
 duration: string,
 description: string,
 }
+export interface categoryCardData{
+title: string;
+numberOfVideos: number;
+image:string;
+}
 export interface VideoCardData{
     videoUrl: string;
     title: string;
@@ -12,6 +17,9 @@ export interface VideoCardData{
 }
 export interface PackageCardSliderProps{
     packageData: PackageCardData[]
+}
+export interface CategoryCardProps{
+    data: categoryCardData
 }
 export interface VideoSliderProps{
     videoCardData: VideoCardData[]
