@@ -7,7 +7,7 @@ export default function LanguageToggleButton() {
   return (
     <div
       onClick={toggleLanguage}
-      className="flex items-center justify-center py-[6px] gap-4 w-[150px] border border-darkText dark:border-lightText  rounded-full cursor-pointer hover:bg-[#ffe95754] transition-colors duration-500 ease-in-out"
+      className="flex items-center justify-center py-[6px] gap-4 w-[150px] border border-darkText dark:border-lightText  rounded-full cursor-pointer hover:bg-[#85929E] transition-colors duration-500 ease-in-out"
     >
       <svg
         width="20"

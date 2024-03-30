@@ -24,7 +24,7 @@ export default function Header() {
           <Link
             href="/"
             className={`text-darkText dark:text-lightText font-normal md:font-medium text-[16px] md:text-[20px] ${
-              pathname === "/" ? "border-b-2 border-[#FFFFFF]" : ""
+              pathname === "/" ? "border-b-2 border-[#85929E]" : ""
             } ${user || "hidden"}`}
           >
             Home
@@ -33,7 +33,7 @@ export default function Header() {
             href="/pages/packages"
             className={`"text-darkText dark:text-lightText font-normal md:font-medium text-[16px] md:text-[20px] ${
               pathname === "/pages/packages"
-                ? "border-b-2 border-[#FFFFFF]"
+                ? "border-b-2 border-[#85929E]"
                 : ""
             }`}
           >
@@ -43,7 +43,7 @@ export default function Header() {
             href="/pages/category"
             className={`text-darkText dark:text-lightText  font-normal md:font-medium text-[16px] md:text-[20px] ${
               pathname === "/pages/category"
-                ? "border-b-2 border-[#FFFFFF]"
+                ? "border-b-2 border-[#85929E]"
                 : ""
             }`}
           >
@@ -53,7 +53,7 @@ export default function Header() {
             href="/pages/policies"
             className={`text-darkText dark:text-lightText  font-normal md:font-medium text-[16px] md:text-[20px] ${
               pathname === "/pages/policies"
-                ? "border-b-2 border-[#FFFFFF]"
+                ? "border-b-2 border-[#85929E]"
                 : ""
             } ${user && "hidden"}`}
           >
@@ -61,13 +61,17 @@ export default function Header() {
           </Link>
           {user ? (
             <div className="flex items-center gap-5 lg:gap-10">
-              <div className="border border-white rounded-full p-1 pr-10 flex gap-4 items-center">
+              <Link href='/pages/profile'>
+              <div className={`border border-white rounded-full p-1 pr-10 flex gap-4 items-center cursor-pointer hover:bg-[#85929E] transition-colors duration-500 ease-in-out ${
+              pathname === "/pages/profile" ? "bg-[#85929E]" : ""
+            }`}>
                 <Image className="h-[60px] w-[60px] rounded-full" src={dp} alt="profile image"></Image>
                 <div>
                   <p className="text-[20px] font-medium text-white">My Profile</p>
                   <p className="text-[16px] font-medium text-white">30.00৳</p>
                 </div>
               </div>
+              </Link>
               <svg
                 width="38"
                 height="41"
