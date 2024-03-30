@@ -3,7 +3,7 @@ import React from "react";
 
 export default function MobileNav() {
   return (
-    <div className="bg-lightBg dark:bg-darkBg transition-colors duration-500 ease-in-out fixed bottom-0 z-20 w-full block md:hidden">
+    <div className="bg-lightBg dark:bg-[#121212] transition-colors duration-500 ease-in-out fixed bottom-0 z-20 w-full block md:hidden">
       <div className="mx-2 my-1 flex justify-between items-center h-[50px]">
         <Link href="/">
           <div className="flex flex-col items-center ">
@@ -13,7 +13,7 @@ export default function MobileNav() {
               viewBox="0 0 20 17"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              className="text-darkText dark:text-lightText"
+              className="text-darkText dark:text-white"
             >
               <path
                 d="M18.272 7.26473L10 1.34375"
@@ -49,7 +49,7 @@ export default function MobileNav() {
               />
             </svg>
 
-            <p className="text-darkText dark:text-lightText font-normal text-[12px]  mt-1">
+            <p className="text-darkText dark:text-white font-normal text-[12px]  mt-1">
               Home
             </p>
           </div>
@@ -58,22 +58,23 @@ export default function MobileNav() {
           <div className="flex flex-col items-center ">
             <svg
               width="16"
-              height="18"
-              viewBox="0 0 16 18"
+              height="16"
+              viewBox="0 0 16 16"
               fill="none"
-              className="text-darkText dark:text-lightText"
               xmlns="http://www.w3.org/2000/svg"
+              className="text-darkText dark:text-white"
             >
               <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
-                d="M1.40078 0.200195C1.69252 0.200195 1.97231 0.316088 2.1786 0.522378C2.38489 0.728668 2.50078 1.00846 2.50078 1.3002V3.61129C3.41603 2.67769 4.55386 1.99243 5.8071 1.62006C7.06034 1.24768 8.38775 1.20045 9.66429 1.4828C10.9408 1.76516 12.1245 2.36781 13.1038 3.23399C14.0831 4.10018 14.8258 5.20139 15.2619 6.43389C15.3148 6.57113 15.3396 6.71758 15.335 6.86458C15.3303 7.01159 15.2962 7.15617 15.2347 7.28976C15.1731 7.42335 15.0854 7.54325 14.9768 7.64236C14.8681 7.74148 14.7407 7.81779 14.602 7.86678C14.4633 7.91578 14.3162 7.93647 14.1694 7.92763C14.0226 7.91878 13.879 7.88059 13.7472 7.81529C13.6154 7.75 13.4981 7.65895 13.4021 7.54751C13.3061 7.43607 13.2334 7.30651 13.1884 7.16649C12.8563 6.22799 12.2759 5.39716 11.5089 4.76253C10.7419 4.1279 9.81707 3.71325 8.833 3.56276C7.84893 3.41228 6.84246 3.5316 5.92086 3.90801C4.99925 4.28442 4.19703 4.90382 3.59968 5.70019H6.90078C7.19252 5.70019 7.47231 5.81609 7.6786 6.02238C7.88489 6.22867 8.00078 6.50846 8.00078 6.80019C8.00078 7.09193 7.88489 7.37172 7.6786 7.57801C7.47231 7.7843 7.19252 7.90019 6.90078 7.90019H1.40078C1.10904 7.90019 0.829254 7.7843 0.622964 7.57801C0.416674 7.37172 0.300781 7.09193 0.300781 6.80019V1.3002C0.300781 1.00846 0.416674 0.728668 0.622964 0.522378C0.829254 0.316088 1.10904 0.200195 1.40078 0.200195ZM1.40958 10.1629C1.5458 10.1148 1.69016 10.094 1.83443 10.1017C1.97869 10.1093 2.12002 10.1454 2.25036 10.2077C2.3807 10.27 2.49749 10.3574 2.59406 10.4648C2.69063 10.5722 2.76509 10.6977 2.81318 10.8339C3.14523 11.7724 3.72568 12.6032 4.49268 13.2379C5.25968 13.8725 6.18449 14.2871 7.16856 14.4376C8.15264 14.5881 9.1591 14.4688 10.0807 14.0924C11.0023 13.716 11.8045 13.0966 12.4019 12.3002H9.10078C8.80904 12.3002 8.52925 12.1843 8.32296 11.978C8.11667 11.7717 8.00078 11.4919 8.00078 11.2002C8.00078 10.9085 8.11667 10.6287 8.32296 10.4224C8.52925 10.2161 8.80904 10.1002 9.10078 10.1002H14.6008C14.8925 10.1002 15.1723 10.2161 15.3786 10.4224C15.5849 10.6287 15.7008 10.9085 15.7008 11.2002V16.7002C15.7008 16.9919 15.5849 17.2717 15.3786 17.478C15.1723 17.6843 14.8925 17.8002 14.6008 17.8002C14.309 17.8002 14.0293 17.6843 13.823 17.478C13.6167 17.2717 13.5008 16.9919 13.5008 16.7002V14.3891C12.5855 15.3227 11.4477 16.008 10.1945 16.3803C8.94122 16.7527 7.61381 16.7999 6.33727 16.5176C5.06073 16.2352 3.87707 15.6326 2.89778 14.7664C1.91849 13.9002 1.17581 12.799 0.739681 11.5665C0.691568 11.4303 0.670758 11.2859 0.678441 11.1416C0.686124 10.9974 0.722148 10.8561 0.784458 10.7257C0.846767 10.5954 0.934141 10.4786 1.04159 10.382C1.14904 10.2854 1.27336 10.211 1.40958 10.1629Z"
-                fill="currentColor"
+                d="M1 2.875C1 2.37772 1.19754 1.90081 1.54917 1.54917C1.90081 1.19754 2.37772 1 2.875 1H4.75C5.24728 1 5.72419 1.19754 6.07582 1.54917C6.42746 1.90081 6.625 2.37772 6.625 2.875V4.75C6.625 5.24728 6.42746 5.72419 6.07582 6.07582C5.72419 6.42746 5.24728 6.625 4.75 6.625H2.875C2.37772 6.625 1.90081 6.42746 1.54917 6.07582C1.19754 5.72419 1 5.24728 1 4.75V2.875ZM1 11C1 10.5027 1.19754 10.0258 1.54917 9.67417C1.90081 9.32254 2.37772 9.125 2.875 9.125H4.75C5.24728 9.125 5.72419 9.32254 6.07582 9.67417C6.42746 10.0258 6.625 10.5027 6.625 11V12.875C6.625 13.3723 6.42746 13.8492 6.07582 14.2008C5.72419 14.5525 5.24728 14.75 4.75 14.75H2.875C2.37772 14.75 1.90081 14.5525 1.54917 14.2008C1.19754 13.8492 1 13.3723 1 12.875V11ZM9.125 2.875C9.125 2.37772 9.32254 1.90081 9.67417 1.54917C10.0258 1.19754 10.5027 1 11 1H12.875C13.3723 1 13.8492 1.19754 14.2008 1.54917C14.5525 1.90081 14.75 2.37772 14.75 2.875V4.75C14.75 5.24728 14.5525 5.72419 14.2008 6.07582C13.8492 6.42746 13.3723 6.625 12.875 6.625H11C10.5027 6.625 10.0258 6.42746 9.67417 6.07582C9.32254 5.72419 9.125 5.24728 9.125 4.75V2.875ZM9.125 11C9.125 10.5027 9.32254 10.0258 9.67417 9.67417C10.0258 9.32254 10.5027 9.125 11 9.125H12.875C13.3723 9.125 13.8492 9.32254 14.2008 9.67417C14.5525 10.0258 14.75 10.5027 14.75 11V12.875C14.75 13.3723 14.5525 13.8492 14.2008 14.2008C13.8492 14.5525 13.3723 14.75 12.875 14.75H11C10.5027 14.75 10.0258 14.5525 9.67417 14.2008C9.32254 13.8492 9.125 13.3723 9.125 12.875V11Z"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
               />
             </svg>
 
-            <p className="text-darkText dark:text-lightText font-normal text-[12px]  mt-1">
-              History
+            <p className="text-darkText dark:text-white font-normal text-[12px]  mt-1">
+              Category
             </p>
           </div>
         </Link>
@@ -83,7 +84,7 @@ export default function MobileNav() {
               width="18"
               height="20"
               viewBox="0 0 18 20"
-              className="text-darkText dark:text-lightText"
+              className="text-darkText dark:text-white"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
@@ -96,7 +97,7 @@ export default function MobileNav() {
               />
             </svg>
 
-            <p className="text-darkText dark:text-lightText font-normal text-[12px]  mt-1">
+            <p className="text-darkText dark:text-white font-normal text-[12px]  mt-1">
               Notificaton
             </p>
           </div>
@@ -107,7 +108,7 @@ export default function MobileNav() {
               width="20"
               height="18"
               viewBox="0 0 20 18"
-              className="text-darkText dark:text-lightText"
+              className="text-darkText dark:text-white"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
@@ -120,7 +121,7 @@ export default function MobileNav() {
               />
             </svg>
 
-            <p className="text-darkText dark:text-lightText font-normal text-[12px]  mt-1">
+            <p className="text-darkText dark:text-white font-normal text-[12px]  mt-1">
               My Profile
             </p>
           </div>
@@ -131,7 +132,7 @@ export default function MobileNav() {
               width="15"
               height="18"
               viewBox="0 0 15 18"
-              className="text-darkText dark:text-lightText"
+              className="text-darkText dark:text-white"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
@@ -144,7 +145,7 @@ export default function MobileNav() {
               />
             </svg>
 
-            <p className="text-darkText dark:text-lightText font-normal text-[12px] mt-1">
+            <p className="text-darkText dark:text-white font-normal text-[12px] mt-1">
               Account
             </p>
           </div>
