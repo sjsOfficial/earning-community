@@ -18,7 +18,7 @@ export interface VideoSliderProps{
 }
 export interface PackageCardProps{
     packageCardData: PackageCardData
-    bgColor: string
+    bgColor?: string
 
 }
 export interface VideoCardProps{
