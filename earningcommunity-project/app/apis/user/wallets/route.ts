@@ -1,3 +1,4 @@
+import getUser from "@/functions/getUser";
 import writeFileSystem from "@/functions/writeFile";
 import prisma from "@/libs/prisma";
 import userTypes from "@/types/userTypes";
@@ -8,7 +9,7 @@ const GET = async (request: NextRequest) => {
     if (!stringValue) {
         return NextResponse.json({ error: "Invalid User" }, { status: 404 })
     }
-    const user = JSON.parse(stringValue) as userTypes
+    const user = await getUser(stringValue) as userTypes
     try {
         const history = await prisma.userWallets.findMany({
             where: { userId: user.id },
@@ -25,7 +26,7 @@ const POST = async (request: NextRequest) => {
     if (!stringValue) {
         return NextResponse.json({ error: "Invalid User" }, { status: 404 })
     }
-    const user = JSON.parse(stringValue) as userTypes
+    const user = await getUser(stringValue) as userTypes
     const { number, walletHolderName, wallet } = await request.json()
     if (!number || !wallet || !walletHolderName) {
         return NextResponse.json({ error: "title || number || walletHolderName|| wallet is required" }, { status: 404 })

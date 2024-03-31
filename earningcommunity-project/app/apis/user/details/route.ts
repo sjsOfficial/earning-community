@@ -3,6 +3,7 @@ import userTypes from "@/types/userTypes";
 import { NextRequest, NextResponse } from "next/server";
 import jwt from "jsonwebtoken"
 import md5 from "md5"
+import getUser from "@/functions/getUser";
 const secret = process.env.SECRET || "cluster0"
 
 interface tokenTypes {
@@ -15,7 +16,7 @@ const GET = async (request: NextRequest) => {
     if (!stringValue) {
         return NextResponse.json({ error: "Invalid User" }, { status: 404 })
     }
-    const user = JSON.parse(stringValue) as userTypes
+    const user = await getUser(stringValue) as userTypes
     try {
         const userDetails = await prisma.users.findUnique({
             where: { id: user.id }
@@ -30,7 +31,7 @@ const POST = async (request: NextRequest) => {
     if (!stringValue) {
         return NextResponse.json({ error: "Invalid User" }, { status: 404 })
     }
-    const user = JSON.parse(stringValue) as userTypes
+    const user = await getUser(stringValue) as userTypes
 
     const { token, password, otp } = await request.json()
     if (!token || !password || !otp) {
@@ -61,7 +62,7 @@ const PUT = async (request: NextRequest) => {
     if (!stringValue) {
         return NextResponse.json({ error: "Invalid User" }, { status: 404 })
     }
-    const user = JSON.parse(stringValue) as userTypes
+    const user = await getUser(stringValue) as userTypes
     const { name, gender, age } = await request.json()
     try {
         const updateUser = await prisma.users.update({

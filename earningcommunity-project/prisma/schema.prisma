@@ -62,11 +62,14 @@ model withdrawHistory {
 }
 
 model packageHistory {
-  id      String   @id @default(auto()) @map("_id") @db.ObjectId
-  package Json
-  date    DateTime @default(now())
-  userId  String   @db.ObjectId
-  user    Users    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  package       Json
+  price         Float
+  duration      Int      @default(1)
+  withdrawLimit Int
+  date          DateTime @default(now())
+  userId        String   @db.ObjectId
+  user          Users    @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model videos {

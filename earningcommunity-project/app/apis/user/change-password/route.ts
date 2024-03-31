@@ -1,3 +1,4 @@
+import getUser from "@/functions/getUser"
 import prisma from "@/libs/prisma"
 import userTypes from "@/types/userTypes"
 import md5 from "md5"
@@ -9,7 +10,7 @@ const POST = async (request: NextRequest) => {
     if (!stringValue) {
         return NextResponse.json({ error: "Invalid User" }, { status: 404 })
     }
-    const user = JSON.parse(stringValue) as userTypes
+    const user = await getUser(stringValue) as userTypes
 
     const { newPassword, oldPassword } = await request.json()
     if (!newPassword || !oldPassword) {
