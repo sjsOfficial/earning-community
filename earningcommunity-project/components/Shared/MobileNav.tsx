@@ -1,7 +1,9 @@
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import React from "react";
 
 export default function MobileNav() {
+  const pathName = usePathname();
   return (
     <div className="bg-lightBg dark:bg-[#121212] transition-colors duration-500 ease-in-out fixed bottom-0 z-20 w-full block md:hidden">
       <div className="mx-2 my-1 flex justify-between items-center h-[50px]">
@@ -9,11 +11,15 @@ export default function MobileNav() {
           <div className="flex flex-col items-center ">
             <svg
               width="20"
-              height="17"
+              height="20"
               viewBox="0 0 20 17"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              className="text-darkText dark:text-white"
+              className={` ${
+                pathName === "/"
+                  ? "text-[#E3A832]"
+                  : "text-darkText dark:text-white"
+              }`}
             >
               <path
                 d="M18.272 7.26473L10 1.34375"
@@ -49,20 +55,30 @@ export default function MobileNav() {
               />
             </svg>
 
-            <p className="text-darkText dark:text-white font-normal text-[12px]  mt-1">
+            <p
+              className={`${
+                pathName === "/"
+                  ? "text-[#E3A832]"
+                  : "text-darkText dark:text-white"
+              } font-normal text-[12px]  mt-1`}
+            >
               Home
             </p>
           </div>
         </Link>
-        <Link href="/">
+        <Link href="/pages/category">
           <div className="flex flex-col items-center ">
             <svg
-              width="16"
-              height="16"
+              width="20"
+              height="20"
               viewBox="0 0 16 16"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              className="text-darkText dark:text-white"
+              className={` ${
+                pathName === "/pages/category"
+                  ? "text-[#E3A832]"
+                  : "text-darkText dark:text-white"
+              }`}
             >
               <path
                 d="M1 2.875C1 2.37772 1.19754 1.90081 1.54917 1.54917C1.90081 1.19754 2.37772 1 2.875 1H4.75C5.24728 1 5.72419 1.19754 6.07582 1.54917C6.42746 1.90081 6.625 2.37772 6.625 2.875V4.75C6.625 5.24728 6.42746 5.72419 6.07582 6.07582C5.72419 6.42746 5.24728 6.625 4.75 6.625H2.875C2.37772 6.625 1.90081 6.42746 1.54917 6.07582C1.19754 5.72419 1 5.24728 1 4.75V2.875ZM1 11C1 10.5027 1.19754 10.0258 1.54917 9.67417C1.90081 9.32254 2.37772 9.125 2.875 9.125H4.75C5.24728 9.125 5.72419 9.32254 6.07582 9.67417C6.42746 10.0258 6.625 10.5027 6.625 11V12.875C6.625 13.3723 6.42746 13.8492 6.07582 14.2008C5.72419 14.5525 5.24728 14.75 4.75 14.75H2.875C2.37772 14.75 1.90081 14.5525 1.54917 14.2008C1.19754 13.8492 1 13.3723 1 12.875V11ZM9.125 2.875C9.125 2.37772 9.32254 1.90081 9.67417 1.54917C10.0258 1.19754 10.5027 1 11 1H12.875C13.3723 1 13.8492 1.19754 14.2008 1.54917C14.5525 1.90081 14.75 2.37772 14.75 2.875V4.75C14.75 5.24728 14.5525 5.72419 14.2008 6.07582C13.8492 6.42746 13.3723 6.625 12.875 6.625H11C10.5027 6.625 10.0258 6.42746 9.67417 6.07582C9.32254 5.72419 9.125 5.24728 9.125 4.75V2.875ZM9.125 11C9.125 10.5027 9.32254 10.0258 9.67417 9.67417C10.0258 9.32254 10.5027 9.125 11 9.125H12.875C13.3723 9.125 13.8492 9.32254 14.2008 9.67417C14.5525 10.0258 14.75 10.5027 14.75 11V12.875C14.75 13.3723 14.5525 13.8492 14.2008 14.2008C13.8492 14.5525 13.3723 14.75 12.875 14.75H11C10.5027 14.75 10.0258 14.5525 9.67417 14.2008C9.32254 13.8492 9.125 13.3723 9.125 12.875V11Z"
@@ -73,18 +89,28 @@ export default function MobileNav() {
               />
             </svg>
 
-            <p className="text-darkText dark:text-white font-normal text-[12px]  mt-1">
+            <p
+              className={`${
+                pathName === "/pages/category"
+                  ? "text-[#E3A832]"
+                  : "text-darkText dark:text-white"
+              } font-normal text-[12px]  mt-1`}
+            >
               Category
             </p>
           </div>
         </Link>
-        <Link href="/">
+        <Link href="/pages/notification">
           <div className="flex flex-col items-center ">
             <svg
-              width="18"
+              width="20"
               height="20"
               viewBox="0 0 18 20"
-              className="text-darkText dark:text-white"
+              className={` ${
+                pathName === "/pages/notification"
+                  ? "text-[#E3A832]"
+                  : "text-darkText dark:text-white"
+              }`}
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
@@ -97,18 +123,28 @@ export default function MobileNav() {
               />
             </svg>
 
-            <p className="text-darkText dark:text-white font-normal text-[12px]  mt-1">
+            <p
+              className={`${
+                pathName === "/pages/notification"
+                  ? "text-[#E3A832]"
+                  : "text-darkText dark:text-white"
+              } font-normal text-[12px]  mt-1`}
+            >
               Notificaton
             </p>
           </div>
         </Link>
-        <Link href="/">
+        <Link href="/pages/profile">
           <div className="flex flex-col items-center ">
             <svg
               width="20"
-              height="18"
+              height="20"
               viewBox="0 0 20 18"
-              className="text-darkText dark:text-white"
+              className={` ${
+                pathName === "/pages/profile"
+                  ? "text-[#E3A832]"
+                  : "text-darkText dark:text-white"
+              }`}
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
@@ -121,18 +157,28 @@ export default function MobileNav() {
               />
             </svg>
 
-            <p className="text-darkText dark:text-white font-normal text-[12px]  mt-1">
+            <p
+              className={`${
+                pathName === "/pages/profile"
+                  ? "text-[#E3A832]"
+                  : "text-darkText dark:text-white"
+              } font-normal text-[12px]  mt-1`}
+            >
               My Profile
             </p>
           </div>
         </Link>
-        <Link href="/">
+        <Link href="/pages/account">
           <div className="flex flex-col items-center ">
             <svg
-              width="15"
-              height="18"
+              width="20"
+              height="20"
               viewBox="0 0 15 18"
-              className="text-darkText dark:text-white"
+              className={` ${
+                pathName === "/pages/account"
+                  ? "text-[#E3A832]"
+                  : "text-darkText dark:text-white"
+              }`}
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
@@ -145,7 +191,13 @@ export default function MobileNav() {
               />
             </svg>
 
-            <p className="text-darkText dark:text-white font-normal text-[12px] mt-1">
+            <p
+              className={`${
+                pathName === "/pages/account"
+                  ? "text-[#E3A832]"
+                  : "text-darkText dark:text-white"
+              } font-normal text-[12px]  mt-1`}
+            >
               Account
             </p>
           </div>
