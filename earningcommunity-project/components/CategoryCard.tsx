@@ -2,25 +2,30 @@ import { CategoryCardProps } from "@/app/types";
 import Image from "next/image";
 import React from "react";
 
-const CategoryCard:React.FC<CategoryCardProps>=({data})=> {
-    
+const CategoryCard: React.FC<CategoryCardProps> = ({ data }) => {
   return (
     <div className="bg-[#85929E] rounded-[10px] px-2 md:px-10 py-2 md:py-4 flex gap-1 justify-between items-center">
       <div className="flex gap-1 md:gap-6 items-center">
         <Image
-        className="h-[60px] lg:h-[100px] w-[80px] lg:w-[120px]"
-          src={require("../public/category/news.svg")}
+          className="h-[40px] md:h-[60px] lg:h-[100px] w-[40px] md:w-[60px] lg:w-[120px]"
+          height={0}
+          width={0}
+          src={data.image}
           alt="category image"
         ></Image>
         <div>
           <h1 className="text-[15px] lg:text-[24px] text-[#FFFFFF] font-normal">
             {data.title}
           </h1>
-          <p className="text-[12px] lg:text-[16px] text-[#FFFFFF] font-normal">{data.numberOfVideos} videos</p>
+          <p className="text-[12px] lg:text-[16px] text-[#FFFFFF] font-normal">
+            {data.numberOfVideos} videos
+          </p>
         </div>
       </div>
       <div className="flex gap-1 md:gap-6 items-center">
-        <h1 className="text-[14px] lg:text-[24px] text-[#FFFFFF] font-normal">Play All</h1>
+        <h1 className="text-[14px] lg:text-[24px] text-[#FFFFFF] font-normal">
+          Play All
+        </h1>
         <svg
           className="h-[20px] lg:h-[40px] w-[20px] lg:w-[40px]"
           viewBox="0 0 66 73"
@@ -35,5 +40,5 @@ const CategoryCard:React.FC<CategoryCardProps>=({data})=> {
       </div>
     </div>
   );
-}
-export default CategoryCard
+};
+export default CategoryCard;

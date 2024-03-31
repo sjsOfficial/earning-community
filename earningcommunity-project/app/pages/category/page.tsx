@@ -8,42 +8,42 @@ export default function page() {
     {
       title: "News & Current Affairs",
       numberOfVideos: 50,
-      image: "",
+      image: "/category/news.svg",
     },
     {
       title: "Funny Videos",
       numberOfVideos: 54,
-      image: "",
+      image: "/category/funny.svg",
     },
     {
       title: "Games",
       numberOfVideos: 7654,
-      image: "",
+      image: "/category/games.svg",
     },
     {
       title: "Live",
       numberOfVideos: 546,
-      image: "",
+      image: "/category/live.svg",
     },
     {
       title: "Music",
       numberOfVideos: 256,
-      image: "",
+      image: "/category/music.svg",
     },
     {
       title: "Drama & TV Shows",
       numberOfVideos: 678,
-      image: "",
+      image: "/category/drama.svg",
     },
     {
       title: "Vlogs & Life Style",
       numberOfVideos: 546,
-      image: "",
+      image: "/category/vlogs.svg",
     },
     {
       title: "Education & Tutorial",
       numberOfVideos: 786,
-      image: "",
+      image: "/category/education.svg",
     },
     
   ];
