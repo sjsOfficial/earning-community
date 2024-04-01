@@ -90,13 +90,9 @@ export default function Header() {
                 width="38"
                 height="41"
                 viewBox="0 0 38 41"
-                fill="currentColor"
+                fill="none"
                 xmlns="http://www.w3.org/2000/svg"
-                className={`hover:scale-110 duration-300 ease-in-out ${
-                  pathname === "/pages/notification"
-                    ? "text-[#85929eaa]"
-                    : " fill-none"
-                }`}
+                className={`hover:scale-110 duration-300 ease-in-out`}
               >
                 <path
                   d="M25.1995 31.511C29.2364 31.033 33.2029 30.0803 37.0165 28.6727C33.7868 25.0951 32.0022 20.4447 32.0093 15.625V14C32.0093 10.5522 30.6397 7.24559 28.2017 4.80761C25.7638 2.36964 22.4571 1 19.0093 1C15.5615 1 12.2549 2.36964 9.81695 4.80761C7.37897 7.24559 6.00933 10.5522 6.00933 14V15.625C6.01587 20.445 4.23047 25.0954 1 28.6727C4.75483 30.0593 8.71333 31.0235 12.8192 31.511M25.1995 31.511C21.0871 31.9988 16.9315 31.9988 12.8192 31.511M25.1995 31.511C25.5117 32.4857 25.5894 33.5204 25.4261 34.5307C25.2628 35.5411 24.8633 36.4987 24.26 37.3254C23.6567 38.1522 22.8667 38.8248 21.9543 39.2885C21.0418 39.7522 20.0328 39.9939 19.0093 39.9939C17.9859 39.9939 16.9768 39.7522 16.0644 39.2885C15.152 38.8248 14.362 38.1522 13.7587 37.3254C13.1554 36.4987 12.7558 35.5411 12.5926 34.5307C12.4293 33.5204 12.5069 32.4857 12.8192 31.511"
@@ -108,7 +104,7 @@ export default function Header() {
               </svg>
               <div
                 className={`absolute bg-[#292929] shadow-[#0000003d] top-[102px] right-4 w-[380px] overflow-hidden  rounded-b-md space-y-2 ${
-                  notificationShow ? "h-[310px] p-4" : "h-[0px]"
+                  notificationShow ? "h-[340px] p-4" : "h-[0px]"
                 } transition-height duration-500`}
               >
                 <NotificationCard
@@ -225,7 +221,7 @@ const NotificationCard: React.FC<NotificationCardProps> = ({
   date,
 }) => {
   return (
-    <div className="p-1 flex gap-3 items-center rounded-sm">
+    <div className="p-2 flex gap-3 items-center rounded-sm bg-[#85929E]">
       {icon}
       <div>
         <p className="text-[14px] text-[#FFFFFF] font-medium">{title}</p>
