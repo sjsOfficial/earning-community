@@ -16,12 +16,22 @@ export default function RootLayout({
 }>) {
   const pathname = usePathname();
 
+  if (pathname.includes("pay")) {
+    return (
+      <html lang="en">
+        <body className={inter.className}>{children}</body>
+      </html>
+    );
+  }
+
   return (
     <html lang="en">
       <body className={inter.className}>
         <DataProvider>
           <div className="dark:bg-darkBg bg-lightBg  transition-colors duration-500 ease-in-out">
-            <div className="hidden md:block">{pathname.split("/")[1] === "admin" || <Header></Header>}</div>
+            <div className="hidden md:block">
+              {pathname.split("/")[1] === "admin" || <Header></Header>}
+            </div>
             {pathname.split("/")[1] === "admin" || <MobileNav></MobileNav>}
 
             {children}

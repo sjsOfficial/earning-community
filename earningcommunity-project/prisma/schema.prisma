@@ -33,11 +33,19 @@ model Users {
   withdrawHistory withdrawHistory[]
   watchHistory    watchHistory[]
   packageHistory  packageHistory[]
+  rechargeHistory rechargeHistory[]
 }
 
 model Admin {
   id               String @id @default(auto()) @map("_id") @db.ObjectId
   creditPerMinutes Int    @default(1)
+}
+
+model AdminWallets {
+  id       String   @id @default(auto()) @map("_id") @db.ObjectId
+  number   String
+  date     DateTime @default(now())
+  walletId String
 }
 
 model UserWallets {
@@ -48,6 +56,17 @@ model UserWallets {
   user             Users    @relation(fields: [userId], references: [id], onDelete: Cascade)
   date             DateTime @default(now())
   wallet           Json
+}
+
+model rechargeHistory {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  amount      Int
+  wallet      Json
+  adminWallet Json
+  status      String   @default("PENDING")
+  date        DateTime @default(now())
+  userId      String   @db.ObjectId
+  user        Users    @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model withdrawHistory {
