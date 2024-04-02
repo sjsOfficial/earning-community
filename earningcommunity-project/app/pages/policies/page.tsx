@@ -2,12 +2,12 @@ import React from "react";
 
 export default function page() {
   return (
-    <div className="container mx-auto px-2 pt-4 md:pt-40">
-      <div className="text-white">
+    <div className="container mx-auto pt-4 md:pt-40">
+      <div className="text-white mx-8">
         <ol className="list-decimal mb-8">
           <li className="mb-4">
             <strong>**Monetization Guidelines**:</strong>
-            <ul className="list-disc pl-8">
+            <ul className="list-disc pl-4">
               <li>
                 All monetization activities must comply with the platforms
                 policies and terms of service.
@@ -25,7 +25,7 @@ export default function page() {
           </li>
           <li className="mb-8">
             <strong>**Community Engagement Policy**:</strong>
-            <ul className="list-disc pl-8">
+            <ul className="list-disc pl-4">
               <li>
                 Encourage active participation within the community through
                 collaborations, tournaments, and discussions.
@@ -42,7 +42,7 @@ export default function page() {
           </li>
           <li className="mb-8">
             <strong>**Content Guidelines**:</strong>
-            <ul className="list-disc pl-8">
+            <ul className="list-disc pl-4">
               <li>
                 Content must adhere to the platforms standards and guidelines,
                 including but not limited to copyright laws and community
@@ -60,7 +60,7 @@ export default function page() {
           </li>
           <li className="mb-8">
             <strong>**Revenue Sharing and Payment Policy**:</strong>
-            <ul className="list-disc pl-8">
+            <ul className="list-disc pl-4">
               <li>
                 Revenue generated through monetization features will be
                 distributed according to the platforms revenue sharing model.
@@ -78,7 +78,7 @@ export default function page() {
           </li>
           <li className="mb-8">
             <strong>**Data and Privacy Policy**:</strong>
-            <ul className="list-disc pl-8">
+            <ul className="list-disc pl-4">
               <li>
                 The platform collects and processes user data in accordance with
                 applicable data protection laws and regulations.
@@ -96,7 +96,7 @@ export default function page() {
           </li>
           <li className="mb-8">
             <strong>**Content Ownership and Licensing**:</strong>
-            <ul className="list-disc pl-8">
+            <ul className="list-disc pl-4">
               <li>
                 Creators retain ownership of their original content uploaded to
                 the platform.
@@ -114,7 +114,7 @@ export default function page() {
           </li>
           <li>
             <strong>**Enforcement and Compliance**:</strong>
-            <ul className="list-disc pl-8">
+            <ul className="list-disc pl-4">
               <li>
                 Violations of company policies may result in disciplinary
                 actions, including account suspension or termination.
