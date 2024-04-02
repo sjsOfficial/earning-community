@@ -6,7 +6,7 @@ export default function page() {
       <div className="text-white">
         <ol className="list-decimal mb-8">
           <li className="mb-4">
-            <strong>Monetization Guidelines:</strong>
+            <strong>**Monetization Guidelines**:</strong>
             <ul className="list-disc pl-8">
               <li>
                 All monetization activities must comply with the platforms
@@ -24,7 +24,7 @@ export default function page() {
             </ul>
           </li>
           <li className="mb-8">
-            <strong>Community Engagement Policy:</strong>
+            <strong>**Community Engagement Policy**:</strong>
             <ul className="list-disc pl-8">
               <li>
                 Encourage active participation within the community through
@@ -41,7 +41,7 @@ export default function page() {
             </ul>
           </li>
           <li className="mb-8">
-            <strong>Content Guidelines:</strong>
+            <strong>**Content Guidelines**:</strong>
             <ul className="list-disc pl-8">
               <li>
                 Content must adhere to the platforms standards and guidelines,
@@ -59,7 +59,7 @@ export default function page() {
             </ul>
           </li>
           <li className="mb-8">
-            <strong>Revenue Sharing and Payment Policy:</strong>
+            <strong>**Revenue Sharing and Payment Policy**:</strong>
             <ul className="list-disc pl-8">
               <li>
                 Revenue generated through monetization features will be
@@ -77,7 +77,7 @@ export default function page() {
             </ul>
           </li>
           <li className="mb-8">
-            <strong>Data and Privacy Policy:</strong>
+            <strong>**Data and Privacy Policy**:</strong>
             <ul className="list-disc pl-8">
               <li>
                 The platform collects and processes user data in accordance with
@@ -95,7 +95,7 @@ export default function page() {
             </ul>
           </li>
           <li className="mb-8">
-            <strong>Content Ownership and Licensing:</strong>
+            <strong>**Content Ownership and Licensing**:</strong>
             <ul className="list-disc pl-8">
               <li>
                 Creators retain ownership of their original content uploaded to
@@ -113,7 +113,7 @@ export default function page() {
             </ul>
           </li>
           <li>
-            <strong>Enforcement and Compliance:</strong>
+            <strong>**Enforcement and Compliance**:</strong>
             <ul className="list-disc pl-8">
               <li>
                 Violations of company policies may result in disciplinary
