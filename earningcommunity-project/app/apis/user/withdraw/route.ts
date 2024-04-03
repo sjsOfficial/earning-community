@@ -22,22 +22,23 @@ const POST = async (request: NextRequest) => {
         return NextResponse.json({ error: "Invalid User" }, { status: 404 })
     }
     const user = await getUser(stringValue) as userTypes
-    const { amount, walletId, adminWalletId } = await request.json()
-    if (!amount || !walletId || !adminWalletId) {
-        return NextResponse.json({ error: "amount || walletId || adminWalletId is required" }, { status: 404 })
+    const { amount, userWalletId } = await request.json()
+    if (!amount || !userWalletId) {
+        return NextResponse.json({ error: "amount || userWalletId is required" }, { status: 404 })
+    }
+    if (parseInt(amount) < 100) {
+        return NextResponse.json({ error: "Amount is too low for withdraw request" }, { status: 404 })
     }
     try {
-        const wallet = wallets.find(d => d.id === walletId)
-        const adminWallet = await prisma.adminWallets.findUnique({ where: { id: adminWalletId } })
-        if (!adminWallet || !wallet) {
-            return NextResponse.json({ error: "Invalid walletId and adminWalletId" }, { status: 404 })
+        const userWallet = await prisma.userWallets.findUnique({ where: { id: userWalletId } })
+        if (!userWallet) {
+            return NextResponse.json({ error: "Invalid walletId or userWalletId" }, { status: 404 })
         }
-        const history = await prisma.rechargeHistory.create({
+        const history = await prisma.withdrawHistory.create({
             data: {
                 amount: parseInt(amount),
-                adminWallet: adminWallet,
-                wallet: wallet,
-                userId: user.id
+                userId: user.id,
+                userWallet: userWallet,
             }
         })
         return NextResponse.json(history)
@@ -50,13 +51,15 @@ const GET = async (request: NextRequest) => {
     if (!stringValue) {
         return NextResponse.json({ error: "Invalid User" }, { status: 404 })
     }
+    const user = await getUser(stringValue) as userTypes
     const skip = parseInt(request.nextUrl.searchParams.get('skip') as string)
     const take = parseInt(request.nextUrl.searchParams.get('take') as string)
-    const user = await getUser(stringValue) as userTypes
     try {
-        const history = await prisma.rechargeHistory.findMany({
+        const history = await prisma.withdrawHistory.findMany({
             where: { userId: user.id },
-            orderBy:{date:"desc"},
+            orderBy:{
+                date:"desc"
+            },
             take:take||undefined,
             skip:skip||undefined
         })

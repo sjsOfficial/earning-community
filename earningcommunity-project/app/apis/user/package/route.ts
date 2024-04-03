@@ -34,7 +34,7 @@ const POST = async (request: NextRequest) => {
             return NextResponse.json({ error: "Package not found" }, { status: 404 })
         }
         if (user.balance < packageDetails.price) {
-            return NextResponse.json({ error: "Balance is too short to buy!" }, { status: 404 })
+            return NextResponse.json({ error: "Balance is too short to buy!",code:"LOW_BALANCE" }, { status: 404 })
         }
         await prisma.users.update({
             where: { id: user.id },

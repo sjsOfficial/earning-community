@@ -1,4 +1,5 @@
 "use client";
+import axios from "axios";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -24,9 +25,12 @@ export default function Pay({
 }) {
   const [walletDetails, setWalletDetails] = useState<wallets | null>();
   const [walletName, setWalletName] = useState<walletNameTypes | null>();
-  const searchParams = useSearchParams()
+  const searchParams = useSearchParams();
   const [timeLeft, setTimeLeft] = useState(5 * 60); // 5 minutes in seconds
   const [timerRunning, setTimerRunning] = useState(false);
+  const amount=parseInt(searchParams.get("amount") as string)||0
+  const redirectUrl=searchParams.get("redirectUrl") as string||"/"
+  const token = searchParams.get("token") as string||null
 
   useEffect(() => {
     wallet();
@@ -48,7 +52,7 @@ export default function Pay({
     const name = await response.json();
     setWalletName(name);
     setWalletDetails(wal);
-    setTimerRunning(true)
+    setTimerRunning(true);
   };
   useEffect(() => {
     if (timerRunning && timeLeft > 0) {
@@ -65,17 +69,30 @@ export default function Pay({
     }
   }, [timerRunning, timeLeft]);
   const timerFinished = () => {
-    window.close()
+    window.close();
   };
-  const onComplete=async()=>{
+  const onComplete = async () => {
     try {
-      window.close()
-      window.location.href=searchParams.get("redirectUrl") as string
+      const res = await axios.post(
+        "apis/user/account",
+        {
+          amount: "100",
+          walletId: "4b278",
+          adminWalletId: "660a3aaa1de53e2a76738283",
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      window.close();
+      window.location.href = redirectUrl;
     } catch (error) {
-      window.close()
-      alert(error)
+      window.close();
+      alert(error);
     }
-  }
+  };
   const minutes = Math.floor(timeLeft / 60);
   const seconds = timeLeft % 60;
 
@@ -104,16 +121,19 @@ export default function Pay({
         <div className="my-2 text-center text-lg">{walletDetails?.name}</div>
         <div className="text-center text-md">
           {walletDetails.cashout
-            ? `Please cash-out with this number ${walletName.number} with in 5minutes and don't close the window`
+            ? `Please cash-out ${amount}BDT with this number ${walletName.number} with in 5minutes and don't close the window`
             : walletDetails.payment
-            ? `Please make payment with this number ${walletName.number} with in 5minutes and don't close the window`
-            : `Please send money with this number ${walletName.number} with in 5minutes and don't close the window. 1.5% charge will applicable`}
+            ? `Please make payment ${amount}BDT with this number ${walletName.number} with in 5minutes and don't close the window`
+            : `Please send money ${amount+(1.5*amount)/100}BDT with this number ${walletName.number} with in 5minutes and don't close the window. 1.5% charge will applicable`}
         </div>
-        <div className="text-center text-3xl my-2">Timer: {minutes.toString().padStart(2, '0')}:{seconds.toString().padStart(2, '0')}</div>
+        <div className="text-center text-3xl my-2">
+          Timer: {minutes.toString().padStart(2, "0")}:
+          {seconds.toString().padStart(2, "0")}
+        </div>
       </div>
       <form className="grid gap-3">
         <input
-          className="px-2 py-2 rounded-md"
+          className="px-2 py-2 rounded-md text-black"
           required
           placeholder="Enter TranX ID"
           type="text"
