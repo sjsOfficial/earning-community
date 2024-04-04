@@ -6,6 +6,13 @@ import {
   IconMoodHappy,
   IconTypography,
   IconUserPlus,
+  IconPackage,
+  IconShoppingCart,
+  IconArrowsExchange,
+  IconCash,
+  IconBuildingBank,
+  IconBrandFacebook,
+  IconBrandYoutube
 } from "@tabler/icons-react";
 
 import { uniqueId } from "lodash";
@@ -24,45 +31,57 @@ const Menuitems = [
   },
   {
     navlabel: true,
-    subheader: "Utilities",
+    subheader: "Packages",
   },
   {
     id: uniqueId(),
-    title: "Typography",
-    icon: IconTypography,
-    href: "/admin/utilities/typography",
+    title: "All Packages",
+    icon: IconPackage,
+    href: "/admin/packages",
   },
   {
     id: uniqueId(),
-    title: "Shadow",
-    icon: IconCopy,
-    href: "/admin/utilities/shadow",
+    title: "Purchase Packages",
+    icon: IconShoppingCart,
+    href: "/admin/purchase",
   },
   {
     navlabel: true,
-    subheader: "Auth",
+    subheader: "Account",
   },
   {
     id: uniqueId(),
-    title: "Login",
-    icon: IconLogin,
-    href: "/admin/authentication/login",
+    title: "Recharge Requests",
+    icon: IconArrowsExchange,
+    href: "/admin/recharge",
   },
   {
     id: uniqueId(),
-    title: "Register",
-    icon: IconUserPlus,
-    href: "/admin/authentication/register",
+    title: "Withdraw Requests",
+    icon: IconCash,
+    href: "/admin/withdraw",
+  },
+  {
+    id: uniqueId(),
+    title: "Mobile Banks",
+    icon: IconBuildingBank,
+    href: "/admin/banks",
   },
   {
     navlabel: true,
-    subheader: "Extra",
+    subheader: "Contents",
   },
   {
     id: uniqueId(),
-    title: "Sample Page",
-    icon: IconAperture,
-    href: "/admin/sample-page",
+    title: "Facebook Videos",
+    icon: IconBrandFacebook,
+    href: "/admin/facebook",
+  },
+  {
+    id: uniqueId(),
+    title: "Youtube Videos",
+    icon: IconBrandYoutube,
+    href: "/admin/youtube",
   },
  
 ];

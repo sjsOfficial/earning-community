@@ -4,7 +4,7 @@ import PageContainer from '../components/container/PageContainer';
 import DashboardCard from '../components/shared/DashboardCard';
 
 
-const SamplePage = () => {
+const Settings = () => {
   return (
     <PageContainer title="Sample Page" description="this is Sample page">
       <DashboardCard title="Sample Page">
@@ -14,5 +14,5 @@ const SamplePage = () => {
   );
 };
 
-export default SamplePage;
+export default Settings;
 

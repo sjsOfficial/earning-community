@@ -11,7 +11,7 @@ import {
   ListItemText,
 } from "@mui/material";
 
-import { IconListCheck, IconMail, IconUser } from "@tabler/icons-react";
+import { IconUser, IconShieldHalf, IconSettings } from "@tabler/icons-react";
 
 const Profile = () => {
   const [anchorEl2, setAnchorEl2] = useState(null);
@@ -63,24 +63,31 @@ const Profile = () => {
           },
         }}
       >
-        <MenuItem>
-          <ListItemIcon>
-            <IconUser width={20} />
-          </ListItemIcon>
-          <ListItemText>My Profile</ListItemText>
-        </MenuItem>
-        <MenuItem>
-          <ListItemIcon>
-            <IconMail width={20} />
-          </ListItemIcon>
-          <ListItemText>My Account</ListItemText>
-        </MenuItem>
-        <MenuItem>
-          <ListItemIcon>
-            <IconListCheck width={20} />
-          </ListItemIcon>
-          <ListItemText>My Tasks</ListItemText>
-        </MenuItem>
+        <Link href="/admin/access">
+          <MenuItem>
+            <ListItemIcon>
+              <IconUser width={20} />
+            </ListItemIcon>
+            <ListItemText>Account Access</ListItemText>
+          </MenuItem>
+        </Link>
+
+        <Link href="/admin/security">
+          <MenuItem>
+            <ListItemIcon>
+              <IconShieldHalf width={20} />
+            </ListItemIcon>
+            <ListItemText>Security</ListItemText>
+          </MenuItem>
+        </Link>
+        <Link href={"/admin/settings"}>
+          <MenuItem>
+            <ListItemIcon>
+              <IconSettings width={20} />
+            </ListItemIcon>
+            <ListItemText>Settings</ListItemText>
+          </MenuItem>
+        </Link>
         <Box mt={1} py={1} px={2}>
           <Button
             href="/authentication/login"

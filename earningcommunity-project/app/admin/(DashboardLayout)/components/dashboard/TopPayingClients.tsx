@@ -60,7 +60,7 @@ const TopPayingClients = () => {
         <Box sx={{ width: "100%", display: "table", tableLayout: "fixed" }}>
           <Table
             sx={{
-              whiteSpace: "nowrap",
+              whiteSpace: "wrap",
             }}
           >
             <TableHead>

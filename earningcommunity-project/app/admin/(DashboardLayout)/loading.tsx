@@ -1,6 +1,6 @@
 const Loading = () =>{
     return(
-        <div>Dash Loading</div>
+        <div className="h-screen w-screen flex justify-center items-center">Dash Loading</div>
     )
 }
 
