@@ -68,24 +68,7 @@ const Header = ({ toggleMobileSidebar }: ItemType) => {
         </IconButton>
         <Box flexGrow={1} />
         <Stack spacing={1} direction="row" alignItems="center">
-          <Box
-            sx={{
-              display: {
-                xs: "none",
-                sm: "block",
-              },
-            }}
-          >
-            <Button
-              variant="contained"
-              disableElevation
-              color="primary"
-              target="_blank"
-              href="https://www.wrappixel.com/templates/spike-nextjs-admin-template/"
-            >
-              Upgrade to Pro
-            </Button>
-          </Box>
+          
           <Profile />
         </Stack>
       </ToolbarStyled>

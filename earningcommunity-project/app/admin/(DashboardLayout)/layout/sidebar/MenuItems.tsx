@@ -60,16 +60,11 @@ const Menuitems = [
   },
   {
     id: uniqueId(),
-    title: "Icons",
-    icon: IconMoodHappy,
-    href: "/admin/icons",
-  },
-  {
-    id: uniqueId(),
     title: "Sample Page",
     icon: IconAperture,
     href: "/admin/sample-page",
   },
+ 
 ];
 
 export default Menuitems;

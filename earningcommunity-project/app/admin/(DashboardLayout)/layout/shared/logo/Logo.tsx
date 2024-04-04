@@ -11,8 +11,11 @@ const LinkStyled = styled(Link)(() => ({
 
 const Logo = () => {
   return (
-    <LinkStyled href="/">
-      <Image src="/images/logos/logo-dark.svg" alt="logo" height={70} width={174} priority />
+    <LinkStyled href="/admin">
+      <div className="flex items-center gap-4 m-3">
+        <Image src="/logo.svg" alt="logo" height={60} width={60} priority />
+        <p className="font-semibold text-[15px]">Earning Community</p>
+      </div>
     </LinkStyled>
   );
 };
