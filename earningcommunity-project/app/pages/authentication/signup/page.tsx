@@ -113,7 +113,7 @@ const SignUpPage: React.FC = () => {
               
             </div>
             {error && (
-                <p className=" right-0 text-red-500 text-xs mt-1 ml-1">
+                <p className=" right-0 text-red-500 text-xs mt-1">
                   {error}
                 </p>
               )}
@@ -204,7 +204,7 @@ const SignUpPage: React.FC = () => {
             </div>
           </div>
           <Link href="/pages/authentication/login">
-            <div className="bg-[#2E4053] hover:bg-[#233140] text-white font-medium py-2 px-4 rounded-md w-full">
+            <div className="bg-[#2E4053] hover:bg-[#233140] text-white font-medium py-2 px-4 rounded-md w-full text-center">
               Login
             </div>
           </Link>
