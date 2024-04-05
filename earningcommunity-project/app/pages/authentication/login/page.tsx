@@ -2,6 +2,7 @@
 import { useData } from "@/app/providers/DataProvider";
 import AppDownload from "@/components/Home/AppDownload";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
@@ -118,12 +119,12 @@ const LoginPage: React.FC = () => {
                   </p>
                 )}
               <div className="flex justify-between mt-1">
-                <p className="text-[#000000] text-[16px] md:text-[20px] font-normal underline">
+                <p className="text-[#233140] hover:text-[#000000] text-[16px] md:text-[20px] font-normal underline">
                   Forget Password?
                 </p>
-                <p className="text-[#000000] text-[16px] md:text-[20px] font-normal underline">
+                <Link href='/pages/authentication/signup' className="text-[#233140] hover:text-[#000000] text-[16px] md:text-[20px] font-normal underline">
                   Register Now
-                </p>
+                </Link>
               </div>
             </div>
             <button

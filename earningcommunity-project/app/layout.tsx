@@ -17,6 +17,7 @@ export default function RootLayout({
   const pathname = usePathname();
 
   if (pathname.includes("pay") || pathname.includes("admin")) {
+    
     return (
       <html lang="en">
         <body className={inter.className}>{children}</body>
