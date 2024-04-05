@@ -6,8 +6,17 @@ import { Grid, Box, Card, Stack, Typography } from "@mui/material";
 import AuthLogin from "../auth/AuthLogin";
 import PageContainer from "../../(DashboardLayout)/components/container/PageContainer";
 import Logo from "../../(DashboardLayout)/layout/shared/logo/Logo";
+import useAuth from "@/hooks/useAuth";
+import { useEffect } from "react";
+import { redirect } from "next/navigation";
 
 const Login2 = () => {
+  const { isAdmin } = useAuth();
+  useEffect(() => {
+    if (isAdmin) {
+      redirect("/admin");
+    }
+  }, [isAdmin]);
   return (
     <PageContainer title="Login" description="this is Login page">
       <Box
@@ -60,31 +69,7 @@ const Login2 = () => {
                   </Typography>
                 }
                 subtitle={
-                  <Stack
-                    direction="row"
-                    spacing={1}
-                    justifyContent="center"
-                    mt={3}
-                  >
-                    <Typography
-                      color="textSecondary"
-                      variant="h6"
-                      fontWeight="500"
-                    >
-                      New to Spike?
-                    </Typography>
-                    <Typography
-                      component={Link}
-                      href="/authentication/register"
-                      fontWeight="500"
-                      sx={{
-                        textDecoration: "none",
-                        color: "primary.main",
-                      }}
-                    >
-                      Create an account
-                    </Typography>
-                  </Stack>
+                  <></>
                 }
               />
             </Card>

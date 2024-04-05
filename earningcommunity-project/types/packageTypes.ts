@@ -7,3 +7,10 @@ export interface packageTypes {
     description: string
     date: string
   }
+  export interface packageTypesString {
+    title: string
+    price: string
+    duration: string
+    withdrawLimit: string
+    description: string
+  }

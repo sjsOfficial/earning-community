@@ -7,6 +7,7 @@ import {
   CircularProgress,
   Grid,
   IconButton,
+  Modal,
   Pagination,
   Table,
   TableBody,
@@ -29,51 +30,17 @@ import { getApi } from "@/functions/API";
 import { AxiosError } from "axios";
 import { packageTypes } from "@/types/packageTypes";
 import LoaderScreen from "../components/shared/LoaderScreen";
-
-const products = [
-  {
-    id: "1",
-    name: "Sunil Joshi",
-    post: "Web Designer",
-    pname: "Elite Admin",
-    priority: "Low",
-    pbg: "primary.main",
-    budget: "3.9",
-  },
-  {
-    id: "2",
-    name: "Andrew McDownland",
-    post: "Project Manager",
-    pname: "Real Homes WP Theme",
-    priority: "Medium",
-    pbg: "secondary.main",
-    budget: "24.5",
-  },
-  {
-    id: "3",
-    name: "Christopher Jamil",
-    post: "Project Manager",
-    pname: "MedicalPro WP Theme",
-    priority: "High",
-    pbg: "error.main",
-    budget: "12.8",
-  },
-  {
-    id: "4",
-    name: "Nirav Joshi",
-    post: "Frontend Engineer",
-    pname: "Hosting Press HTML",
-    priority: "Critical",
-    pbg: "success.main",
-    budget: "2.4",
-  },
-];
+import { toast } from "react-toastify";
+import PackageFrom from "../components/forms/PackageFrom";
 
 const Packages = () => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [data, setData] = useState<packageTypes[]>();
   const [count, setCount] = useState(0);
+  const [open, setOpen] = useState(false);
+  const [loader, setLoader] = useState(false);
+  const [selected, setSelected] = useState<packageTypes | undefined>();
   useEffect(() => {
     getData();
   }, [page, rowsPerPage]);
@@ -94,16 +61,16 @@ const Packages = () => {
     try {
       const res = await getApi(`/apis/packages`, {
         take: rowsPerPage,
-        skip: page*rowsPerPage,
+        skip: page * rowsPerPage,
       });
       setData(res.data.packages);
       setCount(res.data.count);
     } catch (error: any) {
-      console.error(error.response.data.error);
+      toast.error(error.response.data.error);
     }
   };
   if (!data) {
-    return <LoaderScreen />
+    return <LoaderScreen />;
   }
   return (
     <PageContainer
@@ -123,7 +90,13 @@ const Packages = () => {
             <Typography fontSize={16}>
               Add your package from plus icon
             </Typography>
-            <div className="w-[40px] cursor-pointer shadow-lg hover:bg-sky-700 h-[40px] bg-sky-400 rounded-full flex justify-center items-center text-white">
+            <div
+              onClick={() => {
+                setSelected(undefined);
+                setOpen(true);
+              }}
+              className="w-[40px] cursor-pointer shadow-lg hover:bg-sky-700 h-[40px] bg-sky-400 rounded-full flex justify-center items-center text-white"
+            >
               <IconPlus />
             </div>
           </Box>
@@ -217,7 +190,12 @@ const Packages = () => {
                     </TableCell>
                     <TableCell align="right">
                       <Grid>
-                        <IconButton>
+                        <IconButton
+                          onClick={() => {
+                            setSelected(product);
+                            setOpen(true);
+                          }}
+                        >
                           <IconEdit />
                         </IconButton>
                         <IconButton>
@@ -240,7 +218,24 @@ const Packages = () => {
           </Box>
         </Box>
       </DashboardCard>
-     
+      <Modal
+        aria-labelledby="parent-modal-title"
+        aria-describedby="parent-modal-description"
+        open={Boolean(open)}
+        onClose={() => setOpen(false)}
+      >
+        {/* <PackageFrom onClose={()=>setOpen(false)} onProgress={()=>} /> */}
+        {loader ? (
+          <LoaderScreen />
+        ) : (
+          <PackageFrom
+            data={selected}
+            onClose={() => setOpen(false)}
+            onProgress={() => setLoader(true)}
+            onProgressEnd={() => setLoader(false)}
+          />
+        )}
+      </Modal>
     </PageContainer>
   );
 };

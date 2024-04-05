@@ -6,6 +6,8 @@ import Footer from "@/components/Shared/Footer";
 import { usePathname } from "next/navigation";
 import { DataProvider } from "./providers/DataProvider";
 import MobileNav from "@/components/Shared/MobileNav";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,7 +22,21 @@ export default function RootLayout({
     
     return (
       <html lang="en">
-        <body className={inter.className}>{children}</body>
+        <body className={inter.className}>
+          {children}
+          <ToastContainer
+            position="top-center"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+          />
+        </body>
       </html>
     );
   }
@@ -39,6 +55,18 @@ export default function RootLayout({
             {pathname.split("/")[1] === "admin" || <Footer></Footer>}
           </div>
         </DataProvider>
+        <ToastContainer
+          position="top-center"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
       </body>
     </html>
   );

@@ -1,10 +1,11 @@
 "use client";
 import { styled, Container, Box } from "@mui/material";
-import React, { useState } from "react";
-
+import React, { useEffect, useState } from "react";
 
 import Header from "./layout/header/Header";
 import Sidebar from "./layout/sidebar/Sidebar";
+import useAuth from "@/hooks/useAuth";
+import { redirect } from "next/navigation";
 
 const MainWrapper = styled("div")(() => ({
   display: "flex",
@@ -33,6 +34,12 @@ export default function RootLayout({
 }) {
   const [isSidebarOpen, setSidebarOpen] = useState(true);
   const [isMobileSidebarOpen, setMobileSidebarOpen] = useState(false);
+  const { isAdmin } = useAuth();
+  useEffect(() => {
+    if (!isAdmin) {
+      redirect("/admin/authentication/login");
+    }
+  }, [isAdmin]);
   return (
     <MainWrapper className="mainwrapper">
       {/* ------------------------------------------- */}
@@ -62,9 +69,7 @@ export default function RootLayout({
           {/* ------------------------------------------- */}
           {/* Page Route */}
           {/* ------------------------------------------- */}
-          <Box sx={{ minHeight: "calc(100vh - 170px)", py: 3  }}>
-            {children}
-          </Box>
+          <Box sx={{ minHeight: "calc(100vh - 170px)", py: 3 }}>{children}</Box>
           {/* ------------------------------------------- */}
           {/* End Page */}
           {/* ------------------------------------------- */}
