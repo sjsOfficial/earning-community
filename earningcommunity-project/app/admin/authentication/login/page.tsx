@@ -2,21 +2,64 @@
 import Link from "next/link";
 import { Grid, Box, Card, Stack, Typography } from "@mui/material";
 // components
-
+import Cookies from "js-cookie";
 import AuthLogin from "../auth/AuthLogin";
 import PageContainer from "../../(DashboardLayout)/components/container/PageContainer";
 import Logo from "../../(DashboardLayout)/layout/shared/logo/Logo";
 import useAuth from "@/hooks/useAuth";
-import { useEffect } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { redirect } from "next/navigation";
+import { postApi } from "@/functions/API";
+import { toast } from "react-toastify";
+import { AxiosError } from "axios";
+
+interface values {
+  phone: string;
+  password: string;
+}
 
 const Login2 = () => {
   const { isAdmin } = useAuth();
+  const [disabled, setDisabled] = useState(false);
+  const [formData, setFormData] = useState<values>({
+    phone: "",
+    password: "",
+  });
   useEffect(() => {
     if (isAdmin) {
       redirect("/admin");
     }
+   
   }, [isAdmin]);
+  const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setDisabled(true);
+    const id = toast.loading("Trying to login. Please wait...");
+
+    try {
+      const res = await postApi("/apis/auth/login", {
+        password: formData.password,
+        phone: formData.phone,
+      });
+      Cookies.set("token", res.data.userToken);
+      toast.update(id, {
+        render: "Login successful",
+        type: "success",
+        isLoading: false,
+      });
+    } catch (error: any | AxiosError | TypeError) {
+      toast.update(id, {
+        render: error.response.data.error,
+        type: "error",
+        isLoading: false,
+      });
+    } finally {
+      setDisabled(false);
+      setTimeout(() => {
+        toast.dismiss(id);
+      }, 2000);
+    }
+  };
   return (
     <PageContainer title="Login" description="this is Login page">
       <Box
@@ -58,6 +101,10 @@ const Login2 = () => {
                 <Logo />
               </Box>
               <AuthLogin
+                disabled={disabled}
+                onChangeForm={setFormData}
+                formValue={formData}
+                onSubmit={handleLogin}
                 subtext={
                   <Typography
                     variant="subtitle1"
@@ -68,9 +115,7 @@ const Login2 = () => {
                     Your Social Campaigns
                   </Typography>
                 }
-                subtitle={
-                  <></>
-                }
+                subtitle={<></>}
               />
             </Card>
           </Grid>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FormEvent, FormEventHandler, SetStateAction } from "react";
 import {
   Box,
   Typography,
@@ -10,14 +10,30 @@ import {
 } from "@mui/material";
 import Link from "next/link";
 import CustomTextField from "../../(DashboardLayout)/components/forms/theme-elements/CustomTextField";
+interface values {
+  phone: string;
+  password: string;
+}
 
 interface loginType {
   title?: string;
   subtitle?: JSX.Element | JSX.Element[];
   subtext?: JSX.Element | JSX.Element[];
+  onSubmit: (e: FormEvent<HTMLFormElement>) => void;
+  onChangeForm: React.Dispatch<SetStateAction<values>>;
+  formValue: values;
+  disabled:boolean
 }
 
-const AuthLogin = ({ title, subtitle, subtext }: loginType) => (
+const AuthLogin = ({
+  title,
+  subtitle,
+  subtext,
+  onSubmit,
+  onChangeForm,
+  formValue,
+  disabled
+}: loginType) => (
   <>
     {title ? (
       <Typography fontWeight="700" variant="h2" mb={1}>
@@ -27,7 +43,7 @@ const AuthLogin = ({ title, subtitle, subtext }: loginType) => (
 
     {subtext}
 
-    <form>
+    <form onSubmit={onSubmit}>
       <Stack>
         <Box>
           <Typography
@@ -42,9 +58,16 @@ const AuthLogin = ({ title, subtitle, subtext }: loginType) => (
           <CustomTextField
             required
             placeholder="01*********"
-            InputProps={{ inputProps: { maxLength:11 } }}
+            InputProps={{ inputProps: { maxLength: 11, minLength: 11 } }}
             variant="outlined"
             fullWidth
+            value={formValue.phone}
+            onChange={(e: any) =>
+              onChangeForm((prevState) => ({
+                ...prevState,
+                phone: e.target.value,
+              }))
+            }
           />
         </Box>
         <Box mt="25px">
@@ -62,6 +85,13 @@ const AuthLogin = ({ title, subtitle, subtext }: loginType) => (
             type="password"
             variant="outlined"
             fullWidth
+            value={formValue.password}
+            onChange={(e: any) =>
+              onChangeForm((prevState) => ({
+                ...prevState,
+                password: e.target.value,
+              }))
+            }
           />
         </Box>
         <Stack
@@ -90,7 +120,7 @@ const AuthLogin = ({ title, subtitle, subtext }: loginType) => (
         </Stack>
       </Stack>
       <Box>
-        <Button
+        <Button disabled={disabled}
           className="bg-blue-400"
           color="primary"
           variant="contained"

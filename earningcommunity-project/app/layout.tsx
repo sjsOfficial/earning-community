@@ -8,6 +8,13 @@ import { DataProvider } from "./providers/DataProvider";
 import MobileNav from "@/components/Shared/MobileNav";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Cookies from "js-cookie";
+import { useEffect } from "react";
+import axios from "axios";
+import firebaseApp from "@/libs/firebase";
+import { getMessaging, onMessage } from "firebase/messaging";
+import useFcmToken from "@/hooks/useFcmToken";
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,9 +24,32 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const pathname = usePathname();
+  const { fcmToken, notificationPermissionStatus } = useFcmToken();
+
+  useEffect(() => {
+    const getIP = async () => {
+      const res = await axios.get("https://api.ipify.org?format=json");
+     
+      Cookies.set("ip", res.data.ip);
+    };
+    !Cookies.get("ip") && getIP();
+  }, []);
+
+  !Cookies.get("fcm") && Cookies.set("fcm", fcmToken);
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && "serviceWorker" in navigator) {
+      const messaging = getMessaging(firebaseApp);
+      const unsubscribe = onMessage(messaging, (payload) => {
+        console.log("Foreground push notification received:", payload);
+      });
+      return () => {
+        unsubscribe();
+      };
+    }
+  }, []);
 
   if (pathname.includes("pay") || pathname.includes("admin")) {
-    
     return (
       <html lang="en">
         <body className={inter.className}>

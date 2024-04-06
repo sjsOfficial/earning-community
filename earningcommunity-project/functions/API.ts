@@ -3,7 +3,11 @@ import Cookies from 'js-cookie';
 
 const API = axios.create({
     headers: {
-        Authorization: `Bearer ${Cookies.get('token')}`
+        Authorization: `Bearer ${Cookies.get('token')}`,
+        PUSH_TOKEN: Cookies.get('fcm'),
+        IP: Cookies.get('ip'),
+        OS: Cookies.get('os'),
+        DEVICE_ID: Cookies.get('id')
     }
 })
 const getApi = async (url: string, params?: any) => await API.get(url, {
