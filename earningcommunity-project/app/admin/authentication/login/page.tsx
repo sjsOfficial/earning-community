@@ -35,7 +35,7 @@ const Login2 = () => {
     e.preventDefault();
     setDisabled(true);
     const id = toast.loading("Trying to login. Please wait...");
-
+    
     try {
       const res = await postApi("/apis/auth/login", {
         password: formData.password,

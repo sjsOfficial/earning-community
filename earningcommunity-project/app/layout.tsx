@@ -15,7 +15,6 @@ import firebaseApp from "@/libs/firebase";
 import { getMessaging, onMessage } from "firebase/messaging";
 import useFcmToken from "@/hooks/useFcmToken";
 
-
 const inter = Inter({ subsets: ["latin"] });
 
 export default function RootLayout({
@@ -29,10 +28,11 @@ export default function RootLayout({
   useEffect(() => {
     const getIP = async () => {
       const res = await axios.get("https://api.ipify.org?format=json");
-     
       Cookies.set("ip", res.data.ip);
     };
     !Cookies.get("ip") && getIP();
+    Cookies.set("os", window.navigator.userAgent);
+    Cookies.set("id", `${window.screen.width}+${window.screen.height}`);
   }, []);
 
   !Cookies.get("fcm") && Cookies.set("fcm", fcmToken);

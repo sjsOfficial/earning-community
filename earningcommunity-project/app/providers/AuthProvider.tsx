@@ -70,7 +70,10 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 
   // useEffect hook to fetch user data when component mounts
   useEffect(() => {
-    fetchUserData();
+    Cookies.get("token") && fetchUserData();
+    if (!Cookies.get("token")) {
+      setIsLoading(false);
+    }
   }, [reload]);
 
   // Context value

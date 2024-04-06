@@ -13,12 +13,8 @@ const API = axios.create({
 const getApi = async (url: string, params?: any) => await API.get(url, {
     params: params
 })
-const postApi = async (url: string, data?: any) => await API.post(url, {
-    data: data
-})
-const putApi = async (url: string, data?: any) => await API.put(url, {
-    data: data
-})
+const postApi = async (url: string, data?: any) => await API.post(url,data)
+const putApi = async (url: string, data?: any) => await API.put(url, data)
 const deleteApi = async (url: string, params?: any) => await API.delete(url, {
     params: params
 })

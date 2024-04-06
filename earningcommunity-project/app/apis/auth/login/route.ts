@@ -16,12 +16,14 @@ const POST = async (request: NextRequest) => {
     const ip = request.headers.get("IP")
     const os = request.headers.get("OS")
     const deviceId = request.headers.get("DEVICE_ID");
-    console.log(pushToken);
+    
     
     if (!pushToken || !ip || !os || !deviceId) {
         return NextResponse.json({ error: "Headers not found" }, { status: 404 })
     }
     const { phone, password } = await request.json() as loginTypes
+    
+    
     if (!phone || !password) {
         return NextResponse.json({ error: "Invalid phone number and password" }, { status: 404 })
     }
