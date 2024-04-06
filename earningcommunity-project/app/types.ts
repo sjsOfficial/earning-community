@@ -31,4 +31,5 @@ export interface PackageCardProps{
 }
 export interface VideoCardProps{
     videoData: VideoCardData
+    minWidth?:string
 }

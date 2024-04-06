@@ -1,0 +1,17 @@
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+     /* Set the width of the scrollbar */
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #85929E; /* Set the background color of the track */
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #2FFD82; /* Set the color of the scrollbar thumb */
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #2ca55cfa; /* Change color on hover */
+  }
