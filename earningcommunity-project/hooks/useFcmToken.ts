@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getMessaging, getToken } from 'firebase/messaging';
 import firebaseApp from '@/libs/firebase';
+import { toast } from 'react-toastify';
 
 
 const useFcmToken = () => {
@@ -31,6 +32,8 @@ const useFcmToken = () => {
                 'No registration token available. Request permission to generate one.'
               );
             }
+          } else {
+            toast.warning("Notification permission is denied");
           }
         }
       } catch (error) {

@@ -19,7 +19,7 @@ interface values {
 }
 
 const Login2 = () => {
-  const { isAdmin } = useAuth();
+  const { isAdmin, reloadAuth } = useAuth();
   const [disabled, setDisabled] = useState(false);
   const [formData, setFormData] = useState<values>({
     phone: "",
@@ -29,24 +29,33 @@ const Login2 = () => {
     if (isAdmin) {
       redirect("/admin");
     }
-   
   }, [isAdmin]);
   const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setDisabled(true);
     const id = toast.loading("Trying to login. Please wait...");
-    
+
     try {
       const res = await postApi("/apis/auth/login", {
         password: formData.password,
         phone: formData.phone,
       });
+
+      if (!res.data.user.isAdmin) {
+        return toast.update(id, {
+          render: "Admin login is required",
+          type: "warning",
+          isLoading: false,
+        });
+      }
+
       Cookies.set("token", res.data.userToken);
       toast.update(id, {
         render: "Login successful",
         type: "success",
         isLoading: false,
       });
+      reloadAuth();
     } catch (error: any | AxiosError | TypeError) {
       toast.update(id, {
         render: error.response.data.error,

@@ -62,6 +62,7 @@ export default function PackageFrom({
         duration: formData.duration.toString(),
         withdrawLimit: formData.withdrawLimit.toString(),
         description: formData.description,
+        id:formData.id
       });
       onProgressEnd();
       onClose();

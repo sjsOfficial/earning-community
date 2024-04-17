@@ -26,7 +26,7 @@ import {
   IconTrash,
 } from "@tabler/icons-react";
 import React, { useEffect, useState } from "react";
-import { getApi } from "@/functions/API";
+import { deleteApi, getApi } from "@/functions/API";
 import { AxiosError } from "axios";
 import { packageTypes } from "@/types/packageTypes";
 import LoaderScreen from "../components/shared/LoaderScreen";
@@ -41,9 +41,10 @@ const Packages = () => {
   const [open, setOpen] = useState(false);
   const [loader, setLoader] = useState(false);
   const [selected, setSelected] = useState<packageTypes | undefined>();
+  const [reload, setReload] = useState<number>(0);
   useEffect(() => {
     getData();
-  }, [page, rowsPerPage]);
+  }, [page, rowsPerPage, reload]);
   const handleChangePage = (
     event: React.MouseEvent<HTMLButtonElement> | null,
     newPage: number
@@ -67,6 +68,32 @@ const Packages = () => {
       setCount(res.data.count);
     } catch (error: any) {
       toast.error(error.response.data.error);
+    }
+  };
+  const deleteData = async (id: string) => {
+    const toastId = toast.loading("Deleting..Please wait");
+    try {
+      await deleteApi("/apis/admin/packages", {
+        id: id,
+      });
+      // console.log(d);
+
+      toast.update(toastId, {
+        render: "Delete Successful",
+        type: "success",
+        isLoading: false,
+      });
+      setReload(Math.random());
+    } catch (error: any) {
+      toast.update(toastId, {
+        render: error.response.data.error,
+        type: "error",
+        isLoading: false,
+      });
+    } finally {
+      setTimeout(() => {
+        toast.dismiss(toastId);
+      }, 2000);
     }
   };
   if (!data) {
@@ -198,7 +225,7 @@ const Packages = () => {
                         >
                           <IconEdit />
                         </IconButton>
-                        <IconButton>
+                        <IconButton onClick={() => deleteData(product.id)}>
                           <IconTrash />
                         </IconButton>
                       </Grid>
@@ -232,7 +259,10 @@ const Packages = () => {
             data={selected}
             onClose={() => setOpen(false)}
             onProgress={() => setLoader(true)}
-            onProgressEnd={() => setLoader(false)}
+            onProgressEnd={() => {
+              setLoader(false);
+              setReload(Math.random());
+            }}
           />
         )}
       </Modal>

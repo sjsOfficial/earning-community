@@ -14,6 +14,7 @@ import axios from "axios";
 import firebaseApp from "@/libs/firebase";
 import { getMessaging, onMessage } from "firebase/messaging";
 import useFcmToken from "@/hooks/useFcmToken";
+import { toast } from "react-toastify";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -30,13 +31,12 @@ export default function RootLayout({
       const res = await axios.get("https://api.ipify.org?format=json");
       Cookies.set("ip", res.data.ip);
     };
-    !Cookies.get("ip") && getIP();
+    getIP();
     Cookies.set("os", window.navigator.userAgent);
     Cookies.set("id", `${window.screen.width}+${window.screen.height}`);
   }, []);
 
-  !Cookies.get("fcm") && Cookies.set("fcm", fcmToken);
-
+  Cookies.set("fcm", fcmToken);
   useEffect(() => {
     if (typeof window !== "undefined" && "serviceWorker" in navigator) {
       const messaging = getMessaging(firebaseApp);

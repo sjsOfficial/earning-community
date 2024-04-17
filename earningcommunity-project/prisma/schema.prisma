@@ -23,9 +23,9 @@ model Users {
   age             DateTime?
   phone           String            @unique
   password        String
-  device          String
-  deviceId        String
-  pushToken       String
+  device          String?
+  deviceId        String?
+  pushToken       String?
   balance         Float             @default(0)
   name            String
   isAdmin         Boolean           @default(false)
