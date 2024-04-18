@@ -22,9 +22,9 @@ const POST = async (request: NextRequest) => {
         return NextResponse.json({ error: "Invalid User" }, { status: 404 })
     }
     const user = await getUser(stringValue) as userTypes
-    const { amount, walletId, adminWalletId } = await request.json()
-    if (!amount || !walletId || !adminWalletId) {
-        return NextResponse.json({ error: "amount || walletId || adminWalletId is required" }, { status: 404 })
+    const { amount, walletId, adminWalletId, transactionId } = await request.json()
+    if (!amount || !walletId || !adminWalletId || !transactionId) {
+        return NextResponse.json({ error: "amount || walletId || adminWalletId || transactionId is required" }, { status: 404 })
     }
     try {
         const wallet = wallets.find(d => d.id === walletId)
@@ -37,7 +37,8 @@ const POST = async (request: NextRequest) => {
                 amount: parseInt(amount),
                 adminWallet: adminWallet,
                 wallet: wallet,
-                userId: user.id
+                userId: user.id,
+                transactionId: transactionId
             }
         })
         return NextResponse.json(history)
@@ -56,11 +57,15 @@ const GET = async (request: NextRequest) => {
     try {
         const history = await prisma.rechargeHistory.findMany({
             where: { userId: user.id },
-            orderBy:{date:"desc"},
-            take:take||undefined,
-            skip:skip||undefined
+            orderBy: { date: "desc" },
+            take: take || undefined,
+            skip: skip || undefined
         })
-        return NextResponse.json(history)
+        const count = await prisma.rechargeHistory.count({
+            where: { userId: user.id },
+            orderBy: { date: "desc" },
+        })
+        return NextResponse.json({ history, count })
     } catch (error) {
         return NextResponse.json({ error: "Failed to get recharge history", code: error }, { status: 400 })
     }

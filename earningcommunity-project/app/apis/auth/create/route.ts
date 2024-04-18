@@ -41,9 +41,9 @@ const POST = async (request: NextRequest) => {
     const ip = request.headers.get("IP")
     const os = request.headers.get("OS")
     const deviceId = request.headers.get("DEVICE_ID");
-    if (!pushToken) {
-        return NextResponse.json({ error: "Please give notification permission" }, { status: 404 })
-    }
+    // if (!pushToken) {
+    //     return NextResponse.json({ error: "Please give notification permission" }, { status: 404 })
+    // }
     if (!pushToken || !ip || !os || !deviceId) {
         return NextResponse.json({ error: "Headers not found" }, { status: 404 })
     }

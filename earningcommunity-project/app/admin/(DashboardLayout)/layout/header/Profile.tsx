@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import {
   Avatar,
@@ -10,17 +10,28 @@ import {
   ListItemIcon,
   ListItemText,
 } from "@mui/material";
+import Cookies from "js-cookie";
 
 import { IconUser, IconShieldHalf, IconSettings } from "@tabler/icons-react";
+import { getApi, postApi } from "@/functions/API";
+import { toast } from "react-toastify";
+import useAuth from "@/hooks/useAuth";
+import { redirect } from "next/navigation";
 
 const Profile = () => {
   const [anchorEl2, setAnchorEl2] = useState(null);
+  const { reloadAuth, isAdmin } = useAuth();
   const handleClick2 = (event: any) => {
     setAnchorEl2(event.currentTarget);
   };
   const handleClose2 = () => {
     setAnchorEl2(null);
   };
+  // useEffect(() => {
+  //   if (isAdmin) {
+  //     redirect("/admin/authontication");
+  //   }
+  // }, [isAdmin]);
 
   return (
     <Box>
@@ -90,10 +101,28 @@ const Profile = () => {
         </Link>
         <Box mt={1} py={1} px={2}>
           <Button
-            href="/authentication/login"
+            onClick={async () => {
+              const toastId = toast.loading("Please wait...");
+              try {
+                await getApi("/apis/user/logout");
+                toast.update(toastId, {
+                  render: "Success",
+                  type: "success",
+                });
+                Cookies.remove("token");
+                window.location.reload();
+              } catch (error: any) {
+                toast.update(toastId, {
+                  render: error.response.data.error,
+                  type: "error",
+                });
+              } finally {
+                setTimeout(() => toast.dismiss(toastId), 2000);
+                
+              }
+            }}
             variant="outlined"
             color="primary"
-            component={Link}
             fullWidth
           >
             Logout
