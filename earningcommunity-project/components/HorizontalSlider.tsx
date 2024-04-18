@@ -125,6 +125,8 @@ export default function HorizontalSlider() {
       duration: 120,
     },
   ];
+
+ 
   return (
     <div className="bg-[#85929E] mx-2 rounded-[10px] ">
       <div className="flex items-center justify-between p-4">
