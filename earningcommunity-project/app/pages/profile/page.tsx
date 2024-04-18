@@ -5,7 +5,7 @@ import React from "react";
 import dp from "../../../public/dp.png";
 export default function Profile() {
   return (
-    <div className="container mx-auto pt-[100px] ">
+    <div className="container mx-auto pt-4 md:pt-[100px] ">
       <div className="grid lg:grid-cols-3 gap-4 px-2 my-8 md:my-10">
         <div className="lg:col-span-2 bg-[#85929E] p-3 lg:p-4 xl:p-10 rounded-lg">
           <div className="flex  flex-col md:flex-row w-full">
