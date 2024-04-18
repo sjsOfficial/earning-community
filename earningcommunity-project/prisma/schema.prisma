@@ -59,15 +59,16 @@ model UserWallets {
 }
 
 model rechargeHistory {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  amount      Int
-  wallet      Json
-  adminWallet Json
-  status      String   @default("PENDING")
-  message     String?
-  date        DateTime @default(now())
-  userId      String   @db.ObjectId
-  user        Users    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  amount        Int
+  wallet        Json
+  adminWallet   Json
+  status        String   @default("PENDING")
+  message       String?
+  date          DateTime @default(now())
+  userId        String   @db.ObjectId
+  user          Users    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  transactionId String
 }
 
 model withdrawHistory {
@@ -75,7 +76,7 @@ model withdrawHistory {
   amount     Int
   userWallet Json
   status     String   @default("PENDING")
-  message     String?
+  message    String?
   date       DateTime @default(now())
   userId     String   @db.ObjectId
   user       Users    @relation(fields: [userId], references: [id], onDelete: Cascade)

@@ -45,7 +45,15 @@ const GET = async (request: NextRequest) => {
                 }
 
             })
-            return NextResponse.json(history)
+            const count = await prisma.rechargeHistory.count({
+                where: {
+                    status: status
+                },
+                orderBy: {
+                    date: "desc"
+                }
+            })
+            return NextResponse.json({ history, count })
         }
         const history = await prisma.rechargeHistory.findMany({
             skip: skip || undefined,
@@ -54,7 +62,12 @@ const GET = async (request: NextRequest) => {
                 date: "desc"
             }
         })
-        return NextResponse.json(history)
+        const count = await prisma.rechargeHistory.count({
+            orderBy: {
+                date: "desc"
+            }
+        })
+        return NextResponse.json({ history, count })
     } catch (error) {
         return NextResponse.json({ error: "Failed to get data", code: error }, { status: 400 })
     }
