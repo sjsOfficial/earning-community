@@ -6,17 +6,17 @@ import dp from "../../../public/dp.png";
 export default function Profile() {
   return (
     <div className="container mx-auto pt-[100px] ">
-      <div className="grid grid-cols-3 gap-4 px-2 my-8 md:my-10">
-        <div className="col-span-2 bg-[#85929E] p-10 rounded-lg">
-          <div className="flex justify-between items-center gap-1">
-            <div className="flex gap-4 items-center">
+      <div className="grid lg:grid-cols-3 gap-4 px-2 my-8 md:my-10">
+        <div className="lg:col-span-2 bg-[#85929E] p-3 lg:p-4 xl:p-10 rounded-lg">
+          <div className="flex  flex-col md:flex-row w-full">
+            <div className="flex gap-4 items-center justify-center md:justify-normal md:w-1/3">
               <div className="relative">
                 <Image
-                  className="h-[80px] w-[80px] rounded-full"
+                  className="h-[60px] md:h-[80px] md:w-[80px] w-[60px] rounded-full"
                   src={dp}
                   alt="dp"
                 ></Image>
-                <div className="absolute -bottom-1 -right-2 h-[37px] w-[37px] rounded-full bg-[#ffffff] flex justify-center items-center">
+                <div className="absolute -bottom-1 -right-2  p-1 rounded-full bg-[#ffffff] flex justify-center items-center">
                   <svg
                     width="24"
                     height="24"
@@ -41,90 +41,99 @@ export default function Profile() {
                   </svg>
                 </div>
               </div>
-              <div>
-                <p className="text-[#ffffff] text-[20px] font-semibold">
+              <div className="">
+                <p className="text-[#ffffff] text-[14px] lg:text-[16px] xl:text-[20px] font-semibold">
                   @tasnia_farin
                 </p>
-                <p className="text-[#ffffff] text-[20px] font-medium">
+                <p className="text-[#ffffff] text-[14px] lg:text-[16px] xl:text-[20px] font-medium">
                   018357263872
                 </p>
               </div>
             </div>
-            <div className="h-10 w-[2px] bg-[#ffffff]"></div>
-            <div className="flex gap-2 items-center">
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 20 20"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M10 4V10H14.5M19 10C19 11.1819 18.7672 12.3522 18.3149 13.4442C17.8626 14.5361 17.1997 15.5282 16.364 16.364C15.5282 17.1997 14.5361 17.8626 13.4442 18.3149C12.3522 18.7672 11.1819 19 10 19C8.8181 19 7.64778 18.7672 6.55585 18.3149C5.46392 17.8626 4.47177 17.1997 3.63604 16.364C2.80031 15.5282 2.13738 14.5361 1.68508 13.4442C1.23279 12.3522 1 11.1819 1 10C1 7.61305 1.94821 5.32387 3.63604 3.63604C5.32387 1.94821 7.61305 1 10 1C12.3869 1 14.6761 1.94821 16.364 3.63604C18.0518 5.32387 19 7.61305 19 10Z"
-                  stroke="white"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
+            <div className="flex items-center justify-between md:justify-evenly gap-1 md:w-2/3 mt-4 md:mt-0">
+              <div className="h-10 w-[2px] bg-[#ffffff] hidden md:block"></div>
+              <div className="flex flex-col md:flex-row gap-2 items-center">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M10 4V10H14.5M19 10C19 11.1819 18.7672 12.3522 18.3149 13.4442C17.8626 14.5361 17.1997 15.5282 16.364 16.364C15.5282 17.1997 14.5361 17.8626 13.4442 18.3149C12.3522 18.7672 11.1819 19 10 19C8.8181 19 7.64778 18.7672 6.55585 18.3149C5.46392 17.8626 4.47177 17.1997 3.63604 16.364C2.80031 15.5282 2.13738 14.5361 1.68508 13.4442C1.23279 12.3522 1 11.1819 1 10C1 7.61305 1.94821 5.32387 3.63604 3.63604C5.32387 1.94821 7.61305 1 10 1C12.3869 1 14.6761 1.94821 16.364 3.63604C18.0518 5.32387 19 7.61305 19 10Z"
+                    stroke="white"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
 
-              <p className="text-[#ffffff] text-[20px] font-semibold">
-                22m Watch Time
-              </p>
-            </div>
-            <div className="h-10 w-[2px] bg-[#ffffff]"></div>
-            <div className="flex gap-2 items-center">
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M2.03613 12.322C1.96712 12.1146 1.96712 11.8904 2.03613 11.683C3.42313 7.51 7.36013 4.5 12.0001 4.5C16.6381 4.5 20.5731 7.507 21.9631 11.678C22.0331 11.885 22.0331 12.109 21.9631 12.317C20.5771 16.49 16.6401 19.5 12.0001 19.5C7.36213 19.5 3.42613 16.493 2.03613 12.322Z"
-                  stroke="white"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-                <path
-                  d="M15 12C15 12.7956 14.6839 13.5587 14.1213 14.1213C13.5587 14.6839 12.7956 15 12 15C11.2044 15 10.4413 14.6839 9.87868 14.1213C9.31607 13.5587 9 12.7956 9 12C9 11.2044 9.31607 10.4413 9.87868 9.87868C10.4413 9.31607 11.2044 9 12 9C12.7956 9 13.5587 9.31607 14.1213 9.87868C14.6839 10.4413 15 11.2044 15 12Z"
-                  stroke="white"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
+                <p className="text-[#ffffff] text-[14px] lg:text-[16px] xl:text-[20px] font-semibold">
+                  22m Watch Time
+                </p>
+              </div>
+              <div className="h-10  hidden md:block w-[2px] bg-[#ffffff]"></div>
+              <div className="flex flex-col md:flex-row gap-2 items-center">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M2.03613 12.322C1.96712 12.1146 1.96712 11.8904 2.03613 11.683C3.42313 7.51 7.36013 4.5 12.0001 4.5C16.6381 4.5 20.5731 7.507 21.9631 11.678C22.0331 11.885 22.0331 12.109 21.9631 12.317C20.5771 16.49 16.6401 19.5 12.0001 19.5C7.36213 19.5 3.42613 16.493 2.03613 12.322Z"
+                    stroke="white"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M15 12C15 12.7956 14.6839 13.5587 14.1213 14.1213C13.5587 14.6839 12.7956 15 12 15C11.2044 15 10.4413 14.6839 9.87868 14.1213C9.31607 13.5587 9 12.7956 9 12C9 11.2044 9.31607 10.4413 9.87868 9.87868C10.4413 9.31607 11.2044 9 12 9C12.7956 9 13.5587 9.31607 14.1213 9.87868C14.6839 10.4413 15 11.2044 15 12Z"
+                    stroke="white"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
 
-              <p className="text-[#ffffff] text-[20px] font-semibold">
-                22 Content View
-              </p>
+                <p className="text-[#ffffff] text-[14px] lg:text-[16px] xl:text-[20px] font-semibold">
+                  22 Content View
+                </p>
+              </div>
             </div>
           </div>
-          <div className="flex justify-between mt-10">
-            <div className="border-r-2 border-[#ffffff] space-y-4 w-full max-w-[300px]">
+          <div className="flex flex-col md:flex-row justify-between mt-4 md:mt-10 gap-4">
+            <div className="md:border-r-2 border-[#ffffff] space-y-4 w-full max-w-[300px]">
               <div>
-                <p className="text-[#ffffff] text-[20px] font-semibold">
+                <p className="text-[#ffffff] text-[14px] lg:text-[16px] xl:text-[20px] font-semibold">
                   Full Name
                 </p>
-                <p className="text-[#ffffff] text-[20px] font-normal">
+                <p className="text-[#ffffff] text-[14px] lg:text-[16px] xl:text-[20px] font-normal">
                   Tasnia Rahman
                 </p>
               </div>
               <div>
-                <p className="text-[#ffffff] text-[20px] font-semibold">Age</p>
-                <p className="text-[#ffffff] text-[20px] font-normal">
+                <p className="text-[#ffffff] text-[14px] lg:text-[16px] xl:text-[20px] font-semibold">
+                  Age
+                </p>
+                <p className="text-[#ffffff] text-[14px] lg:text-[16px] xl:text-[20px] font-normal">
                   22 years old
                 </p>
               </div>
               <div>
-                <p className="text-[#ffffff] text-[20px] font-semibold">
+                <p className="text-[#ffffff] text-[14px] lg:text-[16px] xl:text-[20px] font-semibold">
                   Gender
                 </p>
-                <p className="text-[#ffffff] text-[20px] font-normal">Female</p>
+                <p className="text-[#ffffff] text-[14px] lg:text-[16px] xl:text-[20px] font-normal">
+                  Female
+                </p>
               </div>
             </div>
+            <p className="text-[#05FB1E] text-[14px] font-normal md:hidden">
+            Active On : Mac book pro 16’ chorom browser 2.4.5
+          </p>
             <div className="flex flex-col gap-4">
               <div className="flex gap-4 items-center py-2 px-4 bg-[#ffffff] rounded-lg ">
                 <svg
@@ -142,7 +151,7 @@ export default function Profile() {
                     stroke-linejoin="round"
                   />
                 </svg>
-                <p className="text-[#2E4053] text-[20px] font-medium">
+                <p className="text-[#2E4053] text-[14px] lg:text-[16px] xl:text-[20px] font-medium">
                   Edit Profile
                 </p>
               </div>
@@ -163,7 +172,7 @@ export default function Profile() {
                   />
                 </svg>
 
-                <p className="text-[#2E4053] text-[20px] font-medium">
+                <p className="text-[#2E4053] text-[14px] lg:text-[16px] xl:text-[20px] font-medium">
                   Update Phone Number
                 </p>
               </div>
@@ -184,23 +193,22 @@ export default function Profile() {
                   />
                 </svg>
 
-                <p className="text-[#2E4053] text-[20px] font-medium">
+                <p className="text-[#2E4053] text-[14px] lg:text-[16px] xl:text-[20px] font-medium">
                   Update Password
                 </p>
               </div>
             </div>
           </div>
-          <p className="text-[#05FB1E] text-[16px] font-normal mt-6">
+          <p className="text-[#05FB1E] text-[16px] font-normal mt-6 hidden md:block">
             Active On : Mac book pro 16’ chorom browser 2.4.5
           </p>
         </div>
-        <div className=" bg-[#85929E] rounded-lg p-10">
+        <div className=" bg-[#85929E] rounded-lg p-3 lg:p-4 xl:p-10">
           <div className="flex justify-between ">
             <div className="space-y-3">
-              <div className="flex gap-4 items-center">
+              <div className="flex gap-2 md:gap-4 items-center">
                 <svg
-                  width="32"
-                  height="32"
+                 className="md:h-[32px] h-[24px] md:w-[32px] w-[24px]"
                   viewBox="0 0 32 32"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -213,14 +221,13 @@ export default function Profile() {
                     stroke-linejoin="round"
                   />
                 </svg>
-                <p className="text-[#FFFFFF] text-[20px] font-medium">
+                <p className="text-[#FFFFFF] text-[14px] lg:text-[16px] xl:text-[20px] font-medium">
                   300 BDT
                 </p>
               </div>
-              <div className="flex gap-4 items-center">
+              <div className="flex gap-2 md:gap-4 items-center">
                 <svg
-                  width="34"
-                  height="30"
+                  className="md:h-[32px] h-[24px] md:w-[32px] w-[24px]"
                   viewBox="0 0 34 30"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -234,13 +241,13 @@ export default function Profile() {
                   />
                 </svg>
 
-                <p className="text-[#FFFFFF] text-[20px] font-medium">
+                <p className="text-[#FFFFFF] text-[14px] lg:text-[16px] xl:text-[20px] font-medium">
                   Pay as go
                 </p>
               </div>
             </div>
             <div>
-              <div className="bg-[#ffffff] rounded-lg p-4 flex justify-center items-center gap-4">
+              <div className="bg-[#ffffff] rounded-lg p-4 flex justify-center items-center gap-2 md:gap-4">
                 <svg
                   width="20"
                   height="17"
@@ -256,29 +263,29 @@ export default function Profile() {
                     stroke-linejoin="round"
                   />
                 </svg>
-                <p className="text-[#2E4053] text-[20px] font-medium">
+                <p className="text-[#2E4053] text-[14px] lg:text-[16px] xl:text-[20px] font-medium">
                   Withdraw
                 </p>
               </div>
             </div>
           </div>
-          <div className="border-b-2 border-b-[#ffffff] pb-4 mt-10">
-            <p className="text-[#ffffff] text-[20px] font-medium">
+          <div className="border-b-2 border-b-[#ffffff] pb-2 md:pb-4 mt-6 md:mt-10">
+            <p className="text-[#ffffff] text-[14px] lg:text-[16px] xl:text-[20px] font-medium">
               3 Package Purchased
             </p>
           </div>
-          <div className="border-b-2 border-b-[#ffffff] pb-4 mt-6">
-            <p className="text-[#ffffff] text-[20px] font-medium">
+          <div className="border-b-2 border-b-[#ffffff] pb-2 md:pb-4 mt-6">
+            <p className="text-[#ffffff] text-[14px] lg:text-[16px] xl:text-[20px] font-medium">
               3 Wallets Added
             </p>
           </div>
-          <div className="border-b-2 border-b-[#ffffff] pb-4 mt-6">
-            <p className="text-[#ffffff] text-[20px] font-medium">
+          <div className="border-b-2 border-b-[#ffffff] pb-2 md:pb-4 mt-6">
+            <p className="text-[#ffffff] text-[14px] lg:text-[16px] xl:text-[20px] font-medium">
               3 Withdraw Request
             </p>
           </div>
-          <div className="border-b-2 border-b-[#ffffff] pb-4 mt-6">
-            <p className="text-[#05FB1E] text-[20px] font-medium">
+          <div className="border-b-2 border-b-[#ffffff] pb-2 md:pb-4 mt-6">
+            <p className="text-[#05FB1E] text-[14px] lg:text-[16px] xl:text-[20px] font-medium">
               10 Content Views
             </p>
           </div>
