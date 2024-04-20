@@ -20,7 +20,7 @@ export default function JoinUs() {
               tournaments, collaborate with fellow creators, and engage with
               your audience to maximize your earnings potential.
             </p>
-            <Link href="/pages/authentication/login">
+            <Link href="/pages/authentication/signup">
               <div className="hidden md:block py-2 md:py-4 bg-[#2E4053] hover:bg-[#1b2a3e] rounded-[10px] max-w-[350px] cursor-pointer transition-colors duration-500 ease-in-out">
                 <p className="text-[#FFFFFF] font-medium teext-[14px] md:text-[20px] text-center">
                   Register Now
@@ -31,12 +31,12 @@ export default function JoinUs() {
           <div className="w-[86px] md:w-auto">
             <Image
               className=""
-              src={require("../../public/earnNow.svg")}
+              src={require("../public/earnNow.svg")}
               alt="add"
             ></Image>
           </div>
         </div>
-        <Link href="/pages/authentication/login">
+        <Link href="/pages/authentication/signup">
           <div className=" md:hidden py-2 md:py-4 bg-[#2E4053] hover:bg-[#1b2a3e] rounded-[10px] cursor-pointer transition-colors duration-500 ease-in-out">
             <p className="text-[#FFFFFF] font-medium teext-[14px] md:text-[20px] text-center">
               Register Now

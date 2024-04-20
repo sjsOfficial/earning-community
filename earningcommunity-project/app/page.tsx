@@ -1,4 +1,4 @@
-import JoinUs from "@/components/Authentication/JoinUs";
+import JoinUs from "@/components/JoinUs";
 import AppDownload from "@/components/Home/AppDownload";
 import History from "@/components/Home/History";
 import HomeSlider from "@/components/Home/HomeSlider";

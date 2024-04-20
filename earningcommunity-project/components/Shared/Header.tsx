@@ -4,11 +4,13 @@ import LightMoodToggleButton from "../LightMoodToggleButton";
 import LanguageToggleButton from "../LanguageToggleButton";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useData } from "@/app/providers/DataProvider";
 import dp from "../../public/dp.png";
+import useAuth from "@/hooks/useAuth";
 
 export default function Header() {
-  const { user } = useData();
+  const { userData } = useAuth();
+  console.log(userData);
+  
   const pathname = usePathname();
   const [notificationShow, setNotificationShow] = useState(false);
   const handleShowNotification = () => {
@@ -29,7 +31,7 @@ export default function Header() {
             href="/"
             className={`text-darkText dark:text-lightText font-normal md:font-medium text-[16px] md:text-[20px] ${
               pathname === "/" ? "border-b-2 border-[#85929E]" : ""
-            } ${user || "hidden"}`}
+            } ${userData || "hidden"}`}
           >
             Home
           </Link>
@@ -59,11 +61,11 @@ export default function Header() {
               pathname === "/pages/policies"
                 ? "border-b-2 border-[#85929E]"
                 : ""
-            } ${user && "hidden"}`}
+            } ${userData && "hidden"}`}
           >
             Policies
           </Link>
-          {user ? (
+          {userData ? (
             <div className="flex items-center gap-5 lg:gap-10">
               <Link href="/pages/profile">
                 <div

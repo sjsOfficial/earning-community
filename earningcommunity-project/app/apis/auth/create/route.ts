@@ -44,7 +44,7 @@ const POST = async (request: NextRequest) => {
     // if (!pushToken) {
     //     return NextResponse.json({ error: "Please give notification permission" }, { status: 404 })
     // }
-    if (!pushToken || !ip || !os || !deviceId) {
+    if ( !ip || !os || !deviceId) {
         return NextResponse.json({ error: "Headers not found" }, { status: 404 })
     }
     const { name, password, token } = await request.json() as requestTypes
@@ -75,7 +75,7 @@ const POST = async (request: NextRequest) => {
                 phone: number,
                 password: encryptedPassword,
                 deviceId: deviceToken,
-                pushToken: pushToken,
+                pushToken: pushToken || '',
                 device: os
             }
         })

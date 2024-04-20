@@ -4,16 +4,19 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { PinInput, PinInputField } from "@chakra-ui/pin-input";
+import { getApi, putApi } from "@/functions/API";
+import { AxiosError } from "axios";
+import Cookies from "js-cookie";
+import { useRouter } from "next/navigation";
 
 const SignUpPage: React.FC = () => {
   const [phone, setPhone] = useState("");
-  const [password, setPassword] = useState("");
   const [isOpenInputOTP, setIsOpenInputOTP] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [remainingTime, setRemainingTime] = useState(10);
+  const [remainingTime, setRemainingTime] = useState(60);
   const [timerActive, setTimerActive] = useState(false);
   const [value, setValue] = React.useState("");
-
+  const router = useRouter();
   const handleChange = (value: string) => {
     setValue(value);
   };
@@ -44,18 +47,71 @@ const SignUpPage: React.FC = () => {
     return `${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
   };
 
-  const handleSubmit = () => {
+  const handleVarifyOTP = async () => {
     setError("");
-    if (!phone || !password) {
+    if (!phone) {
       setError("Please fill out all fields.");
       return;
     }
-    // Proceed with form submission
+    const key = localStorage.getItem("token");
+    // console.log(key);
+
+    try {
+      const res = await putApi(`/apis/auth/create`, {
+        OTP: "000000",
+        key: key,
+      });
+      if (res.statusText == "OK") {
+        localStorage.removeItem("token");
+        Cookies.set("token", res.data.token);
+        
+        router.push("/pages/authentication/signup/signupForm");
+      }
+    } catch (error: any | AxiosError | TypeError) {
+      console.log(error);
+    } finally {
+      console.log("enter finnally");
+    }
   };
-  const handleVarifyNumber = () => {
+  const handleVarifyNumber = async () => {
     setRemainingTime(10);
     setIsOpenInputOTP(true);
     setTimerActive(true);
+    // console.log(phone);
+    try {
+      const res = await getApi(`/apis/auth/create?phoneNumber=${phone}`);
+
+      // console.log(res);
+
+      // if (!res.data.user.isAdmin) {
+      //   return toast.update(id, {
+      //     render: "Admin login is required",
+      //     type: "warning",
+      //     isLoading: false,
+      //   });
+      // }
+      localStorage.removeItem("token");
+      localStorage.setItem("token", res.data.key);
+      // toast.update(id, {
+      //   render: "Login successful",
+      //   type: "success",
+      //   isLoading: false,
+      // });
+    } catch (error: any | AxiosError | TypeError) {
+      console.log(error);
+
+      // toast.update(id, {
+      //   render: error.response.data.error,
+      //   type: "error",
+      //   isLoading: false,
+      // });
+    } finally {
+
+      // setDisabled(false);
+      // setTimeout(() => {
+      //   toast.dismiss(id);
+      // }, 2000);
+    }
   };
 
   return (
@@ -110,13 +166,10 @@ const SignUpPage: React.FC = () => {
                 placeholder="01*********"
                 className="w-full focus:outline-none bg-transparent"
               />
-              
             </div>
             {error && (
-                <p className=" right-0 text-red-500 text-xs mt-1">
-                  {error}
-                </p>
-              )}
+              <p className=" right-0 text-red-500 text-xs mt-1">{error}</p>
+            )}
             <div
               className={`flex items-center gap-1 md:mt-[11px] mt-[5px] ${
                 isOpenInputOTP ? "hidden" : "block"
@@ -193,7 +246,7 @@ const SignUpPage: React.FC = () => {
 
           <div className="my-[10px]">
             <div
-              onClick={handleSubmit}
+              onClick={handleVarifyOTP}
               className={`bg-[#2E4053] hover:bg-[#233140] text-white font-medium py-2 px-4 rounded-md w-full ${
                 !isOpenInputOTP
                   ? "cursor-not-allowed opacity-70"
@@ -203,10 +256,11 @@ const SignUpPage: React.FC = () => {
               Verify OTP
             </div>
           </div>
-          <Link href="/pages/authentication/login">
-            <div className="bg-[#2E4053] hover:bg-[#233140] text-white font-medium py-2 px-4 rounded-md w-full text-center">
-              Login
-            </div>
+          <Link
+            href="/pages/authentication/login"
+            className="text-[#233140] hover:text-[#000000] text-[16px] md:text-[20px] font-normal underline"
+          >
+            Already have an account? LogIn
           </Link>
         </div>
       </div>
