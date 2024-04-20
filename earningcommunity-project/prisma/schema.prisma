@@ -99,7 +99,7 @@ model videos {
   duration     Int
   videoUrl     String         @unique
   platformType String
-  category     Json
+  categoryId   String
   date         DateTime       @default(now())
   watchHistory watchHistory[]
 }

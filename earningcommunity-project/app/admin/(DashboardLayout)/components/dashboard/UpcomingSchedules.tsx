@@ -14,7 +14,7 @@ import DashboardCard from "../shared/DashboardCard";
 
 const UpcomingSchedules = () => {
   return (
-    <DashboardCard title="Upcoming Schedules">
+    <DashboardCard title="Top Videos">
       <>
         <Timeline
           className="theme-timeline"
@@ -35,7 +35,7 @@ const UpcomingSchedules = () => {
           }}
         >
           <TimelineItem>
-            <TimelineOppositeContent>09:30 am</TimelineOppositeContent>
+            <TimelineOppositeContent>17 Dec 2022</TimelineOppositeContent>
             <TimelineSeparator>
               <TimelineDot color="primary" variant="outlined" />
               <TimelineConnector />

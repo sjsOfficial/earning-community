@@ -63,7 +63,7 @@ const TrafficDistribution = () => {
   const seriescolumnchart: any = [5368, 3500, 4106];
 
   return (
-    <DashboardCard title="Traffic Distribution">
+    <DashboardCard title="Sells and Withdraw">
       <Grid container spacing={3}>
         {/* column */}
         <Grid item xs={6} sm={7}>
@@ -85,7 +85,7 @@ const TrafficDistribution = () => {
               </Typography>
             </Stack>
             <Typography variant="subtitle2" color="textSecondary">
-              last year
+             sell last month
             </Typography>
           </Stack>
           <Stack spacing={3} mt={3} direction="row">
@@ -103,7 +103,7 @@ const TrafficDistribution = () => {
                 fontSize="12px"
                 color="textSecondary"
               >
-                Oragnic
+                Total Sell
               </Typography>
             </Stack>
             <Stack direction="row" spacing={1} alignItems="center">
@@ -120,7 +120,7 @@ const TrafficDistribution = () => {
                 fontSize="12px"
                 color="textSecondary"
               >
-                Refferal
+                Total Withdraw
               </Typography>
             </Stack>
           </Stack>

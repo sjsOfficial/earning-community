@@ -99,7 +99,7 @@ const ProfitExpenses = () => {
 
   return (
     <DashboardCard
-      title="Profit & Expenses"
+      title="Views & Expenses"
       action={
         <>
           <IconButton
@@ -110,9 +110,9 @@ const ProfitExpenses = () => {
             aria-haspopup="true"
             onClick={handleClick}
           >
-            <MoreVertIcon />
+            {/* <MoreVertIcon /> */}
           </IconButton>
-          <Menu
+          {/* <Menu
             id="long-menu"
             MenuListProps={{
               "aria-labelledby": "long-button",
@@ -130,7 +130,7 @@ const ProfitExpenses = () => {
                 {option}
               </MenuItem>
             ))}
-          </Menu>
+          </Menu> */}
         </>
       }
     >

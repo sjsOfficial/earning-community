@@ -54,11 +54,9 @@ const ProductSales = () => {
 
   return (
     <DashboardCard
-      title="Product Sales"
+      title="Total Withdraw"
       action={
-        <Fab color="error" size="medium" sx={{color: '#ffffff'}}>
-          <IconCurrencyDollar width={24} />
-        </Fab>
+       <></>
       }
       footer={
         <Chart options={optionscolumnchart} series={seriescolumnchart} type="area" width={"100%"} height="60px" />
@@ -76,7 +74,7 @@ const ProductSales = () => {
             +9%
           </Typography>
           <Typography variant="subtitle2" color="textSecondary">
-            last year
+            last month
           </Typography>
         </Stack>
       </>

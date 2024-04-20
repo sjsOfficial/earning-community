@@ -3,12 +3,24 @@ import writeFileSystem from "@/functions/writeFile";
 import prisma from "@/libs/prisma";
 import userTypes from "@/types/userTypes";
 import { NextRequest, NextResponse } from "next/server";
+import wallets from "../../wallets/wallets.json"
 
 const GET = async (request: NextRequest) => {
-   
+    const skip = parseInt(request.nextUrl.searchParams.get('skip') as string)
+    const take = parseInt(request.nextUrl.searchParams.get('take') as string)
     try {
-        const history = await prisma.adminWallets.findMany()
-        return NextResponse.json(history)
+        const history = await prisma.adminWallets.findMany({
+            skip: skip || undefined,
+            take: take || undefined,
+            orderBy: {
+                date: "desc"
+            }
+        })
+       const wallet= history.map((doc, i) => {
+            return { ...doc, wallet: wallets.find(d => d.id === doc.walletId) }
+        })
+        const count = await prisma.adminWallets.count()
+        return NextResponse.json({ wallet, count })
     } catch (error) {
         return NextResponse.json({ error: "Failed to getting admin wallets", code: error }, { status: 400 })
     }

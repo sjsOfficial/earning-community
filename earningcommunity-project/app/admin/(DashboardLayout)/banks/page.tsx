@@ -5,6 +5,7 @@ import {
   Chip,
   Grid,
   IconButton,
+  Modal,
   Pagination,
   Table,
   TableBody,
@@ -22,51 +23,66 @@ import {
   IconRecycle,
   IconTrash,
 } from "@tabler/icons-react";
-import React from "react";
-
-const products = [
-  {
-    id: "1",
-    name: "Sunil Joshi",
-    post: "Web Designer",
-    pname: "Elite Admin",
-    priority: "Low",
-    pbg: "primary.main",
-    budget: "3.9",
-  },
-  {
-    id: "2",
-    name: "Andrew McDownland",
-    post: "Project Manager",
-    pname: "Real Homes WP Theme",
-    priority: "Medium",
-    pbg: "secondary.main",
-    budget: "24.5",
-  },
-  {
-    id: "3",
-    name: "Christopher Jamil",
-    post: "Project Manager",
-    pname: "MedicalPro WP Theme",
-    priority: "High",
-    pbg: "error.main",
-    budget: "12.8",
-  },
-  {
-    id: "4",
-    name: "Nirav Joshi",
-    post: "Frontend Engineer",
-    pname: "Hosting Press HTML",
-    priority: "Critical",
-    pbg: "success.main",
-    budget: "2.4",
-  },
-];
+import React, { useEffect, useState } from "react";
+import { adminWalletTypes } from "@/types/adminWalletTypes";
+import { deleteApi, getApi } from "@/functions/API";
+import { toast } from "react-toastify";
+import LoaderScreen from "../components/shared/LoaderScreen";
+import Image from "next/image";
+import BankForm from "../components/forms/BankForm";
 
 const Banks = () => {
-  const [page, setPage] = React.useState(1);
+  const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [data, setData] = useState<adminWalletTypes[] | undefined>();
+  const [count, setCount] = useState(0);
+  const [reload, setReload] = useState<number>(0);
+  const [open, setOpen] = useState(false);
+  const [loader, setLoader] = useState(false);
+  const [selected, setSelected] = useState<adminWalletTypes | undefined>();
 
+  useEffect(() => {
+    getData();
+  }, [page, rowsPerPage, reload]);
+  const getData = async () => {
+    try {
+      const res = await getApi(`/apis/admin/wallet`, {
+        take: rowsPerPage,
+        skip: page * rowsPerPage,
+      });
+
+      setData(res.data.wallet);
+      setCount(res.data.count);
+    } catch (error: any) {
+      toast.error(error.response.data.error);
+    }
+  };
+  const deleteData = async (id: string) => {
+    const toastId = toast.loading("Deleting..Please wait");
+    try {
+      await deleteApi("/apis/admin/wallet", {
+        id: id,
+      });
+      // console.log(d);
+
+      toast.update(toastId, {
+        render: "Delete Successful",
+        type: "success",
+        isLoading: false,
+      });
+      setReload(Math.random());
+    } catch (error: any) {
+      toast.update(toastId, {
+        render: error.response.data.error,
+        type: "error",
+        isLoading: false,
+      });
+    } finally {
+      setTimeout(() => {
+        toast.dismiss(toastId);
+      }, 2000);
+    }
+  };
   const handleChangePage = (
     event: React.MouseEvent<HTMLButtonElement> | null,
     newPage: number
@@ -80,6 +96,9 @@ const Banks = () => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
+  if (!data) {
+    return <LoaderScreen />;
+  }
   return (
     <PageContainer
       title="All Packages"
@@ -98,7 +117,13 @@ const Banks = () => {
             <Typography fontSize={16}>
               Members who purchase package of any
             </Typography>
-            <div className="w-[40px] cursor-pointer shadow-lg hover:bg-sky-700 h-[40px] bg-sky-400 rounded-full flex justify-center items-center text-white">
+            <div
+              onClick={() => {
+                setSelected(undefined);
+                setOpen(true);
+              }}
+              className="w-[40px] cursor-pointer shadow-lg hover:bg-sky-700 h-[40px] bg-sky-400 rounded-full flex justify-center items-center text-white"
+            >
               <IconPlus />
             </div>
           </Box>
@@ -122,24 +147,20 @@ const Banks = () => {
                   </TableCell>
                   <TableCell>
                     <Typography variant="subtitle2" fontWeight={600}>
-                      Price
+                      Date
                     </Typography>
                   </TableCell>
-                  <TableCell>
-                    <Typography variant="subtitle2" fontWeight={600}>
-                      Duration
-                    </Typography>
-                  </TableCell>
+
                   <TableCell align="right">
                     <Typography variant="subtitle2" fontWeight={600}>
-                      Delete
+                      Action
                     </Typography>
                   </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {products.map((product, index) => (
-                  <TableRow key={product.name}>
+                {data.map((doc, index) => (
+                  <TableRow key={doc.id}>
                     <TableCell>
                       <Typography
                         sx={{
@@ -147,7 +168,7 @@ const Banks = () => {
                           fontWeight: "500",
                         }}
                       >
-                        {page * (index + 1)}
+                        {(page + 1) * (index + 1)}
                       </Typography>
                     </TableCell>
                     <TableCell>
@@ -157,9 +178,21 @@ const Banks = () => {
                           alignItems: "center",
                         }}
                       >
-                        <Box>
+                        {doc.wallet && (
+                          <Image
+                            src={doc.wallet.icon}
+                            height={50}
+                            width={50}
+                            alt={doc.wallet.name}
+                          />
+                        )}
+                        <Box
+                          sx={{
+                            ml: 2,
+                          }}
+                        >
                           <Typography variant="subtitle2" fontWeight={600}>
-                            {product.name}
+                            {doc.wallet?.name}
                           </Typography>
                           <Typography
                             color="textSecondary"
@@ -167,7 +200,7 @@ const Banks = () => {
                               fontSize: "13px",
                             }}
                           >
-                            {product.post}
+                            {doc.number}
                           </Typography>
                         </Box>
                       </Box>
@@ -178,26 +211,19 @@ const Banks = () => {
                         variant="subtitle2"
                         fontWeight={400}
                       >
-                        {product.pname}
+                        {new Date(doc.date).toDateString()}
                       </Typography>
                     </TableCell>
-                    <TableCell>
-                      <Chip
-                        sx={{
-                          px: "4px",
-                          backgroundColor: product.pbg,
-                          color: "#fff",
-                        }}
-                        size="small"
-                        label={product.priority}
-                      ></Chip>
-                    </TableCell>
+
                     <TableCell align="right">
                       <Grid>
-                        <IconButton>
+                        {/* <IconButton onClick={() => {
+                            setSelected(doc);
+                            setOpen(true);
+                          }}>
                           <IconEdit />
-                        </IconButton>
-                        <IconButton>
+                        </IconButton> */}
+                        <IconButton onClick={() => deleteData(doc.id)}>
                           <IconTrash />
                         </IconButton>
                       </Grid>
@@ -208,7 +234,7 @@ const Banks = () => {
             </Table>
             <TablePagination
               component="div"
-              count={100}
+              count={count}
               page={page}
               onPageChange={handleChangePage}
               rowsPerPage={rowsPerPage}
@@ -217,6 +243,27 @@ const Banks = () => {
           </Box>
         </Box>
       </DashboardCard>
+      <Modal
+        aria-labelledby="parent-modal-title"
+        aria-describedby="parent-modal-description"
+        open={Boolean(open)}
+        onClose={() => setOpen(false)}
+      >
+        {/* <PackageFrom onClose={()=>setOpen(false)} onProgress={()=>} /> */}
+        {loader ? (
+          <LoaderScreen />
+        ) : (
+          <BankForm
+            data={selected}
+            onClose={() => setOpen(false)}
+            onProgress={() => setLoader(true)}
+            onProgressEnd={() => {
+              setLoader(false);
+              setReload(Math.random());
+            }}
+          />
+        )}
+      </Modal>
     </PageContainer>
   );
 };
