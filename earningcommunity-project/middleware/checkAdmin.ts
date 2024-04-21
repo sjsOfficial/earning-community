@@ -6,6 +6,8 @@ import {
 } from "next/server";
 import jwt from "jsonwebtoken"
 import * as jose from 'jose'
+import { decrypt } from "@/functions/JWT";
+import userTypes from "@/types/userTypes";
 
 const jwtConfig = {
     secret: new TextEncoder().encode(process.env.SECRET || "cluster0"),
@@ -19,8 +21,7 @@ const checkAdmin: MiddlewareFactory = (next) => {
             if (!token) return NextResponse.json({ error: "Token is required" }, { status: 404 })
         
             try {
-                const jst = jose.jwtVerify(token.split(" ")[1], jwtConfig.secret)
-                const decode = (await jst).payload
+                const decode =await decrypt(token.split(" ")[1]) as any
 
                 if (!decode.isAdmin) {
                     return NextResponse.json({ error: "Invalid Admin" }, { status: 404 })
@@ -28,7 +29,7 @@ const checkAdmin: MiddlewareFactory = (next) => {
                 request.headers.set("USER", JSON.stringify(decode))
                 return NextResponse.next()
             } catch (error) {
-                return NextResponse.json({ error: "Invalid token" }, { status: 404 })
+                return NextResponse.json({ error: "Invalid User",code:error }, { status: 404 })
             }
 
         }

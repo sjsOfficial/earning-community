@@ -5,6 +5,7 @@ import jwt from "jsonwebtoken"
 import prisma from "@/libs/prisma";
 import getUser from "@/functions/getUser";
 import userTypes from "@/types/userTypes";
+import { encrypt } from "@/functions/JWT";
 const secret = process.env.SECRET || "cluster0"
 
 interface loginTypes {
@@ -54,15 +55,14 @@ const POST = async (request: NextRequest) => {
                     pushToken: pushToken
                 }
             })
-            const userToken = jwt.sign(user, secret)
+            const userToken = await encrypt(user.id, user.isAdmin)
 
             return NextResponse.json({ user: newUser, userToken })
         }
         if (user.deviceId !== deviceToken) {
             return NextResponse.json({ error: "Your account has already log into another device. Logout from the device first" }, { status: 404 })
         }
-        const userToken = jwt.sign(user, secret)
-
+        const userToken = await encrypt(user.id, user.isAdmin)
         return NextResponse.json({ user, userToken })
     } catch (error) {
 

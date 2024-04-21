@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import jwt from "jsonwebtoken"
 import md5 from "md5"
 import prisma from "@/libs/prisma";
+import { encrypt } from "@/functions/JWT";
 const secret = process.env.SECRET || "cluster0"
 
 
@@ -80,7 +81,7 @@ const POST = async (request: NextRequest) => {
             }
         })
 
-        const userToken = jwt.sign(user, secret)
+        const userToken =await encrypt(user.id,user.isAdmin)
         return NextResponse.json({ user, userToken })
 
     } catch (error) {

@@ -56,7 +56,7 @@ const Login2 = () => {
         isLoading: false,
       });
       reloadAuth();
-      redirect("/admin");
+      window.location.reload();
     } catch (error: any | AxiosError | TypeError) {
       toast.update(id, {
         render: error.response.data.error,
