@@ -1,13 +1,13 @@
 'use client'
-import { useData } from "@/app/providers/DataProvider";
+import useAuth from "@/hooks/useAuth";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
 export default function JoinUs() {
-  const { user } = useData();
+  const { userData } = useAuth();
   return (
-    <div className={`container mx-auto mt-[37px] ${user && 'hidden'}`}>
+    <div className={`container mx-auto mt-[37px] ${userData && 'hidden'}`}>
       <div className="bg-[#85929E] mx-2 rounded-[10px] p-[20px] ">
         <div className="gap-2 flex justify-between items-center">
           <div className="w-[286px] md:w-[950px]">
@@ -23,7 +23,7 @@ export default function JoinUs() {
             <Link href="/pages/authentication/signup">
               <div className="hidden md:block py-2 md:py-4 bg-[#2E4053] hover:bg-[#1b2a3e] rounded-[10px] max-w-[350px] cursor-pointer transition-colors duration-500 ease-in-out">
                 <p className="text-[#FFFFFF] font-medium teext-[14px] md:text-[20px] text-center">
-                  Register Now
+                  Register Now/Login
                 </p>
               </div>
             </Link>
@@ -39,7 +39,7 @@ export default function JoinUs() {
         <Link href="/pages/authentication/signup">
           <div className=" md:hidden py-2 md:py-4 bg-[#2E4053] hover:bg-[#1b2a3e] rounded-[10px] cursor-pointer transition-colors duration-500 ease-in-out">
             <p className="text-[#FFFFFF] font-medium teext-[14px] md:text-[20px] text-center">
-              Register Now
+              Register Now/Login
             </p>
           </div>
         </Link>

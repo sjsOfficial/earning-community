@@ -9,6 +9,7 @@ import useAuth from "@/hooks/useAuth";
 
 export default function Header() {
   const { userData } = useAuth();
+  // console.log(userData);
   
   const pathname = usePathname();
   const [notificationShow, setNotificationShow] = useState(false);
@@ -81,7 +82,7 @@ export default function Header() {
                     <p className="text-[20px] font-medium text-white">
                       My Profile
                     </p>
-                    <p className="text-[16px] font-medium text-white">30.00৳</p>
+                    <p className="text-[16px] font-medium text-white">{userData?.balance}৳</p>
                   </div>
                 </div>
               </Link>
