@@ -48,7 +48,8 @@ const POST = async (request: NextRequest) => {
                 package: packageDetails,
                 price: packageDetails.price,
                 duration: packageDetails.duration,
-                withdrawLimit: packageDetails.withdrawLimit
+                withdrawLimit: packageDetails.withdrawLimit,
+                packageId:packageId
             }
         })
         return NextResponse.json(packageList)

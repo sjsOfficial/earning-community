@@ -19,7 +19,7 @@ const POST = async (request: NextRequest) => {
         const user = await prisma.users.update({
             where: { id: reqDetails.userId }, data: {
                 balance: {
-                    increment: 100
+                    increment: reqDetails.amount
                 }
             }
         })

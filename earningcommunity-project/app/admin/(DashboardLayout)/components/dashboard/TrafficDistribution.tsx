@@ -2,9 +2,9 @@ import dynamic from "next/dynamic";
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 import { useTheme } from "@mui/material/styles";
 import { Grid, Stack, Typography, Avatar } from "@mui/material";
-import { IconArrowUpLeft } from "@tabler/icons-react";
+import { IconArrowDownRight, IconArrowUpLeft } from "@tabler/icons-react";
 import DashboardCard from "../shared/DashboardCard";
-
+import { useData } from "@/app/providers/DataProvider";
 
 const TrafficDistribution = () => {
   // chart color
@@ -13,6 +13,8 @@ const TrafficDistribution = () => {
   const error = theme.palette.error.main;
   const secondary = theme.palette.secondary.light;
   const successlight = theme.palette.success.light;
+  const errorlight = "#fdede8";
+  const { purchasePackageData, setPurchasePackageData } = useData();
 
   // chart
   const optionscolumnchart: any = {
@@ -25,7 +27,7 @@ const TrafficDistribution = () => {
       },
       height: 170,
     },
-    colors: [secondary, error, primary],
+    colors: [primary, error],
     plotOptions: {
       pie: {
         startAngle: 0,
@@ -60,15 +62,15 @@ const TrafficDistribution = () => {
       },
     ],
   };
-  const seriescolumnchart: any = [5368, 3500, 4106];
+  const seriescolumnchart: any = [purchasePackageData.totalSell, 3500];
 
   return (
-    <DashboardCard title="Sells and Withdraw">
+    <DashboardCard title="Package Sells">
       <Grid container spacing={3}>
         {/* column */}
         <Grid item xs={6} sm={7}>
           <Typography variant="h3" fontWeight="700">
-            $36,358
+            {purchasePackageData?.totalSell} BDT
           </Typography>
           <Stack
             direction={{ xs: "column", sm: "row" }}
@@ -76,16 +78,28 @@ const TrafficDistribution = () => {
             mt={1}
             alignItems="center"
           >
-            <Stack direction="row">
-              <Avatar sx={{ bgcolor: successlight, width: 21, height: 21 }}>
-                <IconArrowUpLeft width={18} color="#39B69A" />
-              </Avatar>
-              <Typography variant="subtitle2" fontWeight="600">
-                +9%
-              </Typography>
-            </Stack>
+            {purchasePackageData.percentageLastMonthSales < 0 ? (
+              <Stack direction="row" spacing={1} my={1} alignItems="center">
+                <Avatar sx={{ bgcolor: errorlight, width: 21, height: 21 }}>
+                  <IconArrowDownRight width={18} color="#FA896B" />
+                </Avatar>
+                <Typography variant="subtitle2" fontWeight="600">
+                  -{purchasePackageData.percentageLastMonthSales}%
+                </Typography>
+              </Stack>
+            ) : (
+              <Stack direction="row">
+                <Avatar sx={{ bgcolor: successlight, width: 21, height: 21 }}>
+                  <IconArrowUpLeft width={18} color="#39B69A" />
+                </Avatar>
+                <Typography variant="subtitle2" fontWeight="600">
+                  +{purchasePackageData.percentageLastMonthSales}%
+                </Typography>
+              </Stack>
+            )}
+
             <Typography variant="subtitle2" color="textSecondary">
-             sell last month
+              sell last month
             </Typography>
           </Stack>
           <Stack spacing={3} mt={3} direction="row">

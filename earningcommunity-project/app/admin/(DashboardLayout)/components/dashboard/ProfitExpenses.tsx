@@ -1,20 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { MenuItem, Box, IconButton, Menu } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import dynamic from "next/dynamic";
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
-import MoreVertIcon from '@mui/icons-material/MoreVert';
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 import DashboardCard from "../shared/DashboardCard";
+import { getApi } from "@/functions/API";
+import { useData } from "@/app/providers/DataProvider";
 
-const options = [
-  "Action",
-  "Another Action",
-  "Something else here",
-];
+const options = ["Action", "Another Action", "Something else here"];
 
 const ProfitExpenses = () => {
   // menu
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const { purchasePackageData, setPurchasePackageData } = useData();
+
+  useEffect(() => {
+    getApi("/apis/admin/purchase").then((res) => {
+      setPurchasePackageData(res.data);
+    });
+  }, []);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -76,7 +81,10 @@ const ProfitExpenses = () => {
       tickAmount: 4,
     },
     xaxis: {
-      categories: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+      categories: Object.keys(purchasePackageData.totalPriceByMonth).slice(
+        0,
+        6
+      ),
       axisBorder: {
         show: false,
       },
@@ -88,18 +96,18 @@ const ProfitExpenses = () => {
   };
   const seriescolumnchart: any = [
     {
-      name: "Pixel ",
+      name: "Views",
       data: [9, 5, 3, 7, 5, 10, 3],
     },
     {
-      name: "Ample ",
-      data: [6, 3, 9, 5, 4, 6, 4],
+      name: "Package Sells",
+      data: Object.values(purchasePackageData.totalPriceByMonth).slice(0, 6),
     },
   ];
 
   return (
     <DashboardCard
-      title="Views & Expenses"
+      title="Views & Package Sells"
       action={
         <>
           <IconButton

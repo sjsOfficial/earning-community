@@ -8,13 +8,14 @@ datasource db {
 }
 
 model Packages {
-  id            String   @id @default(auto()) @map("_id") @db.ObjectId
-  title         String   @unique
-  price         Float
-  duration      Int      @default(1)
-  withdrawLimit Int
-  description   String
-  date          DateTime @default(now())
+  id             String           @id @default(auto()) @map("_id") @db.ObjectId
+  title          String           @unique
+  price          Float
+  duration       Int              @default(1)
+  withdrawLimit  Int
+  description    String
+  date           DateTime         @default(now())
+  packageHistory packageHistory[]
 }
 
 model Users {
@@ -91,6 +92,8 @@ model packageHistory {
   date          DateTime @default(now())
   userId        String   @db.ObjectId
   user          Users    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  packageId     String   @db.ObjectId
+  packages      Packages @relation(fields: [packageId], references: [id])
 }
 
 model videos {

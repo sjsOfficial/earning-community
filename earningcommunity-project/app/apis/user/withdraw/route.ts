@@ -41,7 +41,15 @@ const POST = async (request: NextRequest) => {
                 userWallet: userWallet,
             }
         })
-        return NextResponse.json(history)
+        const updateUser = await prisma.users.update({
+            where: { id: user.id },
+            data: {
+                balance: {
+                    decrement: parseInt(amount)
+                }
+            }
+        })
+        return NextResponse.json({ history, updateUser })
     } catch (error) {
         return NextResponse.json({ error: "Failed to send recharge request", code: error }, { status: 400 })
     }
@@ -57,11 +65,11 @@ const GET = async (request: NextRequest) => {
     try {
         const history = await prisma.withdrawHistory.findMany({
             where: { userId: user.id },
-            orderBy:{
-                date:"desc"
+            orderBy: {
+                date: "desc"
             },
-            take:take||undefined,
-            skip:skip||undefined
+            take: take || undefined,
+            skip: skip || undefined
         })
         return NextResponse.json(history)
     } catch (error) {
