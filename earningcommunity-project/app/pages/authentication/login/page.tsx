@@ -1,26 +1,51 @@
 "use client";
-import { useData } from "@/app/providers/DataProvider";
 import AppDownload from "@/components/Home/AppDownload";
+import { postApi } from "@/functions/API";
+import { AxiosError } from "axios";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
-
+import Cookies from "js-cookie";
+import { toast } from "react-toastify";
 const LoginPage: React.FC = () => {
-  const { setUser } = useData();
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError("");
     if (!phone || !password) {
       setError("Please fill out all fields.");
       return;
-    } else {
-      setUser(true);
-      router.push("/");
+    }
+    const toastId = toast.loading("Please wait...");
+    try {
+      const res = await postApi(`/apis/auth/login`, {
+        phone: phone,
+        password: password,
+      });
+
+      if (res.statusText == "OK") {
+        toast.update(toastId, {
+          render: "Login successful",
+          type: "success",
+          isLoading: false,
+        });
+        Cookies.set("token", res.data.userToken);
+        window.location.href = "/";
+      }
+    } catch (error: any | AxiosError | TypeError) {
+      toast.update(toastId, {
+        render: error.response.data.error,
+        type: "error",
+        isLoading: false,
+      });
+    } finally {
+      setTimeout(() => {
+        toast.dismiss(toastId);
+      }, 2000);
     }
   };
   return (
@@ -46,7 +71,7 @@ const LoginPage: React.FC = () => {
               Get your account and start making money online by watching video
             </p>
           </div>
-          <form  onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
             <div className="">
               <label className="text-[#FFFFFF] text-[16px] md:text-[20px] font-normal">
                 Phone Number
@@ -69,11 +94,11 @@ const LoginPage: React.FC = () => {
                 </svg>
 
                 <input
-                maxLength={11}
-                minLength={11}
-                id="phone"
+                  maxLength={11}
+                  minLength={11}
+                  id="phone"
                   value={phone}
-                  onChange={(e)=>setPhone(e.target.value)}
+                  onChange={(e) => setPhone(e.target.value)}
                   type="text"
                   placeholder="01*********"
                   className="w-full focus:outline-none bg-transparent"
@@ -102,27 +127,27 @@ const LoginPage: React.FC = () => {
                 </svg>
 
                 <input
-                id="password"
-                minLength={6}
-                maxLength={20}
-                   value={password}
-                   onChange={(e)=>setPassword(e.target.value)}
+                  id="password"
+                  minLength={6}
+                  maxLength={20}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   type="password"
                   placeholder="******"
                   className="w-full focus:outline-none  bg-transparent"
                 />
-                
               </div>
               {error && (
-                  <p className=" text-red-500 text-xs mt-1 ml-1">
-                    {error}
-                  </p>
-                )}
+                <p className=" text-red-500 text-xs mt-1 ml-1">{error}</p>
+              )}
               <div className="flex justify-between mt-1">
                 <p className="text-[#233140] hover:text-[#000000] text-[16px] md:text-[20px] font-normal underline">
                   Forget Password?
                 </p>
-                <Link href='/pages/authentication/signup' className="text-[#233140] hover:text-[#000000] text-[16px] md:text-[20px] font-normal underline">
+                <Link
+                  href="/pages/authentication/signup"
+                  className="text-[#233140] hover:text-[#000000] text-[16px] md:text-[20px] font-normal underline"
+                >
                   Register Now
                 </Link>
               </div>

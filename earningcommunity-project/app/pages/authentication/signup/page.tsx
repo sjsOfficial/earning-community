@@ -8,6 +8,7 @@ import { getApi, putApi } from "@/functions/API";
 import { AxiosError } from "axios";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 const SignUpPage: React.FC = () => {
   const [phone, setPhone] = useState("");
@@ -21,9 +22,6 @@ const SignUpPage: React.FC = () => {
     setValue(value);
   };
 
-  const handleComplete = (value: string) => {
-    console.log(value);
-  };
   useEffect(() => {
     let intervalId: NodeJS.Timeout;
 
@@ -54,7 +52,7 @@ const SignUpPage: React.FC = () => {
       return;
     }
     const key = localStorage.getItem("token");
-    // console.log(key);
+    const toastId = toast.loading("Please wait...");
 
     try {
       const res = await putApi(`/apis/auth/create`, {
@@ -64,53 +62,49 @@ const SignUpPage: React.FC = () => {
       if (res.statusText == "OK") {
         localStorage.removeItem("token");
         Cookies.set("token", res.data.token);
-        
+        toast.update(toastId, {
+          render: "Number authorize",
+          type: "success",
+          isLoading: false,
+        });
         router.push("/pages/authentication/signup/signupForm");
       }
     } catch (error: any | AxiosError | TypeError) {
-      console.log(error);
+      toast.update(toastId, {
+        render: error.response.data.error,
+        type: "error",
+        isLoading: false,
+      });
     } finally {
-      console.log("enter finnally");
+      setTimeout(() => {
+        toast.dismiss(toastId);
+      }, 2000);
     }
   };
   const handleVarifyNumber = async () => {
-    setRemainingTime(10);
+    setRemainingTime(60);
     setIsOpenInputOTP(true);
     setTimerActive(true);
-    // console.log(phone);
+    const toastId = toast.loading("Please wait...");
     try {
       const res = await getApi(`/apis/auth/create?phoneNumber=${phone}`);
-
-      // console.log(res);
-
-      // if (!res.data.user.isAdmin) {
-      //   return toast.update(id, {
-      //     render: "Admin login is required",
-      //     type: "warning",
-      //     isLoading: false,
-      //   });
-      // }
+      toast.update(toastId, {
+        render: "Getting OTP Successfull",
+        type: "success",
+        isLoading: false,
+      });
       localStorage.removeItem("token");
       localStorage.setItem("token", res.data.key);
-      // toast.update(id, {
-      //   render: "Login successful",
-      //   type: "success",
-      //   isLoading: false,
-      // });
     } catch (error: any | AxiosError | TypeError) {
-      console.log(error);
-
-      // toast.update(id, {
-      //   render: error.response.data.error,
-      //   type: "error",
-      //   isLoading: false,
-      // });
+      toast.update(toastId, {
+        render: error.response.data.error,
+        type: "error",
+        isLoading: false,
+      });
     } finally {
-
-      // setDisabled(false);
-      // setTimeout(() => {
-      //   toast.dismiss(id);
-      // }, 2000);
+      setTimeout(() => {
+        toast.dismiss(toastId);
+      }, 2000);
     }
   };
 
@@ -226,12 +220,7 @@ const SignUpPage: React.FC = () => {
                 isOpenInputOTP ? "block" : "hidden"
               } md:mt-[29px] mt-[10px]`}
             >
-              <PinInput
-                otp
-                value={value}
-                onChange={handleChange}
-                onComplete={handleComplete}
-              >
+              <PinInput otp value={value} onChange={handleChange}>
                 <div className="flex w-full gap-1 justify-between">
                   <PinInputField className=" w-[40px] h-[40px] rounded-md text-center bg-lightFooterBg " />
                   <PinInputField className=" w-[40px] h-[40px] rounded-md text-center bg-lightFooterBg " />

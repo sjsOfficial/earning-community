@@ -1,25 +1,12 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import { useData } from "@/app/providers/DataProvider";
+import React from "react";
 
 export default function LightMoodToggleButton() {
-  const [isDarkMode, setIsDarkMode] = useState(true);
-  useEffect(() => {
-    // Retrieve dark mode preference from local storage
-    const storedDarkMode = localStorage.getItem("darkMode") === "true";
-    setIsDarkMode(storedDarkMode);
-    // Apply dark mode class to document if dark mode is enabled
-    if (storedDarkMode) document.documentElement.classList.add("dark");
-  }, []);
+  const { toggleDarkMode,isDarkMode } = useData();
+  
 
-  const toggleDarkMode = () => {
-    // Toggle dark mode state
-    const newDarkMode = !isDarkMode;
-    setIsDarkMode(newDarkMode);
-    // Store dark mode preference in local storage
-    localStorage.setItem("darkMode", String(newDarkMode));
-    // Apply or remove dark mode class from document
-    document.documentElement.classList.toggle("dark", newDarkMode);
-  };
+
   return (
     <div
       onClick={toggleDarkMode}

@@ -1,9 +1,37 @@
+'use client'
 import AppDownload from "@/components/Home/AppDownload";
 import HorizontalSlider from "@/components/HorizontalSlider";
 import Image from "next/image";
 import React from "react";
 import dp from "../../../public/dp.png";
+import { toast } from "react-toastify";
+import { getApi } from "@/functions/API";
+import Cookies from "js-cookie";
 export default function Profile() {
+  const handleLogOut =async()=>{
+    const toastId = toast.loading("Please wait...");
+
+    try {
+      await getApi("/apis/user/logout");
+      Cookies.remove("token");
+      toast.update(toastId, {
+        render: "Logout successful",
+        type: "success",
+        isLoading: false,
+      });
+      window.location.href='/'
+    } catch (error: any) {
+      toast.update(toastId, {
+        render: error.response.data.error,
+        type: "error",
+        isLoading: false,
+      });
+    } finally {
+      setTimeout(() => {
+        toast.dismiss(toastId);
+      }, 2000);
+    }
+  }
   return (
     <div className="container mx-auto pt-4 md:pt-[100px] ">
       <div className="grid lg:grid-cols-3 gap-4 px-2 my-8 md:my-10">
@@ -132,8 +160,8 @@ export default function Profile() {
               </div>
             </div>
             <p className="text-[#05FB1E] text-[14px] font-normal md:hidden">
-            Active On : Mac book pro 16’ chorom browser 2.4.5
-          </p>
+              Active On : Mac book pro 16’ chorom browser 2.4.5
+            </p>
             <div className="flex flex-col gap-4">
               <div className="flex gap-4 items-center py-2 px-4 bg-[#ffffff] rounded-lg ">
                 <svg
@@ -197,6 +225,27 @@ export default function Profile() {
                   Update Password
                 </p>
               </div>
+              <div onClick={handleLogOut} className="flex gap-4 items-center py-2 px-4 bg-[#ffffff] rounded-lg cursor-pointer">
+                <svg
+                  width="22"
+                  height="22"
+                  viewBox="0 0 22 22"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M13 9.25V5.5C13 4.30653 13.4741 3.16193 14.318 2.31802C15.1619 1.47411 16.3065 1 17.5 1C18.6935 1 19.8381 1.47411 20.682 2.31802C21.5259 3.16193 22 4.30653 22 5.5V9.25M3.25 20.5H13.75C14.3467 20.5 14.919 20.2629 15.341 19.841C15.7629 19.419 16 18.8467 16 18.25V11.5C16 10.9033 15.7629 10.331 15.341 9.90901C14.919 9.48705 14.3467 9.25 13.75 9.25H3.25C2.65326 9.25 2.08097 9.48705 1.65901 9.90901C1.23705 10.331 1 10.9033 1 11.5V18.25C1 18.8467 1.23705 19.419 1.65901 19.841C2.08097 20.2629 2.65326 20.5 3.25 20.5Z"
+                    stroke="black"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+
+                <p className="text-[#2E4053] text-[14px] lg:text-[16px] xl:text-[20px] font-medium">
+                  Log Out
+                </p>
+              </div>
             </div>
           </div>
           <p className="text-[#05FB1E] text-[16px] font-normal mt-6 hidden md:block">
@@ -208,7 +257,7 @@ export default function Profile() {
             <div className="space-y-3">
               <div className="flex gap-2 md:gap-4 items-center">
                 <svg
-                 className="md:h-[32px] h-[24px] md:w-[32px] w-[24px]"
+                  className="md:h-[32px] h-[24px] md:w-[32px] w-[24px]"
                   viewBox="0 0 32 32"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"

@@ -3,10 +3,9 @@ import { createContext, useContext, useState, useEffect } from "react";
 
 type DataContextType = {
   isEnglish: boolean;
+  isDarkMode: boolean;
   toggleLanguage: () => void;
-  user: boolean;
-  setUser: (newValue: boolean) => void;
- 
+  toggleDarkMode: () => void;
 };
 
 const DataContext = createContext<DataContextType | undefined>(undefined);
@@ -23,17 +22,30 @@ interface Props {
 }
 export const DataProvider: React.FC<Props> = ({ children }) => {
   const [isEnglish, setIsEnglish] = useState(true);
-  const [user, setUser] = useState(false);
- 
+  const [isDarkMode, setIsDarkMode] = useState(true);
   // console.log(isEnglish);
-
+  useEffect(() => {
+    // Retrieve dark mode preference from local storage
+    const storedDarkMode = localStorage.getItem("darkMode") === "true";
+    setIsDarkMode(storedDarkMode);
+    // Apply dark mode class to document if dark mode is enabled
+    if (storedDarkMode) document.documentElement.classList.add("dark");
+  }, []);
   useEffect(() => {
     const storedLanguage = localStorage.getItem("language");
     if (storedLanguage !== null) {
       setIsEnglish(storedLanguage === "en");
     }
   }, []);
-
+  const toggleDarkMode = () => {
+    // Toggle dark mode state
+    const newDarkMode = !isDarkMode;
+    setIsDarkMode(newDarkMode);
+    // Store dark mode preference in local storage
+    localStorage.setItem("darkMode", String(newDarkMode));
+    // Apply or remove dark mode class from document
+    document.documentElement.classList.toggle("dark", newDarkMode);
+  };
   const toggleLanguage = () => {
     const newLanguage = !isEnglish ? "en" : "bn";
     setIsEnglish((prevState) => !prevState);
@@ -46,9 +58,8 @@ export const DataProvider: React.FC<Props> = ({ children }) => {
       value={{
         isEnglish,
         toggleLanguage,
-        user,
-        setUser,
-        
+        toggleDarkMode,
+        isDarkMode
       }}
     >
       {children}
