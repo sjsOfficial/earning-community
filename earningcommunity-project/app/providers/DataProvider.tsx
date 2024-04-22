@@ -6,10 +6,7 @@ type DataContextType = {
   toggleLanguage: () => void;
   user: boolean;
   setUser: (newValue: boolean) => void;
-  purchasePackageData: any;
-  withdrawData: any;
-  setPurchasePackageData: (v: any) => void;
-  setWithdrawData: (v: any) => void;
+ 
 };
 
 const DataContext = createContext<DataContextType | undefined>(undefined);
@@ -27,8 +24,7 @@ interface Props {
 export const DataProvider: React.FC<Props> = ({ children }) => {
   const [isEnglish, setIsEnglish] = useState(true);
   const [user, setUser] = useState(false);
-  const [purchasePackageData, setPurchasePackageData] = useState();
-  const [withdrawData, setWithdrawData] = useState();
+ 
   // console.log(isEnglish);
 
   useEffect(() => {
@@ -52,10 +48,7 @@ export const DataProvider: React.FC<Props> = ({ children }) => {
         toggleLanguage,
         user,
         setUser,
-        purchasePackageData,
-        withdrawData,
-        setPurchasePackageData,
-        setWithdrawData,
+        
       }}
     >
       {children}

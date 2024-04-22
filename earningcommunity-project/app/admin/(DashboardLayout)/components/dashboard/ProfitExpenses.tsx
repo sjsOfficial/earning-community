@@ -7,19 +7,16 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import DashboardCard from "../shared/DashboardCard";
 import { getApi } from "@/functions/API";
 import { useData } from "@/app/providers/DataProvider";
+import useAuth from "@/hooks/useAuth";
 
 const options = ["Action", "Another Action", "Something else here"];
 
 const ProfitExpenses = () => {
   // menu
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const { purchasePackageData, setPurchasePackageData } = useData();
+  const { purchasePackageData, setPurchasePackageData } = useAuth();
 
-  useEffect(() => {
-    getApi("/apis/admin/purchase").then((res) => {
-      setPurchasePackageData(res.data);
-    });
-  }, []);
+ 
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -81,10 +78,9 @@ const ProfitExpenses = () => {
       tickAmount: 4,
     },
     xaxis: {
-      categories: Object.keys(purchasePackageData.totalPriceByMonth).slice(
-        0,
-        6
-      ),
+      categories: purchasePackageData
+        ? Object.keys(purchasePackageData?.totalPriceByMonth).slice(0, 6)
+        : ["January", "February", "March", "April", "May", "June"],
       axisBorder: {
         show: false,
       },
@@ -101,7 +97,9 @@ const ProfitExpenses = () => {
     },
     {
       name: "Package Sells",
-      data: Object.values(purchasePackageData.totalPriceByMonth).slice(0, 6),
+      data: purchasePackageData
+        ? Object.values(purchasePackageData?.totalPriceByMonth).slice(0, 6)
+        : [0, 0, 0, 0, 0, 0],
     },
   ];
 

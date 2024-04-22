@@ -2,9 +2,14 @@ import React, { createContext, useState, useEffect, ReactNode } from "react";
 import Cookies from "js-cookie";
 import userTypes from "@/types/userTypes";
 import LoaderScreen from "../admin/(DashboardLayout)/components/shared/LoaderScreen";
+import { getApi, putApi } from "@/functions/API";
 // Define types
 interface UserData {
   // Define your user data structure here
+}
+interface withdrawDataTypes {
+  totalWithdraw: number;
+  percentageLastMonthWithdraw: number;
 }
 
 export interface AuthContextType {
@@ -13,6 +18,10 @@ export interface AuthContextType {
   isLoading: boolean;
   isAdmin: boolean;
   reloadAuth: () => void;
+  purchasePackageData: any;
+  withdrawData: withdrawDataTypes;
+  setPurchasePackageData: (v: any) => void;
+  setWithdrawData: (v: any) => void;
 }
 
 // Create context
@@ -22,6 +31,10 @@ const AuthContext = createContext<AuthContextType>({
   isLoading: true,
   isAdmin: false,
   reloadAuth: () => {},
+  purchasePackageData: undefined,
+  withdrawData: { totalWithdraw: 0, percentageLastMonthWithdraw: 0 },
+  setPurchasePackageData: () => {},
+  setWithdrawData: () => {},
 });
 
 interface AuthProviderProps {
@@ -37,6 +50,11 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
   const [reload, setReload] = useState<number>(0);
+  const [purchasePackageData, setPurchasePackageData] = useState();
+  const [withdrawData, setWithdrawData] = useState({
+    totalWithdraw: 0,
+    percentageLastMonthWithdraw: 0,
+  });
 
   // Function to fetch user data from API
   const fetchUserData = async () => {
@@ -54,14 +72,19 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
         setUserData(data);
         setIsAdmin(data.isAdmin);
         setIsAuthenticated(true);
+        if (!data.isAdmin) {
+          setIsLoading(false);
+        }
       } else {
         setIsAuthenticated(false);
+        setIsLoading(false);
       }
     } catch (error) {
       console.error("Error fetching user data:", error);
       setIsAuthenticated(false);
-    } finally {
       setIsLoading(false);
+    } finally {
+      //setIsLoading(false);
     }
   };
   const reloadAuth = () => {
@@ -75,6 +98,25 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
       setIsLoading(false);
     }
   }, [reload]);
+  useEffect(() => {
+    if (isAdmin) {
+      putApi("/apis//admin/withdraw").then((res) => {
+        setWithdrawData(res.data);
+      });
+    }
+  }, [isAdmin]);
+  useEffect(() => {
+    if (isAdmin) {
+      getApi("/apis/admin/purchase")
+        .then((res) => {
+          setPurchasePackageData(res.data);
+          setIsLoading(false);
+        })
+        .catch((err) => {
+          setIsLoading(false);
+        });
+    }
+  }, [isAdmin]);
 
   // Context value
   const contextValue: AuthContextType = {
@@ -83,6 +125,10 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     isLoading,
     isAdmin,
     reloadAuth,
+    purchasePackageData,
+    withdrawData,
+    setPurchasePackageData,
+    setWithdrawData,
   };
 
   return (

@@ -14,9 +14,10 @@ import TrafficDistribution from './components/dashboard/TrafficDistribution';
 import ProductSales from './components/dashboard/ProductSales';
 import UpcomingSchedules from './components/dashboard/UpcomingSchedules';
 import TopPayingClients from './components/dashboard/TopPayingClients';
-import Blog from './components/dashboard/Blog';
+
 
 const Dashboard = () => {
+
   return (
     <PageContainer title="Dashboard" description="this is Dashboard">
       <Box>

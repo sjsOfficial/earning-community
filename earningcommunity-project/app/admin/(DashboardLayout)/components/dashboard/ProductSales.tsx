@@ -11,6 +11,7 @@ import DashboardCard from "../shared/DashboardCard";
 import { useData } from "@/app/providers/DataProvider";
 import { useEffect } from "react";
 import { putApi } from "@/functions/API";
+import useAuth from "@/hooks/useAuth";
 
 const ProductSales = () => {
   // chart color
@@ -19,13 +20,9 @@ const ProductSales = () => {
   const secondary = theme.palette.secondary.main;
   const successlight = theme.palette.success.light;
   const errorlight = "#fdede8";
-  const { withdrawData, setWithdrawData } = useData();
+  const { withdrawData, setWithdrawData } = useAuth();
   //console.log(withdrawData)
-  useEffect(() => {
-    putApi("/apis//admin/withdraw").then((res) => {
-      setWithdrawData(res.data);
-    });
-  }, []);
+ 
   // chart
   const optionscolumnchart: any = {
     chart: {
@@ -81,15 +78,15 @@ const ProductSales = () => {
     >
       <>
         <Typography variant="h3" fontWeight="700" mt="-20px">
-          {withdrawData.totalWithdraw} BDT
+          {withdrawData?.totalWithdraw} BDT
         </Typography>
-        {withdrawData.percentageLastMonthWithdraw < 0 ? (
+        {withdrawData?.percentageLastMonthWithdraw < 0 ? (
           <Stack direction="row" spacing={1} my={1} alignItems="center">
             <Avatar sx={{ bgcolor: errorlight, width: 21, height: 21 }}>
               <IconArrowDownRight width={18} color="#FA896B" />
             </Avatar>
             <Typography variant="subtitle2" fontWeight="600">
-              -{withdrawData.percentageLastMonthWithdraw}%
+              -{withdrawData?.percentageLastMonthWithdraw}%
             </Typography>
           </Stack>
         ) : (
@@ -98,7 +95,7 @@ const ProductSales = () => {
               <IconArrowUpLeft width={18} color="#39B69A" />
             </Avatar>
             <Typography variant="subtitle2" fontWeight="600">
-              +{withdrawData.percentageLastMonthWithdraw}%
+              +{withdrawData?.percentageLastMonthWithdraw}%
             </Typography>
           </Stack>
         )}

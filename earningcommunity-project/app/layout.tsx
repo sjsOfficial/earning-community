@@ -15,6 +15,7 @@ import firebaseApp from "@/libs/firebase";
 import { getMessaging, onMessage } from "firebase/messaging";
 import useFcmToken from "@/hooks/useFcmToken";
 import { toast } from "react-toastify";
+import { AuthProvider } from "./providers/AuthProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -54,19 +55,21 @@ export default function RootLayout({
       <html lang="en">
         <body className={inter.className}>
           <DataProvider>
-            {children}
-            <ToastContainer
-              position="top-center"
-              autoClose={5000}
-              hideProgressBar={false}
-              newestOnTop={false}
-              closeOnClick
-              rtl={false}
-              pauseOnFocusLoss
-              draggable
-              pauseOnHover
-              theme="light"
-            />
+            <AuthProvider>
+              {children}
+              <ToastContainer
+                position="top-center"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+              />
+            </AuthProvider>
           </DataProvider>
         </body>
       </html>
@@ -77,15 +80,17 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <DataProvider>
-          <div className="dark:bg-darkBg bg-lightBg  transition-colors duration-500 ease-in-out">
-            <div className="hidden md:block">
-              {pathname.split("/")[1] === "admin" || <Header></Header>}
-            </div>
-            {pathname.split("/")[1] === "admin" || <MobileNav></MobileNav>}
+          <AuthProvider>
+            <div className="dark:bg-darkBg bg-lightBg  transition-colors duration-500 ease-in-out">
+              <div className="hidden md:block">
+                {pathname.split("/")[1] === "admin" || <Header></Header>}
+              </div>
+              {pathname.split("/")[1] === "admin" || <MobileNav></MobileNav>}
 
-            {children}
-            {pathname.split("/")[1] === "admin" || <Footer></Footer>}
-          </div>
+              {children}
+              {pathname.split("/")[1] === "admin" || <Footer></Footer>}
+            </div>
+          </AuthProvider>
         </DataProvider>
         <ToastContainer
           position="top-center"

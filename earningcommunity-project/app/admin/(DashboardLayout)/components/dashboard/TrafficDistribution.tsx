@@ -5,6 +5,7 @@ import { Grid, Stack, Typography, Avatar } from "@mui/material";
 import { IconArrowDownRight, IconArrowUpLeft } from "@tabler/icons-react";
 import DashboardCard from "../shared/DashboardCard";
 import { useData } from "@/app/providers/DataProvider";
+import useAuth from "@/hooks/useAuth";
 
 const TrafficDistribution = () => {
   // chart color
@@ -14,7 +15,7 @@ const TrafficDistribution = () => {
   const secondary = theme.palette.secondary.light;
   const successlight = theme.palette.success.light;
   const errorlight = "#fdede8";
-  const { purchasePackageData, setPurchasePackageData } = useData();
+  const { purchasePackageData,withdrawData } = useAuth();
 
   // chart
   const optionscolumnchart: any = {
@@ -62,7 +63,7 @@ const TrafficDistribution = () => {
       },
     ],
   };
-  const seriescolumnchart: any = [purchasePackageData.totalSell, 3500];
+  const seriescolumnchart: any = [purchasePackageData?.totalSell, withdrawData?.totalWithdraw];
 
   return (
     <DashboardCard title="Package Sells">
@@ -78,13 +79,13 @@ const TrafficDistribution = () => {
             mt={1}
             alignItems="center"
           >
-            {purchasePackageData.percentageLastMonthSales < 0 ? (
+            {purchasePackageData?.percentageLastMonthSales < 0 ? (
               <Stack direction="row" spacing={1} my={1} alignItems="center">
                 <Avatar sx={{ bgcolor: errorlight, width: 21, height: 21 }}>
                   <IconArrowDownRight width={18} color="#FA896B" />
                 </Avatar>
                 <Typography variant="subtitle2" fontWeight="600">
-                  -{purchasePackageData.percentageLastMonthSales}%
+                  -{purchasePackageData?.percentageLastMonthSales}%
                 </Typography>
               </Stack>
             ) : (
@@ -93,7 +94,7 @@ const TrafficDistribution = () => {
                   <IconArrowUpLeft width={18} color="#39B69A" />
                 </Avatar>
                 <Typography variant="subtitle2" fontWeight="600">
-                  +{purchasePackageData.percentageLastMonthSales}%
+                  +{purchasePackageData?.percentageLastMonthSales}%
                 </Typography>
               </Stack>
             )}

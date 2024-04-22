@@ -3,6 +3,9 @@ import {
   Box,
   Button,
   Chip,
+  Dialog,
+  DialogContent,
+  DialogTitle,
   Grid,
   IconButton,
   Pagination,
@@ -17,56 +20,47 @@ import {
 import PageContainer from "../components/container/PageContainer";
 import DashboardCard from "../components/shared/DashboardCard";
 import {
+  IconCircleCheck,
+  IconCircleX,
   IconEdit,
   IconPlus,
   IconRecycle,
   IconTrash,
 } from "@tabler/icons-react";
-import React from "react";
-
-const products = [
-  {
-    id: "1",
-    name: "Sunil Joshi",
-    post: "Web Designer",
-    pname: "Elite Admin",
-    priority: "Low",
-    pbg: "primary.main",
-    budget: "3.9",
-  },
-  {
-    id: "2",
-    name: "Andrew McDownland",
-    post: "Project Manager",
-    pname: "Real Homes WP Theme",
-    priority: "Medium",
-    pbg: "secondary.main",
-    budget: "24.5",
-  },
-  {
-    id: "3",
-    name: "Christopher Jamil",
-    post: "Project Manager",
-    pname: "MedicalPro WP Theme",
-    priority: "High",
-    pbg: "error.main",
-    budget: "12.8",
-  },
-  {
-    id: "4",
-    name: "Nirav Joshi",
-    post: "Frontend Engineer",
-    pname: "Hosting Press HTML",
-    priority: "Critical",
-    pbg: "success.main",
-    budget: "2.4",
-  },
-];
+import React, { useEffect, useState } from "react";
+import { WithdrawTypes } from "@/types/withdrawTypes";
+import { getApi, postApi } from "@/functions/API";
+import { toast } from "react-toastify";
+import LoaderScreen from "../components/shared/LoaderScreen";
+import Image from "next/image";
 
 const Withdraw = () => {
-  const [page, setPage] = React.useState(1);
+  const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [data, setData] = useState<WithdrawTypes[] | undefined>();
+  const [count, setCount] = useState(0);
+  const [reload, setReload] = useState<number>(0);
+  const [message, setMessage] = useState<string>();
+  const [open, setOpen] = React.useState(false);
+  const [id, setId] = useState<string>();
 
+  useEffect(() => {
+    getData();
+  }, [page, rowsPerPage, reload]);
+
+  const getData = async () => {
+    try {
+      const res = await getApi(`/apis/admin/withdraw`, {
+        take: rowsPerPage,
+        skip: page * rowsPerPage,
+      });
+
+      setData(res.data.history);
+      setCount(res.data.count);
+    } catch (error: any) {
+      toast.error(error.response.data.error);
+    }
+  };
   const handleChangePage = (
     event: React.MouseEvent<HTMLButtonElement> | null,
     newPage: number
@@ -80,12 +74,53 @@ const Withdraw = () => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const changeRechargeStatus = async (
+    isAccepted: boolean,
+    id: string,
+    message: string | undefined
+  ) => {
+    const toastId = toast.loading("Please wait...");
+
+    try {
+      await postApi("/apis/admin/withdraw", {
+        accept: isAccepted ? "fsfsfd" : "",
+        message: message,
+        historyId: id,
+      });
+      setReload(Math.random());
+      toast.update(toastId, {
+        render: "Update successful",
+        type: "success",
+        isLoading: false,
+      });
+    } catch (error: any) {
+      toast.update(toastId, {
+        render: error.response.data.error,
+        type: "error",
+        isLoading: false,
+      });
+    } finally {
+      setTimeout(() => {
+        toast.dismiss(toastId);
+      }, 2000);
+    }
+  };
+  if (!data) {
+    return <LoaderScreen />;
+  }
   return (
     <PageContainer
       title="All Packages"
       description="Add your package list from plus icon"
     >
-      <DashboardCard title="Purchase Packages">
+      <DashboardCard title="Withdraw Requests">
         <Box>
           <Box
             width={"100%"}
@@ -96,11 +131,9 @@ const Withdraw = () => {
             }}
           >
             <Typography fontSize={16}>
-              Members who purchase package of any
+              Members who request for withdraw amount
             </Typography>
-            <div className="w-[40px] cursor-pointer shadow-lg hover:bg-sky-700 h-[40px] bg-sky-400 rounded-full flex justify-center items-center text-white">
-              <IconPlus />
-            </div>
+           
           </Box>
           <Box sx={{ marginY: 2, width: "100%" }}>
             <Table
@@ -117,29 +150,29 @@ const Withdraw = () => {
                   </TableCell>
                   <TableCell>
                     <Typography variant="subtitle2" fontWeight={600}>
-                      Name
+                      Wallet & Wallet Number
                     </Typography>
                   </TableCell>
                   <TableCell>
                     <Typography variant="subtitle2" fontWeight={600}>
-                      Price
+                      Amount & Account Name
                     </Typography>
                   </TableCell>
                   <TableCell>
                     <Typography variant="subtitle2" fontWeight={600}>
-                      Duration
+                      Status & Date
                     </Typography>
                   </TableCell>
                   <TableCell align="right">
                     <Typography variant="subtitle2" fontWeight={600}>
-                      Delete
+                      Action
                     </Typography>
                   </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {products.map((product, index) => (
-                  <TableRow key={product.name}>
+                {data?.map((doc, index) => (
+                  <TableRow key={doc.id}>
                     <TableCell>
                       <Typography
                         sx={{
@@ -147,7 +180,7 @@ const Withdraw = () => {
                           fontWeight: "500",
                         }}
                       >
-                        {page * (index + 1)}
+                        {(page + 1) * (index + 1)}
                       </Typography>
                     </TableCell>
                     <TableCell>
@@ -157,50 +190,101 @@ const Withdraw = () => {
                           alignItems: "center",
                         }}
                       >
-                        <Box>
-                          <Typography variant="subtitle2" fontWeight={600}>
-                            {product.name}
-                          </Typography>
-                          <Typography
-                            color="textSecondary"
-                            sx={{
-                              fontSize: "13px",
-                            }}
-                          >
-                            {product.post}
-                          </Typography>
-                        </Box>
+                        <div className="flex gap-1">
+                          <Image
+                            height={50}
+                            width={50}
+                            src={doc.userWallet.wallet.icon}
+                            alt={doc.userWallet.wallet.name}
+                          />
+                          <div>
+                            <Typography variant="subtitle2" fontWeight={600}>
+                              {doc.userWallet.wallet.name}
+                            </Typography>
+                            <Typography
+                              color="textSecondary"
+                              sx={{
+                                fontSize: "13px",
+                              }}
+                            >
+                              {doc.userWallet.number}
+                            </Typography>
+                          </div>
+                        </div>
                       </Box>
                     </TableCell>
                     <TableCell>
-                      <Typography
-                        color="textSecondary"
-                        variant="subtitle2"
-                        fontWeight={400}
-                      >
-                        {product.pname}
-                      </Typography>
+                      <div>
+                        <Typography
+                          color="textSecondary"
+                          variant="subtitle2"
+                          fontWeight={600}
+                        >
+                          {doc.amount} BDT
+                        </Typography>
+                        <Typography
+                          color="textSecondary"
+                          variant="subtitle2"
+                          fontWeight={400}
+                        >
+                          {doc.userWallet.walletHolderName}
+                        </Typography>
+                      </div>
                     </TableCell>
                     <TableCell>
-                      <Chip
-                        sx={{
-                          px: "4px",
-                          backgroundColor: product.pbg,
-                          color: "#fff",
-                        }}
-                        size="small"
-                        label={product.priority}
-                      ></Chip>
+                      <div>
+                        <Chip
+                          sx={{
+                            px: "4px",
+                            backgroundColor:
+                              doc.status === "PENDING"
+                                ? "#FE9900"
+                                : doc.status === "REJECTED"
+                                ? "red"
+                                : "#7DDA58",
+                            color: "#fff",
+                            mb: "4px",
+                          }}
+                          size="small"
+                          label={doc.status}
+                        ></Chip>
+                        <Typography
+                          color="textSecondary"
+                          variant="subtitle2"
+                          fontWeight={400}
+                        >
+                          {new Date(doc.date).toDateString()}
+                        </Typography>
+                      </div>
                     </TableCell>
                     <TableCell align="right">
-                      <Grid>
-                        <IconButton>
-                          <IconEdit />
-                        </IconButton>
-                        <IconButton>
-                          <IconTrash />
-                        </IconButton>
-                      </Grid>
+                      {doc.status !== "PENDING" ? (
+                        <Typography
+                          color="textSecondary"
+                          variant="subtitle2"
+                          fontWeight={800}
+                        >
+                          {doc.status}
+                        </Typography>
+                      ) : (
+                        <Grid>
+                          <IconButton
+                            onClick={() =>
+                              changeRechargeStatus(true, doc.id, undefined)
+                            }
+                          >
+                            <IconCircleCheck color="green" />
+                          </IconButton>
+                          <IconButton
+                            onClick={() => {
+                              handleClickOpen();
+                              setId(doc.id);
+                            }}
+                          >
+                            <IconCircleX color="red" />
+                          </IconButton>
+                        </Grid>
+                      )}
                     </TableCell>
                   </TableRow>
                 ))}
@@ -208,13 +292,46 @@ const Withdraw = () => {
             </Table>
             <TablePagination
               component="div"
-              count={100}
+              count={count}
               page={page}
               onPageChange={handleChangePage}
               rowsPerPage={rowsPerPage}
               onRowsPerPageChange={handleChangeRowsPerPage}
             />
           </Box>
+          <Dialog
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle id="alert-dialog-title">
+              Send a message to user why you cancel the withdraw request
+            </DialogTitle>
+            <DialogContent>
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  changeRechargeStatus(false, id as string, message);
+                  handleClose();
+                }}
+              >
+                <textarea
+                  onChange={(e) => setMessage(e.target.value)}
+                  value={message}
+                  required
+                  placeholder="Write a message"
+                  className="w-full border rounded-sm outline-none px-3 py-2"
+                  minLength={10}
+                  rows={4}
+                  maxLength={200}
+                />
+                <Button type="submit" autoFocus>
+                  Send
+                </Button>
+              </form>
+            </DialogContent>
+          </Dialog>
         </Box>
       </DashboardCard>
     </PageContainer>

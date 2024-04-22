@@ -13,8 +13,11 @@ const GET = async (request: NextRequest) => {
         const packages = await prisma.packages.findMany({
             include: {
                 packageHistory: true
-            }
+            },
+            take:take||undefined,
+            skip:skip||undefined
         })
+        const count=await prisma.packages.count()
         const packageHistory = await prisma.packageHistory.findMany({
             orderBy: {
                 date: "desc"
@@ -50,7 +53,7 @@ const GET = async (request: NextRequest) => {
         // Calculate the percentage of sales for last month compared to total sales
         const percentageLastMonthSales = (lastMonthSales / totalSell) * 100;
 
-        return NextResponse.json({ packages, totalPriceByMonth, totalSell, percentageLastMonthSales })
+        return NextResponse.json({ packages, totalPriceByMonth, totalSell, percentageLastMonthSales,count })
     } catch (error) {
         return NextResponse.json({ error: "Failed to get packages", code: error }, { status: 404 })
     }
