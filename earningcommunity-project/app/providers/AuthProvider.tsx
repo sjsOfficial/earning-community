@@ -14,7 +14,7 @@ interface withdrawDataTypes {
 
 export interface AuthContextType {
   isAuthenticated: boolean;
-  userData: UserData | null;
+  userData: userTypes | null;
   isLoading: boolean;
   isAdmin: boolean;
   reloadAuth: () => void;
@@ -45,7 +45,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
   // State to store authentication status
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   // State to store user data
-  const [userData, setUserData] = useState<UserData | null>(null);
+  const [userData, setUserData] = useState<userTypes | null>(null);
   // State to track loading status
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isAdmin, setIsAdmin] = useState<boolean>(false);

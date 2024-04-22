@@ -13,6 +13,9 @@ const GET = async (request: NextRequest) => {
             orderBy: {
                 date: "desc"
             },
+            include:{
+                watchHistory:true
+            },
             take: take || undefined,
             skip: skip || undefined
         })

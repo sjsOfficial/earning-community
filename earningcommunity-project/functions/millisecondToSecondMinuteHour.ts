@@ -17,10 +17,6 @@ function millisecondToSecondMinuteHour(milliseconds: number) {
     // Calculate seconds
     const seconds = Math.floor(milliseconds / millisecondsInSecond);
 
-    return {
-        hours: hours,
-        minutes: minutes,
-        seconds: seconds
-    };
+    return `${hours}h ${minutes}m ${seconds}s`
 }
 export default millisecondToSecondMinuteHour
