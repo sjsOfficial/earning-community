@@ -9,7 +9,6 @@ import useAuth from "@/hooks/useAuth";
 
 export default function Header() {
   const { userData } = useAuth();
-  console.log(userData);
   
   const pathname = usePathname();
   const [notificationShow, setNotificationShow] = useState(false);

@@ -8,11 +8,10 @@ import React, { useState } from "react";
 import Cookies from "js-cookie";
 import { postApi } from "@/functions/API";
 import { AxiosError } from "axios";
+import { toast } from "react-toastify";
 const SignUpFrom: React.FC = () => {
- 
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
-  const router = useRouter();
   const [error, setError] = useState<string | null>(null);
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -23,7 +22,7 @@ const SignUpFrom: React.FC = () => {
     }
 
     const token = Cookies.get("token");
-    // console.log(key);
+    const toastId = toast.loading("Please wait...");
 
     try {
       const res = await postApi(`/apis/auth/create`, {
@@ -31,15 +30,26 @@ const SignUpFrom: React.FC = () => {
         name: name,
         token: token,
       });
-      
+
       if (res.statusText == "OK") {
-        Cookies.set("token",res.data.userToken)
-        router.push("/");
+        Cookies.set("token", res.data.userToken);
+        toast.update(toastId, {
+          render: "Registration successful",
+          type: "success",
+          isLoading: false,
+        });
+        window.location.href = "/";
       }
     } catch (error: any | AxiosError | TypeError) {
-      console.log(error);
+      toast.update(toastId, {
+        render: error.response.data.error,
+        type: "error",
+        isLoading: false,
+      });
     } finally {
-      console.log("enter finnally");
+      setTimeout(() => {
+        toast.dismiss(toastId);
+      }, 2000);
     }
   };
   return (
@@ -94,7 +104,7 @@ const SignUpFrom: React.FC = () => {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   type="text"
-                  placeholder="01*********"
+                  placeholder="Enter full name"
                   className="w-full focus:outline-none bg-transparent"
                 />
               </div>
