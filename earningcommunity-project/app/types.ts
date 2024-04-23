@@ -1,10 +1,6 @@
 import { packageTypes } from "@/types/packageTypes";
+import { CATEGORY } from "./apis/wallets/route";
 
-export interface categoryCardData{
-title: string;
-numberOfVideos: number;
-image:string;
-}
 export interface VideoCardData{
     videoUrl: string;
     title: string;
@@ -15,7 +11,7 @@ export interface PackageCardSliderProps{
     packageData: packageTypes[]
 }
 export interface CategoryCardProps{
-    data: categoryCardData
+    data: CATEGORY
 }
 export interface VideoSliderProps{
     videoCardData: VideoCardData[]

@@ -1,4 +1,4 @@
-interface CATEGORY {
+export interface CATEGORY {
     title: string,
     bn: string,
     slug: string,

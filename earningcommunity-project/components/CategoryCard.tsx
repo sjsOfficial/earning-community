@@ -10,7 +10,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ data }) => {
           className="h-[40px] md:h-[60px] lg:h-[100px] w-[40px] md:w-[60px] lg:w-[120px]"
           height={0}
           width={0}
-          src={data.image}
+          src={data.icon}
           alt="category image"
         ></Image>
         <div>
@@ -18,7 +18,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ data }) => {
             {data.title}
           </h1>
           <p className="text-[12px] lg:text-[16px] text-[#FFFFFF] font-normal">
-            {data.numberOfVideos} videos
+           44 videos
           </p>
         </div>
       </div>
