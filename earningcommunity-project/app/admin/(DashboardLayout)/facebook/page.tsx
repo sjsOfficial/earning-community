@@ -5,6 +5,7 @@ import {
   Chip,
   Grid,
   IconButton,
+  Modal,
   Pagination,
   Table,
   TableBody,
@@ -25,10 +26,10 @@ import {
 import React, { useEffect, useState } from "react";
 import { videoTypes } from "@/types/videoTypes";
 import { toast } from "react-toastify";
-import { getApi } from "@/functions/API";
+import { deleteApi, getApi } from "@/functions/API";
 import LoaderScreen from "../components/shared/LoaderScreen";
 import millisecondToSecondMinuteHour from "@/functions/millisecondToSecondMinuteHour";
-
+import VideoForm from "../components/forms/VideoForm";
 
 const Facebook = () => {
   const [page, setPage] = React.useState(0);
@@ -38,6 +39,8 @@ const Facebook = () => {
   const [reload, setReload] = useState<number>(0);
   const [message, setMessage] = useState<string>();
   const [open, setOpen] = React.useState(false);
+  const [currentData, setCurrentData] = useState<videoTypes>();
+  const [loader, setLoader] = useState(false);
 
   useEffect(() => {
     getData();
@@ -48,6 +51,7 @@ const Facebook = () => {
       const res = await getApi(`/apis/admin/video`, {
         take: rowsPerPage,
         skip: page * rowsPerPage,
+        platformType:"FB"
       });
 
       setData(res.data.videos);
@@ -56,7 +60,34 @@ const Facebook = () => {
       toast.error(error.response.data.error);
     }
   };
+  const deleteData = async (id: string) => {
+    const toastId = toast.loading("Deleting..Please wait");
+    try {
+      await deleteApi("/apis/admin/video", {
+        videoId: id,
+      });
+      // console.log(d);
+
+      toast.update(toastId, {
+        render: "Delete Successful",
+        type: "success",
+        isLoading: false,
+      });
+      setReload(Math.random());
+    } catch (error: any) {
+      toast.update(toastId, {
+        render: error.response.data.error,
+        type: "error",
+        isLoading: false,
+      });
+    } finally {
+      setTimeout(() => {
+        toast.dismiss(toastId);
+      }, 2000);
+    }
+  };
   const handleClickOpen = () => {
+    setCurrentData(undefined);
     setOpen(true);
   };
 
@@ -84,7 +115,7 @@ const Facebook = () => {
       title="All Packages"
       description="Add your package list from plus icon"
     >
-      <DashboardCard title="Purchase Packages">
+      <DashboardCard title="Facebook Videos">
         <Box>
           <Box
             width={"100%"}
@@ -94,10 +125,11 @@ const Facebook = () => {
               alignItems: "center",
             }}
           >
-            <Typography fontSize={16}>
-              Members who purchase package of any
-            </Typography>
-            <div className="w-[40px] cursor-pointer shadow-lg hover:bg-sky-700 h-[40px] bg-sky-400 rounded-full flex justify-center items-center text-white">
+            <Typography fontSize={16}>Your All Facebook videos</Typography>
+            <div
+              onClick={handleClickOpen}
+              className="w-[40px] cursor-pointer shadow-lg hover:bg-sky-700 h-[40px] bg-sky-400 rounded-full flex justify-center items-center text-white"
+            >
               <IconPlus />
             </div>
           </Box>
@@ -146,7 +178,7 @@ const Facebook = () => {
                           fontWeight: "500",
                         }}
                       >
-                       {(page + 1) * (index + 1)}
+                        {(page + 1) * (index + 1)}
                       </Typography>
                     </TableCell>
                     <TableCell>
@@ -181,7 +213,7 @@ const Facebook = () => {
                       </Typography>
                     </TableCell>
                     <TableCell>
-                    <Typography
+                      <Typography
                         color="textSecondary"
                         variant="subtitle2"
                         fontWeight={400}
@@ -192,9 +224,14 @@ const Facebook = () => {
                     <TableCell align="right">
                       <Grid>
                         <IconButton>
-                          <IconEdit />
+                          <IconEdit
+                            onClick={() => {
+                              setCurrentData(doc);
+                              setOpen(true);
+                            }}
+                          />
                         </IconButton>
-                        <IconButton>
+                        <IconButton onClick={()=>deleteData(doc.id)}>
                           <IconTrash />
                         </IconButton>
                       </Grid>
@@ -205,13 +242,34 @@ const Facebook = () => {
             </Table>
             <TablePagination
               component="div"
-              count={100}
+              count={count}
               page={page}
               onPageChange={handleChangePage}
               rowsPerPage={rowsPerPage}
               onRowsPerPageChange={handleChangeRowsPerPage}
             />
           </Box>
+          <Modal
+            aria-labelledby="parent-modal-title"
+            aria-describedby="parent-modal-description"
+            open={Boolean(open)}
+            onClose={handleClose}
+          >
+            {loader ? (
+              <LoaderScreen />
+            ) : (
+              <VideoForm
+                data={currentData}
+                onClose={() => setOpen(false)}
+                onProgress={() => setLoader(true)}
+                onProgressEnd={() => {
+                  setLoader(false);
+                  setReload(Math.random());
+                }}
+                type="FB"
+              />
+            )}
+          </Modal>
         </Box>
       </DashboardCard>
     </PageContainer>

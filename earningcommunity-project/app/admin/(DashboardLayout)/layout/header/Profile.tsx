@@ -83,14 +83,14 @@ const Profile = () => {
           </MenuItem>
         </Link>
 
-        <Link href="/admin/security">
+        {/* <Link href="/admin/security">
           <MenuItem>
             <ListItemIcon>
               <IconShieldHalf width={20} />
             </ListItemIcon>
             <ListItemText>Security</ListItemText>
           </MenuItem>
-        </Link>
+        </Link> */}
         <Link href={"/admin/settings"}>
           <MenuItem>
             <ListItemIcon>

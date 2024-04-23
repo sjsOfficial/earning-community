@@ -38,8 +38,8 @@ model Users {
 }
 
 model Admin {
-  id               String @id @default(auto()) @map("_id") @db.ObjectId
-  creditPerMinutes Int    @default(1)
+  id              String @id @default(auto()) @map("_id") @db.ObjectId
+  creditPerSecond Float  @default(1)
 }
 
 model AdminWallets {
