@@ -13,47 +13,14 @@ import {
 import TableContainer from "@mui/material/TableContainer";
 import BlankCard from "../shared/BlankCard";
 import DashboardCard from "../shared/DashboardCard";
-
-const products = [
-  {
-    id: "1",
-    name: "Sunil Joshi",
-    post: "Web Designer",
-    pname: "Elite Admin",
-    priority: "Low",
-    pbg: "primary.main",
-    budget: "3.9",
-  },
-  {
-    id: "2",
-    name: "Andrew McDownland",
-    post: "Project Manager",
-    pname: "Real Homes WP Theme",
-    priority: "Medium",
-    pbg: "secondary.main",
-    budget: "24.5",
-  },
-  {
-    id: "3",
-    name: "Christopher Jamil",
-    post: "Project Manager",
-    pname: "MedicalPro WP Theme",
-    priority: "High",
-    pbg: "error.main",
-    budget: "12.8",
-  },
-  {
-    id: "4",
-    name: "Nirav Joshi",
-    post: "Frontend Engineer",
-    pname: "Hosting Press HTML",
-    priority: "Critical",
-    pbg: "success.main",
-    budget: "2.4",
-  },
-];
+import useAuth from "@/hooks/useAuth";
+import { useEffect, useState } from "react";
+import { videoTypes } from "@/types/videoTypes";
+import secondMinuteHourToMillisecond from "@/functions/secondMinuteHourToMillisecond";
+import millisecondToSecondMinuteHour from "@/functions/millisecondToSecondMinuteHour";
 
 const TopPayingClients = () => {
+  const { topData } = useAuth();
   return (
     <DashboardCard title="Top Visitors">
       <Box sx={{ overflow: "auto" }}>
@@ -93,8 +60,8 @@ const TopPayingClients = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {products.map((product) => (
-                <TableRow key={product.name}>
+              {topData?.topVisitors?.slice(0, 4).map((doc: any, i: number) => (
+                <TableRow key={doc.id}>
                   <TableCell>
                     <Typography
                       sx={{
@@ -102,7 +69,7 @@ const TopPayingClients = () => {
                         fontWeight: "500",
                       }}
                     >
-                      {product.id}
+                      {i + 1}
                     </Typography>
                   </TableCell>
                   <TableCell>
@@ -114,7 +81,7 @@ const TopPayingClients = () => {
                     >
                       <Box>
                         <Typography variant="subtitle2" fontWeight={600}>
-                          {product.name}
+                          {doc.name}
                         </Typography>
                         <Typography
                           color="textSecondary"
@@ -122,33 +89,19 @@ const TopPayingClients = () => {
                             fontSize: "13px",
                           }}
                         >
-                          {product.post}
+                          {doc.device}
                         </Typography>
                       </Box>
                     </Box>
                   </TableCell>
                   <TableCell>
-                    <Typography
-                      color="textSecondary"
-                      variant="subtitle2"
-                      fontWeight={400}
-                    >
-                      {product.pname}
-                    </Typography>
+                    <Watch history={doc.watchHistory} />
                   </TableCell>
                   <TableCell>
-                    <Chip
-                      sx={{
-                        px: "4px",
-                        backgroundColor: product.pbg,
-                        color: "#fff",
-                      }}
-                      size="small"
-                      label={product.priority}
-                    ></Chip>
+                    <Withdraw history={doc.withdrawHistory} />
                   </TableCell>
                   <TableCell align="right">
-                    <Typography variant="h6">${product.budget}k</Typography>
+                    <Typography variant="h6">৳{doc.balance}</Typography>
                   </TableCell>
                 </TableRow>
               ))}
@@ -161,3 +114,41 @@ const TopPayingClients = () => {
 };
 
 export default TopPayingClients;
+
+interface History {
+  amount: number;
+}
+const Withdraw = ({ history }: { history: History[] }) => {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    let totalAmount = 0;
+    history?.forEach((d) => {
+      totalAmount += d.amount;
+    });
+    setCount(totalAmount);
+  }, [history]);
+
+  return (
+    <Typography color="textSecondary" variant="subtitle2" fontWeight={400}>
+      {count}
+    </Typography>
+  );
+};
+const Watch = ({ history }: { history: videoTypes[] }) => {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    let totalMillisecond = 0;
+    history?.forEach((d) => {
+      totalMillisecond += d.duration;
+    });
+    setCount(totalMillisecond);
+  }, [history]);
+
+  return (
+    <Typography color="textSecondary" variant="subtitle2" fontWeight={400}>
+      {millisecondToSecondMinuteHour(count)}
+    </Typography>
+  );
+};

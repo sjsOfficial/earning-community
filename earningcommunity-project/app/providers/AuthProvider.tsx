@@ -22,6 +22,8 @@ export interface AuthContextType {
   withdrawData: withdrawDataTypes;
   setPurchasePackageData: (v: any) => void;
   setWithdrawData: (v: any) => void;
+  topData:any;
+  setTopData: (v: any) => void;
 }
 
 // Create context
@@ -35,6 +37,8 @@ const AuthContext = createContext<AuthContextType>({
   withdrawData: { totalWithdraw: 0, percentageLastMonthWithdraw: 0 },
   setPurchasePackageData: () => {},
   setWithdrawData: () => {},
+  topData:undefined,
+  setTopData:()=>{}
 });
 
 interface AuthProviderProps {
@@ -55,6 +59,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     totalWithdraw: 0,
     percentageLastMonthWithdraw: 0,
   });
+  const [topData, setTopData] = useState()
 
   // Function to fetch user data from API
   const fetchUserData = async () => {
@@ -98,25 +103,26 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
       setIsLoading(false);
     }
   }, [reload]);
+ 
   useEffect(() => {
     if (isAdmin) {
-      putApi("/apis//admin/withdraw").then((res) => {
-        setWithdrawData(res.data);
-      });
+      loadAdminData()
     }
   }, [isAdmin]);
-  useEffect(() => {
-    if (isAdmin) {
-      getApi("/apis/admin/purchase")
-        .then((res) => {
-          setPurchasePackageData(res.data);
-          setIsLoading(false);
-        })
-        .catch((err) => {
-          setIsLoading(false);
-        });
+  const loadAdminData=async()=>{
+    try {
+      const packageData=await getApi("/apis/admin/purchase")
+      setPurchasePackageData(packageData.data);
+      const withdrawData=await putApi("/apis/admin/withdraw")
+      setWithdrawData(withdrawData.data);
+      const topData=await getApi("/apis/admin/top")
+      setTopData(topData.data);
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+      console.error(error)
     }
-  }, [isAdmin]);
+  }
 
   // Context value
   const contextValue: AuthContextType = {
@@ -129,6 +135,8 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     withdrawData,
     setPurchasePackageData,
     setWithdrawData,
+    topData,
+    setTopData
   };
 
   return (
