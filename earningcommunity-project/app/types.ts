@@ -8,7 +8,7 @@ export interface VideoCardData{
     duration: number;
 }
 export interface PackageCardSliderProps{
-    packageData: packageTypes[]
+    packageData?: packageTypes[]
 }
 export interface CategoryCardProps{
     data: CATEGORY

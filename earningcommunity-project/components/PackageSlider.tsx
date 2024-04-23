@@ -35,7 +35,9 @@ const SamplePrevArrow: React.FC<SampleArrowProps> = (props) => {
   );
 };
 
-const PackageSlider: React.FC<PackageCardSliderProps> = ({packageData}) => {
+const PackageSlider: React.FC<PackageCardSliderProps> = ({
+  packageData = [],
+}) => {
   const sliderRef = useRef<Slider>(null);
 
   const play = () => {
@@ -55,7 +57,7 @@ const PackageSlider: React.FC<PackageCardSliderProps> = ({packageData}) => {
     "bg-yellow-500",
     "bg-red-500",
     "bg-sky-500",
-    "bg-purple-500"
+    "bg-purple-500",
     // Add more colors as needed
   ];
 
@@ -98,13 +100,29 @@ const PackageSlider: React.FC<PackageCardSliderProps> = ({packageData}) => {
 
   return (
     <div className="">
-      <div className="slider-container">
-        <Slider className="" {...settings} ref={sliderRef}>
-          {
-            packageData?.map((data,i)=><PackageCard  bgColor={bgColors[i % bgColors.length]} packageCardData={data} key={i} />)
-          }
-        </Slider>
-      </div>
+      {packageData?.length <= 4 ? (
+        <div className=" flex gap-2">
+          {packageData?.map((data, i) => (
+            <PackageCard
+              bgColor={bgColors[i % bgColors.length]}
+              packageCardData={data}
+              key={i}
+            />
+          ))}
+        </div>
+      ) : (
+        <div className="slider-container">
+          <Slider className="" {...settings} ref={sliderRef}>
+            {packageData?.map((data, i) => (
+              <PackageCard
+                bgColor={bgColors[i % bgColors.length]}
+                packageCardData={data}
+                key={i}
+              />
+            ))}
+          </Slider>
+        </div>
+      )}
     </div>
   );
 };
