@@ -8,10 +8,11 @@ const PackageCard:React.FC<PackageCardProps>=({packageCardData,bgColor})=> {
     <div className={`max-w-[380px] ${bgColor} rounded-[10px] p-[20px] flex flex-col items-center justify-between gap-4 mx-2 h-[350px] md:h-[430px] `}>
       <h1 className="text-[20px] md:text-[24px] font-medium text-[#FFFFFF]">{packageCardData.title}</h1>
       <div className="text-center">
-        <p className="text-[18px] md:text-[20px] font-medium text-[#FFFFFF]">{packageCardData.amount} ৳</p>
-        <p className="text-[18px] md:text-[20px] font-medium text-[#FFFFFF]">{packageCardData.duration}</p>
+        <p className="text-[18px] md:text-[20px] font-medium text-[#FFFFFF]">{packageCardData.price} ৳</p>
+        <p className="text-[18px] md:text-[20px] font-medium text-[#FFFFFF]">{packageCardData.duration} months</p>
+        <p className="text-[18px] md:text-[20px] font-medium text-[#FFFFFF] mt-2">{packageCardData.withdrawLimit}৳ Withdraw Limit</p>
       </div>
-      <p className="text-[16px] md:text-[20px] text-[#FFFFFF] text-justify line-clamp-6">{truncatedText}</p>
+      <p className="text-[16px] md:text-[20px] text-[#FFFFFF] text-justify line-clamp-4 md:line-clamp-5">{truncatedText}</p>
       <Link className="w-full bg-[#2E4053] hover:bg-[#1b2a3e] rounded-[10px] cursor-pointer transition-colors duration-500 ease-in-out" href='/'>
         <div className="py-2 text-center  text-[16px] md:text-[20px] text-[#FFFFFF]">
         Purchase Now

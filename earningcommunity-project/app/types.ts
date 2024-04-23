@@ -1,9 +1,5 @@
-export interface PackageCardData{
-title: string,
-amount: number,
-duration: string,
-description: string,
-}
+import { packageTypes } from "@/types/packageTypes";
+
 export interface categoryCardData{
 title: string;
 numberOfVideos: number;
@@ -16,7 +12,7 @@ export interface VideoCardData{
     duration: number;
 }
 export interface PackageCardSliderProps{
-    packageData: PackageCardData[]
+    packageData: packageTypes[]
 }
 export interface CategoryCardProps{
     data: categoryCardData
@@ -25,7 +21,7 @@ export interface VideoSliderProps{
     videoCardData: VideoCardData[]
 }
 export interface PackageCardProps{
-    packageCardData: PackageCardData
+    packageCardData: packageTypes
     bgColor?: string
 
 }
