@@ -1,8 +1,5 @@
 'use client'
-<<<<<<< Updated upstream
-=======
 import { useData } from "@/app/providers/DataProvider";
->>>>>>> Stashed changes
 import useAuth from "@/hooks/useAuth";
 import Image from "next/image";
 import Link from "next/link";
