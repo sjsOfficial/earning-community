@@ -158,7 +158,7 @@ export default function ProfileSettings() {
               Active On : Mac book pro 16’ chorom browser 2.4.5
             </p>
             <div className="flex flex-col gap-4">
-              <div className="flex gap-4 items-center py-2 px-4 bg-[#ffffff] rounded-lg ">
+              <div className="hover:shadow-md hover:scale-105 duration-300 flex gap-4 items-center py-2 px-4 bg-[#ffffff] rounded-lg ">
                 <svg
                   width="21"
                   height="21"
@@ -178,7 +178,7 @@ export default function ProfileSettings() {
                   Edit Profile
                 </p>
               </div>
-              <div className="flex gap-4 items-center py-2 px-4 bg-[#ffffff] rounded-lg ">
+              <div className="hover:shadow-md hover:scale-105 duration-300 flex gap-4 items-center py-2 px-4 bg-[#ffffff] rounded-lg ">
                 <svg
                   width="22"
                   height="22"
@@ -199,7 +199,7 @@ export default function ProfileSettings() {
                   Update Phone Number
                 </p>
               </div>
-              <div className="flex gap-4 items-center py-2 px-4 bg-[#ffffff] rounded-lg ">
+              <div className="hover:shadow-md hover:scale-105 duration-300 flex gap-4 items-center py-2 px-4 bg-[#ffffff] rounded-lg ">
                 <svg
                   width="22"
                   height="22"
@@ -220,7 +220,7 @@ export default function ProfileSettings() {
                   Update Password
                 </p>
               </div>
-              <div onClick={handleLogOut} className="flex gap-4 items-center py-2 px-4 bg-[#ffffff] rounded-lg cursor-pointer">
+              <div onClick={handleLogOut} className="hover:shadow-md hover:scale-105 duration-300 flex gap-4 items-center py-2 px-4 bg-[#ffffff] rounded-lg cursor-pointer">
                 <svg
                   width="22"
                   height="22"
