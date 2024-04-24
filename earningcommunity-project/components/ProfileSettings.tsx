@@ -1,3 +1,4 @@
+'use client'
 import { getApi } from '@/functions/API';
 import Image from 'next/image'
 import React from 'react'
