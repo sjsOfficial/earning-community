@@ -1,3 +1,4 @@
+import WithdrawHistoryCard from '@/components/WithdrawHistoryCard'
 import Link from 'next/link'
 import React from 'react'
 
@@ -36,6 +37,15 @@ export default function Withdraw() {
           {/* {videoCardData.map((data, i) => (
             <VideoCard minWidth="min-w-56" videoData={data} key={i}></VideoCard>
           ))} */}
+          <WithdrawHistoryCard></WithdrawHistoryCard>
+          <WithdrawHistoryCard></WithdrawHistoryCard>
+          <WithdrawHistoryCard></WithdrawHistoryCard>
+          <WithdrawHistoryCard></WithdrawHistoryCard>
+          <WithdrawHistoryCard></WithdrawHistoryCard>
+          <WithdrawHistoryCard></WithdrawHistoryCard>
+          <WithdrawHistoryCard></WithdrawHistoryCard>
+          <WithdrawHistoryCard></WithdrawHistoryCard>
+          <WithdrawHistoryCard></WithdrawHistoryCard>
         </div>
       </div>
     </div>
