@@ -1,3 +1,4 @@
+import PurchasedPackagesHistory from '@/components/PurchasedPackagesHistory'
 import Link from 'next/link'
 import React from 'react'
 
@@ -36,6 +37,10 @@ export default function Packages() {
           {/* {videoCardData.map((data, i) => (
             <VideoCard minWidth="min-w-56" videoData={data} key={i}></VideoCard>
           ))} */}
+          <PurchasedPackagesHistory></PurchasedPackagesHistory>
+          <PurchasedPackagesHistory></PurchasedPackagesHistory>
+          <PurchasedPackagesHistory></PurchasedPackagesHistory>
+          <PurchasedPackagesHistory></PurchasedPackagesHistory>
         </div>
       </div>
     </div>

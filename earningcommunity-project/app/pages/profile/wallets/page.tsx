@@ -1,3 +1,4 @@
+import WalletHistoryCard from "@/components/WalletHistoryCard";
 import Link from "next/link";
 import React from "react";
 
@@ -37,6 +38,14 @@ export default function Wallets() {
           {/* {videoCardData.map((data, i) => (
             <VideoCard minWidth="min-w-56" videoData={data} key={i}></VideoCard>
           ))} */}
+          <WalletHistoryCard></WalletHistoryCard>
+          <WalletHistoryCard></WalletHistoryCard>
+          <WalletHistoryCard></WalletHistoryCard>
+          <WalletHistoryCard></WalletHistoryCard>
+          <WalletHistoryCard></WalletHistoryCard>
+          <WalletHistoryCard></WalletHistoryCard>
+         
+         
         </div>
       </div>
     </div>
