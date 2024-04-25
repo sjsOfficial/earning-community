@@ -5,7 +5,7 @@ interface Props {
 }
 const PurchasedPackagesHistory: React.FC<Props> =({data}) =>{
   return (
-    <div className="bg-[#2E4053] pt-4 pb-4 pl-4 pr-2 rounded-[10px] w-full min-w-[220px] md:min-w-[300px] space-y-1">
+    <div className="bg-[#2E4053] pt-4 pb-4 pl-4 pr-2 rounded-[10px] w-full min-w-[220px] md:min-w-[300px]  max-w-[400px] space-y-1">
       <p className="text-[16px] lg:text-[20px] text-[#FFFFFF] font-medium">
       {data.package.title}
       </p>

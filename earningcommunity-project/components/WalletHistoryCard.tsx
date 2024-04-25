@@ -1,14 +1,18 @@
+import { UserWallet } from "@/app/types";
 import Image from "next/image";
 import React from "react";
-
-export default function WalletHistoryCard() {
+interface Props {
+  data: UserWallet
+}
+ const WalletHistoryCard:React.FC<Props> =({data}) =>{
   return (
     <div className="max-w-[400px] min-w-[300px] grid grid-cols-2 rounded-[10px] bg-[#2E4053]">
       <div className="flex justify-center items-center">
-        <div className="h-full w-full">
+        <div className="h-full w-full relative">
           <Image
             className="h-full w-full rounded-l-[10px]"
-            src={require("../public/wallets/bkashA.png")}
+            fill
+            src={data.wallet.icon}
             alt="merchant logo"
           />
         </div>
@@ -16,16 +20,16 @@ export default function WalletHistoryCard() {
       <div className="p-2  flex flex-col justify-between">
         <div className="space-y-1">
         <p className="text-[16px] lg:text-[18px] text-[#FFFFFF] font-medium">
-          Bkash Personal
+          {data.wallet.name}
         </p>
         <p className="text-[12px] lg:text-[14px] text-[#FFFFFF] font-normal">
-          01763628322
+          {data.number}
         </p>
         <p className="text-[12px] lg:text-[14px] text-[#FFFFFF] font-normal">
-          MST. Tasnia Alam
+          {data.walletHolderName}
         </p>
         <p className="text-[10px] lg:text-[12px] text-[#FFFFFF] font-normal">
-          Update-11 Jan 2024
+          {data.date}
         </p>
         </div>
         <div className="flex gap-2 items-center">
@@ -54,3 +58,4 @@ export default function WalletHistoryCard() {
     </div>
   );
 }
+export default WalletHistoryCard

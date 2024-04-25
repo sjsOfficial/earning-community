@@ -1,7 +1,10 @@
+import { userWithdrawHistoryTypes } from "@/app/types";
 import Image from "next/image";
 import React from "react";
-
-export default function WithdrawHistoryCard() {
+interface Props{
+  data:userWithdrawHistoryTypes
+}
+ const WithdrawHistoryCard:React.FC<Props>=({data}) =>{
   return (
     <div className="bg-[#2E4053] pt-4 pb-4 pl-4 pr-2 rounded-[10px] w-full min-w-[220px] md:min-w-[300px]">
       <div className="md:flex justify-between mb-1">
@@ -39,3 +42,4 @@ export default function WithdrawHistoryCard() {
     </div>
   );
 }
+export default WithdrawHistoryCard

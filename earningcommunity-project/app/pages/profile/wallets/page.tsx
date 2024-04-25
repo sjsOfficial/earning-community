@@ -1,8 +1,11 @@
+'use client'
+import LoaderScreen from "@/app/admin/(DashboardLayout)/components/shared/LoaderScreen";
+import { useData } from "@/app/providers/DataProvider";
 import WalletHistoryCard from "@/components/WalletHistoryCard";
-import Link from "next/link";
 import React from "react";
 
 export default function Wallets() {
+  const { userWalletHistory } = useData();
   return (
     <div className="bg-[#85929E] mx-2 rounded-[10px] ">
       <div className="flex items-center justify-between p-4">
@@ -35,17 +38,17 @@ export default function Wallets() {
       </div>
       <div className="overflow-x-auto">
         <div className="flex gap-2 p-4">
-          {/* {videoCardData.map((data, i) => (
-            <VideoCard minWidth="min-w-56" videoData={data} key={i}></VideoCard>
-          ))} */}
-          <WalletHistoryCard></WalletHistoryCard>
-          <WalletHistoryCard></WalletHistoryCard>
-          <WalletHistoryCard></WalletHistoryCard>
-          <WalletHistoryCard></WalletHistoryCard>
-          <WalletHistoryCard></WalletHistoryCard>
-          <WalletHistoryCard></WalletHistoryCard>
-         
-         
+        {userWalletHistory ? (
+            userWalletHistory.map((data, i) => (
+              <WalletHistoryCard
+                data={data}
+                key={i}
+              ></WalletHistoryCard>
+            ))
+          ) : (
+            <LoaderScreen></LoaderScreen>
+          )}
+        
         </div>
       </div>
     </div>

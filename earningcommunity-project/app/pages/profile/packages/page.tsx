@@ -9,7 +9,7 @@ export default function Packages() {
   const { userPackageHistory } = useData();
 
   return (
-    <div className="bg-[#85929E] mx-2 rounded-[10px] ">
+    <div className="bg-[#85929E] mx-2 rounded-[10px]">
       <div className="flex items-center justify-between p-4">
         <p className="text-[20px] md:text-[24px] text-[#FFFFFF] font-normal md:font-semibold">
           Purchased Packages
