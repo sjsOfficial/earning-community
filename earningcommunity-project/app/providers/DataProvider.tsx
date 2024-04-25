@@ -1,11 +1,18 @@
 "use client";
+import { getApi } from "@/functions/API";
+import { packageHistoryTypes } from "@/types/packageTypes";
 import { createContext, useContext, useState, useEffect } from "react";
+import { toast } from "react-toastify";
+import { UserWallet, userWithdrawHistoryTypes } from "../types";
 
 type DataContextType = {
   isEnglish: boolean;
   isDarkMode: boolean;
   toggleLanguage: () => void;
   toggleDarkMode: () => void;
+  userPackageHistory?:packageHistoryTypes[],
+  userWithdrawHistory?:userWithdrawHistoryTypes[],
+  userWalletHistory?:UserWallet[]
 };
 
 const DataContext = createContext<DataContextType | undefined>(undefined);
@@ -20,10 +27,14 @@ export const useData = () => {
 interface Props {
   children: React.ReactNode;
 }
+
 export const DataProvider: React.FC<Props> = ({ children }) => {
   const [isEnglish, setIsEnglish] = useState(true);
   const [isDarkMode, setIsDarkMode] = useState(true);
-  // console.log(isEnglish);
+  const [userPackageHistory,setUserPackageHistory]=useState<packageHistoryTypes[]>()
+  const [userWithdrawHistory,setUserWithdrawHistory]=useState<userWithdrawHistoryTypes[]>()
+  const [userWalletHistory,setUserWalletHistory]=useState<UserWallet[]>()
+  // console.log(userWithdrawHistory);
   useEffect(() => {
     // Retrieve dark mode preference from local storage
     const storedDarkMode = localStorage.getItem("darkMode") === "true";
@@ -53,13 +64,57 @@ export const DataProvider: React.FC<Props> = ({ children }) => {
     // Implement logic to switch language here
   };
 
+// get package history 
+useEffect(() => {
+  const getData = async () => {
+    try {
+      const res = await getApi(`/apis/user/package`);
+      setUserPackageHistory(res.data);
+    } catch (error: any) {
+      toast.error(error.response.data.error);
+  console.log(error.response.data.error);
+
+    }
+  };
+  getData();
+}, []);
+useEffect(() => {
+  const getData = async () => {
+    try {
+      const res = await getApi(`/apis/user/withdraw`);
+      setUserWithdrawHistory(res.data);
+    } catch (error: any) {
+      toast.error(error.response.data.error);
+  console.log(error.response.data.error);
+
+    }
+  };
+  getData();
+}, []);
+useEffect(() => {
+  const getData = async () => {
+    try {
+      const res = await getApi(`/apis/user/wallets`);
+      setUserWalletHistory(res.data);
+    } catch (error: any) {
+      toast.error(error.response.data.error);
+  console.log(error.response.data.error);
+
+    }
+  };
+  getData();
+}, []);
+
   return (
     <DataContext.Provider
       value={{
         isEnglish,
         toggleLanguage,
         toggleDarkMode,
-        isDarkMode
+        isDarkMode,
+        userPackageHistory,
+        userWithdrawHistory,
+        userWalletHistory
       }}
     >
       {children}
