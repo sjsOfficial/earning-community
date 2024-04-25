@@ -21,9 +21,13 @@ const GET = async (request: NextRequest) => {
             take: 10,
             include: {
                 withdrawHistory: {
+                    where: {
+                        status: "ACCEPTED"
+                    },
                     select: {
                         amount: true
-                    }
+                    },
+
                 },
                 watchHistory: {
                     select: {
@@ -37,4 +41,4 @@ const GET = async (request: NextRequest) => {
         return NextResponse.json({ error: "Error while getting information", code: error }, { status: 404 })
     }
 }
-export {GET}
+export { GET }

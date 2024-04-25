@@ -61,5 +61,26 @@
         "icon":"/wallets/upayP.png",
         "cashout":false,
         "payment":false
+    },
+    {
+        "name":"Nagad Personal",
+        "id":"4n864",
+        "icon":"/wallets/nagadP.png",
+        "cashout":false,
+        "payment":false
+    },
+    {
+        "name":"Nagad Agent",
+        "id":"4nd64",
+        "icon":"/wallets/nagadA.png",
+        "cashout":true,
+        "payment":false
+    },
+    {
+        "name":"Nagad Merchant",
+        "id":"4u8g64",
+        "icon":"/wallets/nagadP.png",
+        "cashout":false,
+        "payment":true
     }
 ]
