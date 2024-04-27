@@ -167,7 +167,7 @@ export default function ProfileSettings() {
                 </p>
               </div>
             </div>
-            <p className="text-[#05FB1E] text-[14px] font-normal md:hidden">
+            <p className="text-[#05FB1E] text-[12px] font-normal md:hidden">
               Active On : {userData?.device}
             </p>
             <div className="flex flex-col gap-4">
@@ -256,7 +256,7 @@ export default function ProfileSettings() {
               </div>
             </div>
           </div>
-          <p className="text-[#05FB1E] text-[16px] font-normal mt-6 hidden md:block">
+          <p className="text-[#05FB1E] text-[14px] font-light mt-6 hidden md:block">
             Active On : {userData?.device}
           </p>
         </div>
