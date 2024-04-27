@@ -94,6 +94,11 @@ model packageHistory {
   user          Users    @relation(fields: [userId], references: [id], onDelete: Cascade)
   packageId     String   @db.ObjectId
   packages      Packages @relation(fields: [packageId], references: [id])
+  status        String   @default("PENDING")
+  wallet        Json
+  adminWallet   Json
+  transactionId String
+  message       String?
 }
 
 model videos {

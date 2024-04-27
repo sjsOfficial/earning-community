@@ -23,15 +23,16 @@ import DashboardCard from "../components/shared/DashboardCard";
 import { IconCircleCheck, IconCircleX, IconPlus } from "@tabler/icons-react";
 import React, { useEffect, useState } from "react";
 import { rechargeHistoryTypes } from "@/types/rechargeHistoryTypes";
-import { getApi, postApi } from "@/functions/API";
+import { getApi, postApi, putApi } from "@/functions/API";
 import { toast } from "react-toastify";
 import Image from "next/image";
 import LoaderScreen from "../components/shared/LoaderScreen";
+import { PackageHistoryTypes } from "@/types/packageHistoryTypes";
 
 const Recharge = () => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  const [data, setData] = useState<rechargeHistoryTypes[] | undefined>();
+  const [data, setData] = useState<PackageHistoryTypes[] | undefined>();
   const [count, setCount] = useState(0);
   const [reload, setReload] = useState<number>(0);
   const [message, setMessage] = useState<string>();
@@ -64,11 +65,12 @@ const Recharge = () => {
   };
   const getData = async () => {
     try {
-      const res = await getApi(`/apis/admin/recharge`, {
+      const res = await getApi(`/apis/user/package?checkAdmin=sa`, {
         take: rowsPerPage,
         skip: page * rowsPerPage,
       });
-
+      //console.log(res.data);
+      
       setData(res.data.history);
       setCount(res.data.count);
     } catch (error: any) {
@@ -84,10 +86,10 @@ const Recharge = () => {
     const toastId = toast.loading("Please wait...");
 
     try {
-      await postApi("/apis/admin/recharge", {
+      await putApi("/apis/user/package", {
         accept: isAccepted ? "fsfsfd" : "",
         message: message,
-        requestId: id,
+        historyId: id,
       });
       setReload(Math.random());
       toast.update(toastId, {
@@ -217,7 +219,7 @@ const Recharge = () => {
                           variant="subtitle2"
                           fontWeight={600}
                         >
-                          {doc.amount} BDT
+                          {doc.price} BDT
                         </Typography>
                         <Typography
                           color="textSecondary"

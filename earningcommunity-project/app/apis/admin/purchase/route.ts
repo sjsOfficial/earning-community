@@ -1,5 +1,5 @@
 import prisma from "@/libs/prisma";
-import { packageHistoryTypes } from "@/types/packageTypes";
+import { packageHistoryTypes } from "@/types/packageHistoryTypes";
 import { NextRequest, NextResponse } from "next/server";
 const shortMonths: string[] = [
     'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
@@ -12,16 +12,21 @@ const GET = async (request: NextRequest) => {
     try {
         const packages = await prisma.packages.findMany({
             include: {
-                packageHistory: true
+                packageHistory: {
+                    where:{status:"ACCEPTED"}
+                }
             },
             take:take||undefined,
-            skip:skip||undefined
+            skip:skip||undefined,
         })
         const count=await prisma.packages.count()
         const packageHistory = await prisma.packageHistory.findMany({
             orderBy: {
                 date: "desc"
             },
+            where:{
+                status:"ACCEPTED"
+            }
 
         })
         const totalPriceByMonth: { [key: string]: number } = {};

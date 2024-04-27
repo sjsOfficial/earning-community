@@ -9,13 +9,12 @@ import MobileNav from "@/components/Shared/MobileNav";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Cookies from "js-cookie";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
-import firebaseApp from "@/libs/firebase";
-import { getMessaging, onMessage } from "firebase/messaging";
 import useFcmToken from "@/hooks/useFcmToken";
 import { toast } from "react-toastify";
 import { AuthProvider } from "./providers/AuthProvider";
+import LoaderScreen from "./admin/(DashboardLayout)/components/shared/LoaderScreen";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -28,27 +27,34 @@ export default function RootLayout({
   const { fcmToken, notificationPermissionStatus } = useFcmToken();
 
   useEffect(() => {
-    const getIP = async () => {
-      const res = await axios.get("https://api.ipify.org?format=json");
-      Cookies.set("ip", res.data.ip);
+    
+    const getCookie = async () => {
+      try {
+        const res = await axios.get("/apis/cookies");
+        console.table(res.data);
+      } catch (error) {
+        console.log(error);
+      }
     };
-    getIP();
-    Cookies.set("os", window.navigator.userAgent);
-    Cookies.set("id", `${window.screen.width}+${window.screen.height}`);
+    getCookie();
   }, []);
 
   Cookies.set("fcm", fcmToken);
-  useEffect(() => {
-    if (typeof window !== "undefined" && "serviceWorker" in navigator) {
-      const messaging = getMessaging(firebaseApp);
-      const unsubscribe = onMessage(messaging, (payload) => {
-        console.log("Foreground push notification received:", payload);
-      });
-      return () => {
-        unsubscribe();
-      };
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (typeof window !== "undefined" && "serviceWorker" in navigator) {
+  //     const messaging = getMessaging(firebaseApp);
+  //     const unsubscribe = onMessage(messaging, (payload) => {
+  //       console.log("Foreground push notification received:", payload);
+  //     });
+  //     return () => {
+  //       unsubscribe();
+  //     };
+  //   }
+  // }, []);
+
+  // if (!data) {
+  //   return <LoaderScreen />;
+  // }
 
   if (pathname.includes("pay") || pathname.includes("admin")) {
     return (

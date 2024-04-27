@@ -1,18 +1,12 @@
 import {
-  IconAperture,
-  IconCopy,
   IconLayoutDashboard,
-  IconLogin,
-  IconMoodHappy,
-  IconTypography,
-  IconUserPlus,
   IconPackage,
   IconShoppingCart,
-  IconArrowsExchange,
   IconCash,
   IconBuildingBank,
   IconBrandFacebook,
-  IconBrandYoutube
+  IconBrandYoutube,
+  IconCreditCard
 } from "@tabler/icons-react";
 
 import { uniqueId } from "lodash";
@@ -51,8 +45,8 @@ const Menuitems = [
   },
   {
     id: uniqueId(),
-    title: "Recharge Requests",
-    icon: IconArrowsExchange,
+    title: "Purchase Requests",
+    icon: IconCreditCard,
     href: "/admin/recharge",
   },
   {

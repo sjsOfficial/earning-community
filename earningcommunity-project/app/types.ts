@@ -1,4 +1,4 @@
-import { packageTypes } from "@/types/packageTypes";
+import { packageTypes } from "@/types/packageHistoryTypes";
 import { CATEGORY } from "./apis/wallets/route";
 
 export interface VideoCardData{

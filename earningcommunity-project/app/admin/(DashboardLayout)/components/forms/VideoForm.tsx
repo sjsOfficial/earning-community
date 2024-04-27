@@ -2,7 +2,7 @@ import { getApi, postApi, putApi } from "@/functions/API";
 import millisecondToSecondMinuteHour from "@/functions/millisecondToSecondMinuteHour";
 import secondMinuteHourToMillisecond from "@/functions/secondMinuteHourToMillisecond";
 import { categoryTypes } from "@/types/categoryTypes";
-import { packageTypes, packageTypesString } from "@/types/packageTypes";
+import { packageTypes, packageTypesString } from "@/types/packageHistoryTypes";
 import { videoTypes } from "@/types/videoTypes";
 import {
   Box,
