@@ -1,5 +1,5 @@
 import prisma from "@/libs/prisma";
-import { packageHistoryTypes } from "@/types/packageHistoryTypes";
+
 import { NextRequest, NextResponse } from "next/server";
 const shortMonths: string[] = [
     'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',

@@ -34,6 +34,10 @@ const POST = async (request: NextRequest) => {
         if (!userWallet) {
             return NextResponse.json({ error: "Invalid walletId or userWalletId" }, { status: 404 })
         }
+        const users = await prisma.users.findUnique({ where: { id: user.id } })
+        if(!users || users.balance<parseInt(amount)){
+            return NextResponse.json({ error: "Not enough balance" }, { status: 404 })
+        }
         const history = await prisma.withdrawHistory.create({
             data: {
                 amount: parseInt(amount),
