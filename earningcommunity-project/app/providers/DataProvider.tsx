@@ -1,16 +1,16 @@
 "use client";
 import { getApi } from "@/functions/API";
-import { packageHistoryTypes } from "@/types/packageTypes";
 import { createContext, useContext, useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { UserWallet, userWithdrawHistoryTypes } from "../types";
+import { PackageHistoryTypes } from "@/types/packageHistoryTypes";
 
 type DataContextType = {
   isEnglish: boolean;
   isDarkMode: boolean;
   toggleLanguage: () => void;
   toggleDarkMode: () => void;
-  userPackageHistory?:packageHistoryTypes[],
+  userPackageHistory?:PackageHistoryTypes[],
   userWithdrawHistory?:userWithdrawHistoryTypes[],
   userWalletHistory?:UserWallet[]
 };
@@ -31,7 +31,7 @@ interface Props {
 export const DataProvider: React.FC<Props> = ({ children }) => {
   const [isEnglish, setIsEnglish] = useState(true);
   const [isDarkMode, setIsDarkMode] = useState(true);
-  const [userPackageHistory,setUserPackageHistory]=useState<packageHistoryTypes[]>()
+  const [userPackageHistory,setUserPackageHistory]=useState<PackageHistoryTypes[]>()
   const [userWithdrawHistory,setUserWithdrawHistory]=useState<userWithdrawHistoryTypes[]>()
   const [userWalletHistory,setUserWalletHistory]=useState<UserWallet[]>()
   // console.log(userWithdrawHistory);
@@ -69,7 +69,8 @@ useEffect(() => {
   const getData = async () => {
     try {
       const res = await getApi(`/apis/user/package`);
-      setUserPackageHistory(res.data);
+ 
+      setUserPackageHistory(res.data.history);
     } catch (error: any) {
       toast.error(error.response.data.error);
   console.log(error.response.data.error);
