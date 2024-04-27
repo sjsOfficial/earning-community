@@ -1,9 +1,11 @@
 'use client'
+import useAuth from "@/hooks/useAuth";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
 
 export default function ProfileNavigation() {
+  const { userData } = useAuth();
   const pathname = usePathname();
   return (
     <div className=" bg-[#85929E] rounded-lg p-3 lg:p-4 xl:p-10">
@@ -25,7 +27,7 @@ export default function ProfileNavigation() {
               />
             </svg>
             <p className="text-[#FFFFFF] text-[14px] lg:text-[16px] xl:text-[20px] font-medium">
-              300 BDT
+              {userData?.balance} BDT
             </p>
           </div>
           <div className="flex gap-2 md:gap-4 items-center">

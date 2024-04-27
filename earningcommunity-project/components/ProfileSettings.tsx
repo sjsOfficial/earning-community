@@ -5,7 +5,11 @@ import React from 'react'
 import { toast } from 'react-toastify';
 import Cookies from "js-cookie";
 import dp from "../public/dp.png";
+import useAuth from '@/hooks/useAuth';
 export default function ProfileSettings() {
+  const { userData } = useAuth();
+  // console.log(userData);
+  
     const handleLogOut =async()=>{
         const toastId = toast.loading("Please wait...");
     
@@ -40,7 +44,7 @@ export default function ProfileSettings() {
                   src={dp}
                   alt="dp"
                 ></Image>
-                <div className="absolute -bottom-1 -right-2  p-1 rounded-full bg-[#ffffff] flex justify-center items-center">
+                {/* <div className="absolute -bottom-1 -right-2  p-1 rounded-full bg-[#ffffff] flex justify-center items-center">
                   <svg
                     width="24"
                     height="24"
@@ -63,14 +67,18 @@ export default function ProfileSettings() {
                       stroke-linejoin="round"
                     />
                   </svg>
-                </div>
+                </div> */}
               </div>
               <div className="">
                 <p className="text-[#ffffff] text-[14px] lg:text-[16px] xl:text-[20px] font-semibold">
-                  @tasnia_farin
+                  {
+                    userData?.name
+                  }
                 </p>
                 <p className="text-[#ffffff] text-[14px] lg:text-[16px] xl:text-[20px] font-medium">
-                  018357263872
+                  {
+                    userData?.phone
+                  }
                 </p>
               </div>
             </div>
@@ -135,7 +143,9 @@ export default function ProfileSettings() {
                   Full Name
                 </p>
                 <p className="text-[#ffffff] text-[14px] lg:text-[16px] xl:text-[20px] font-normal">
-                  Tasnia Rahman
+                 {
+                  userData?.name
+                 }
                 </p>
               </div>
               <div>
@@ -143,7 +153,7 @@ export default function ProfileSettings() {
                   Age
                 </p>
                 <p className="text-[#ffffff] text-[14px] lg:text-[16px] xl:text-[20px] font-normal">
-                  22 years old
+                 1000000
                 </p>
               </div>
               <div>
@@ -151,12 +161,14 @@ export default function ProfileSettings() {
                   Gender
                 </p>
                 <p className="text-[#ffffff] text-[14px] lg:text-[16px] xl:text-[20px] font-normal">
-                  Female
+                {
+                  userData?.gender || 'Not added yet'
+                 }
                 </p>
               </div>
             </div>
             <p className="text-[#05FB1E] text-[14px] font-normal md:hidden">
-              Active On : Mac book pro 16’ chorom browser 2.4.5
+              Active On : {userData?.device}
             </p>
             <div className="flex flex-col gap-4">
               <div className="hover:shadow-md hover:scale-105 duration-300 flex gap-4 items-center py-2 px-4 bg-[#ffffff] rounded-lg ">
@@ -245,7 +257,7 @@ export default function ProfileSettings() {
             </div>
           </div>
           <p className="text-[#05FB1E] text-[16px] font-normal mt-6 hidden md:block">
-            Active On : Mac book pro 16’ chorom browser 2.4.5
+            Active On : {userData?.device}
           </p>
         </div>
   )
