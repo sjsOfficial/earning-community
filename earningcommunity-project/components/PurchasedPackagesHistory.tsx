@@ -1,7 +1,7 @@
-import { packageHistoryTypes } from "@/types/packageTypes";
+import { PackageHistoryTypes } from "@/types/packageHistoryTypes";
 import React from "react";
 interface Props {
-  data:packageHistoryTypes
+  data:PackageHistoryTypes
 }
 const PurchasedPackagesHistory: React.FC<Props> =({data}) =>{
   return (
