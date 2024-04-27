@@ -28,10 +28,10 @@ import {
 import React, { useEffect, useState } from "react";
 import { deleteApi, getApi } from "@/functions/API";
 import { AxiosError } from "axios";
-import { packageTypes } from "@/types/packageHistoryTypes";
 import LoaderScreen from "../components/shared/LoaderScreen";
 import { toast } from "react-toastify";
 import PackageFrom from "../components/forms/PackageFrom";
+import { packageTypes } from "@/types/packageTypes";
 
 const Packages = () => {
   const [page, setPage] = React.useState(0);

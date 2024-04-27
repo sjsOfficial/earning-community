@@ -1,5 +1,5 @@
 import { postApi, putApi } from "@/functions/API";
-import { packageTypes, packageTypesString } from "@/types/packageHistoryTypes";
+import { packageTypes } from "@/types/packageTypes";
 import { Box, Button, duration, TextField, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";

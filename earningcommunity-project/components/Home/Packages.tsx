@@ -1,9 +1,9 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 import PackageSlider from '../PackageSlider'
-import { packageTypes } from '@/types/packageHistoryTypes';
 import { getApi } from '@/functions/API';
 import { toast } from 'react-toastify';
+import { packageTypes } from '@/types/packageTypes';
 
 export default function Packages() {
   const [data, setData] = useState<packageTypes[]>();

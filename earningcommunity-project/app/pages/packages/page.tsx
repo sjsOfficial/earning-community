@@ -3,7 +3,7 @@ import LoaderScreen from "@/app/admin/(DashboardLayout)/components/shared/Loader
 import AppDownload from "@/components/Home/AppDownload";
 import PackageCard from "@/components/PackageCard";
 import { getApi } from "@/functions/API";
-import { packageTypes } from "@/types/packageHistoryTypes";
+import { packageTypes } from "@/types/packageTypes";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 

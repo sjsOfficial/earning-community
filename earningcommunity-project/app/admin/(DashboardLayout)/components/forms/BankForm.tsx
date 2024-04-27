@@ -1,6 +1,5 @@
 import { getApi, postApi, putApi } from "@/functions/API";
 import { adminWalletTypes } from "@/types/adminWalletTypes";
-import { packageTypes, packageTypesString } from "@/types/packageHistoryTypes";
 import walletTypes from "@/types/walletTypes";
 import {
   Box,
