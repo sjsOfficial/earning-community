@@ -6,7 +6,17 @@ import { toast } from "react-toastify";
 import Cookies from "js-cookie";
 import dp from "../public/dp.png";
 import useAuth from "@/hooks/useAuth";
-import { Box, MenuItem, Modal, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogTitle,
+  MenuItem,
+  Modal,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { brotliDecompress } from "zlib";
 
 const style = {
@@ -33,12 +43,19 @@ const gender = [
 export default function ProfileSettings() {
   const { userData } = useAuth();
   // console.log(userData);
+  const [openLogOutDialouge, setSpenLogOutDialouge] = React.useState(false);
   const [openEditProfile, setOpenEditProfile] = React.useState(false);
   const [openUpdatePhone, setOpenUpdatePhone] = React.useState(false);
+  const [openUpdatePassword, setOpenUpdatePassword] = React.useState(false);
   const handleOpenEditProfile = () => setOpenEditProfile(!openEditProfile);
   const handleOpenUpdatePhone = () => setOpenUpdatePhone(!openUpdatePhone);
+  const handleOpenLogOutDialouge = () =>
+    setSpenLogOutDialouge(!openLogOutDialouge);
+  const handleOpenUpdatePassword = () =>
+    setOpenUpdatePassword(!openUpdatePassword);
 
   const handleLogOut = async () => {
+    handleOpenLogOutDialouge();
     const toastId = toast.loading("Please wait...");
 
     try {
@@ -238,7 +255,10 @@ export default function ProfileSettings() {
               Update Phone Number
             </p>
           </div>
-          <div className="hover:shadow-md hover:scale-105 duration-300 flex gap-4 items-center py-2 px-4 bg-[#ffffff] rounded-lg ">
+          <div
+            onClick={handleOpenUpdatePassword}
+            className="cursor-pointer hover:shadow-md hover:scale-105 duration-300 flex gap-4 items-center py-2 px-4 bg-[#ffffff] rounded-lg "
+          >
             <svg
               width="22"
               height="22"
@@ -260,7 +280,7 @@ export default function ProfileSettings() {
             </p>
           </div>
           <div
-            onClick={handleLogOut}
+            onClick={handleOpenLogOutDialouge}
             className="hover:shadow-md hover:scale-105 duration-300 flex gap-4 items-center py-2 px-4 bg-[#ffffff] rounded-lg cursor-pointer"
           >
             <svg
@@ -288,6 +308,24 @@ export default function ProfileSettings() {
       <p className="text-[#05FB1E] text-[14px] font-light mt-6 hidden md:block">
         Active On : {userData?.device}
       </p>
+      {/* Log out dialouge  */}
+      <Dialog
+        open={openLogOutDialouge}
+        onClose={handleOpenLogOutDialouge}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {"Are you sure to log out?"}
+        </DialogTitle>
+
+        <DialogActions>
+          <Button onClick={handleOpenLogOutDialouge}>Cancel</Button>
+          <Button onClick={handleLogOut} autoFocus>
+            Log Out
+          </Button>
+        </DialogActions>
+      </Dialog>
       {/* Modal  */}
       {/* Edit profile modal  */}
       <Modal
@@ -341,6 +379,7 @@ export default function ProfileSettings() {
           </div>
         </Box>
       </Modal>
+      {/* Update phone number modal  */}
       <Modal
         open={openUpdatePhone}
         onClose={handleOpenUpdatePhone}
@@ -403,6 +442,51 @@ export default function ProfileSettings() {
               className="bg-[#2E4053] rounded-[10px] text-center py-2 cursor-pointer hover:scale-105 duration-300"
             >
               Update Phone Number
+            </div>
+          </div>
+        </Box>
+      </Modal>
+      {/* Update Password modal  */}
+      <Modal
+        open={openUpdatePassword}
+        onClose={handleOpenUpdatePassword}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography
+            textAlign={"center"}
+            id="modal-modal-title"
+            variant="h6"
+            component="h2"
+          >
+            Update Password
+          </Typography>
+          <div className="flex flex-col mt-4 space-y-4">
+            <TextField
+              color="success"
+              id="standard-basic"
+              label="Old Password"
+              variant="standard"
+            />
+            <TextField
+              color="success"
+              id="standard-basic"
+              label="New Password"
+              variant="standard"
+            />
+            <TextField
+              color="success"
+              id="standard-basic"
+              label="Confirm Password"
+              variant="standard"
+            />
+
+            <div
+              onClick={handleOpenUpdatePassword}
+              className="bg-[#2E4053] rounded-[10px] text-center py-2 cursor-pointer hover:scale-105 duration-300"
+            >
+              Update Password
             </div>
           </div>
         </Box>
