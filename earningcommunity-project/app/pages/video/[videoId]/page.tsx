@@ -36,16 +36,21 @@ export default function Video() {
       });
     };
 
-    (function (d, s, id) {
-      var js,
-        fjs = d.getElementsByTagName(s)[0];
+    (function (d: Document, s: string, id: string) {
+      let js: HTMLScriptElement | null,
+        fjs: Element | null = d.getElementsByTagName(s)[0];
       if (d.getElementById(id)) {
         return;
       }
-      js = d.createElement(s);
+      js = d.createElement(s) as HTMLScriptElement;
+      if (!js) {
+        return;
+      }
       js.id = id;
       js.src = "https://connect.facebook.net/en_US/sdk.js";
-      fjs.parentNode.insertBefore(js, fjs);
+      if (fjs && fjs.parentNode) {
+        fjs.parentNode.insertBefore(js, fjs);
+      }
     })(document, "script", "facebook-jssdk");
   }, []);
   const handleLogin = () => {

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { cookies, headers } from "next/headers";
+import { cookies } from "next/headers";
 import { NextRequest, NextResponse, userAgent } from "next/server";
 
 const GET = async (request: NextRequest) => {
