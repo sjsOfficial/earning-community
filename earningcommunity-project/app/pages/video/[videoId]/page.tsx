@@ -13,7 +13,7 @@ export default function Video() {
 
   useEffect(() => {
     getApi("/apis/user/video", {
-      videoId: videoId,
+      videoId: videoId
     }).then((res) => {
       setData(res.data);
     });
