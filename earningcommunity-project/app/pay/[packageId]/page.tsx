@@ -96,6 +96,8 @@ export default function Pay({ params }: { params: { packageId: string } }) {
         window.location.href = redirectUrl;
       })
       .catch((error) => {
+        console.log(error);
+        
         toast(error.response.data.error, {
           type: "error",
         });
