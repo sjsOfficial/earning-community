@@ -27,7 +27,6 @@ export default function RootLayout({
   const { fcmToken, notificationPermissionStatus } = useFcmToken();
 
   useEffect(() => {
-    
     const getCookie = async () => {
       try {
         const res = await axios.get("/apis/cookies");
@@ -55,8 +54,29 @@ export default function RootLayout({
   // if (!data) {
   //   return <LoaderScreen />;
   // }
+  if (pathname.includes("pay")) {
+    return (
+      <html lang="en">
+        <body className={inter.className}>
+          {children}
+          <ToastContainer
+            position="top-center"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+          />
+        </body>
+      </html>
+    );
+  }
 
-  if (pathname.includes("pay") || pathname.includes("admin")) {
+  if (pathname.includes("admin")) {
     return (
       <html lang="en">
         <body className={inter.className}>

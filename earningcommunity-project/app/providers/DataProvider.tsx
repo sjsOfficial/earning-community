@@ -74,7 +74,7 @@ export const DataProvider: React.FC<Props> = ({ children }) => {
 
         setUserPackageHistory(res.data.history);
       } catch (error: any) {
-        toast.error(error.response.data.error);
+       // toast.error(error.response.data.error);
         console.log(error.response.data.error);
       }
     };
@@ -86,7 +86,7 @@ export const DataProvider: React.FC<Props> = ({ children }) => {
         const res = await getApi(`/apis/user/withdraw`);
         setUserWithdrawHistory(res.data);
       } catch (error: any) {
-        toast.error(error.response.data.error);
+        //toast.error(error.response.data.error);
         console.log(error.response.data.error);
       }
     };
@@ -98,7 +98,7 @@ export const DataProvider: React.FC<Props> = ({ children }) => {
         const res = await getApi(`/apis/user/wallets`);
         setUserWalletHistory(res.data);
       } catch (error: any) {
-        toast.error(error.response.data.error);
+        //toast.error(error.response.data.error);
         console.log(error.response.data.error);
       }
     };
