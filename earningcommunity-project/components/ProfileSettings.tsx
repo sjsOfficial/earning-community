@@ -40,6 +40,7 @@ const gender = [
     label: "Female",
   },
 ];
+
 export default function ProfileSettings() {
   const { userData } = useAuth();
   // console.log(userData);
@@ -358,7 +359,7 @@ export default function ProfileSettings() {
             />
             <TextField
               variant="standard"
-              id="outlined-select-currency"
+              id="standard-basic"
               select
               label="Gender"
               defaultValue="Male"

@@ -1,12 +1,38 @@
 'use client'
 import useAuth from "@/hooks/useAuth";
+import { Box, MenuItem, Modal, TextField, Typography } from "@mui/material";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
+const wallet = [
+  {
+    value: "Bkash",
+    label: "Bkash",
+  },
+  {
+    value: "Nagad",
+    label: "Nagad",
+  },
+];
 
+const style = {
+  position: "absolute" as "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  // width: 400,
+  bgcolor: "#85929E",
+  // border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
 export default function ProfileNavigation() {
   const { userData } = useAuth();
   const pathname = usePathname();
+  const [openWithdraw, setOpenWithdraw] = React.useState(false);
+  const handleOpenWithdraw = () => setOpenWithdraw(!openWithdraw);
+
+
   return (
     <div className=" bg-[#85929E] rounded-lg p-3 lg:p-4 xl:p-10">
       <div className="flex justify-between ">
@@ -52,7 +78,7 @@ export default function ProfileNavigation() {
           </div>
         </div>
         <div>
-          <div className="bg-[#ffffff] rounded-lg p-4 flex justify-center items-center gap-2 md:gap-4">
+          <div onClick={handleOpenWithdraw} className="cursor-pointer hover:scale-105 duration-300 bg-[#ffffff] rounded-lg p-4 flex justify-center items-center gap-2 md:gap-4">
             <svg
               width="20"
               height="17"
@@ -102,6 +128,59 @@ export default function ProfileNavigation() {
           </p>
         </div>
       </Link>
+
+      {/* show withdraw modal  */}
+      <Modal
+        open={openWithdraw}
+        onClose={handleOpenWithdraw}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography
+            textAlign={"center"}
+            id="modal-modal-title"
+            variant="h6"
+            component="h2"
+          >
+            Withdraw
+          </Typography>
+          <div className="flex flex-col mt-4 space-y-4">
+            <TextField
+              color="success"
+              id="standard-basic"
+              label="Amount"
+              variant="standard"
+            />
+            <TextField
+              color="success"
+              id="standard-basic"
+              label="Your Password"
+              variant="standard"
+            />
+            <TextField
+              variant="standard"
+              id="standard-basic"
+              select
+              label="Select Your Wallet"
+              defaultValue="Bkash"
+              helperText="Please select your wallet"
+            >
+              {wallet.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </TextField>
+            <div
+              onClick={handleOpenWithdraw}
+              className="bg-[#2E4053] rounded-[10px] text-center py-2 cursor-pointer  hover:scale-105 duration-300"
+            >
+              Update Now
+            </div>
+          </div>
+        </Box>
+      </Modal>
     </div>
   );
 }
