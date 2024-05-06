@@ -11,8 +11,7 @@ const PackageCard: React.FC<PackageCardProps> = ({
   packageCardData,
   bgColor,
 }) => {
-  const pathname = window.location.pathname;
-  console.log(pathname);
+  
   
   const { userData } = useAuth();
   const router = useRouter();
@@ -39,6 +38,9 @@ const PackageCard: React.FC<PackageCardProps> = ({
         }, 2000);
       }
     } else {
+      setTimeout(() => {
+        toast.dismiss(toastId);
+      }, 1000);
       router.push("/pages/authentication/login");
     }
   };
