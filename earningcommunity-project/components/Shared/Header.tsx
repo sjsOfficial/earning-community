@@ -6,11 +6,12 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import dp from "../../public/dp.png";
 import useAuth from "@/hooks/useAuth";
+import { useData } from "@/app/providers/DataProvider";
 
 export default function Header() {
   const { userData } = useAuth();
   // console.log(userData);
-  
+  const {isDarkMode}=useData()
   const pathname = usePathname();
   const [notificationShow, setNotificationShow] = useState(false);
   const handleShowNotification = () => {
@@ -31,13 +32,13 @@ export default function Header() {
             href="/"
             className={`text-darkText dark:text-lightText font-normal md:font-medium text-[16px] md:text-[20px] ${
               pathname === "/" ? "border-b-2 border-[#85929E]" : ""
-            } ${userData || "hidden"}`}
+            } `}
           >
             Home
           </Link>
           <Link
             href="/pages/packages"
-            className={`"text-darkText dark:text-lightText font-normal md:font-medium text-[16px] md:text-[20px] ${
+            className={`text-darkText dark:text-lightText font-normal md:font-medium text-[16px] md:text-[20px] ${
               pathname === "/pages/packages"
                 ? "border-b-2 border-[#85929E]"
                 : ""
@@ -69,7 +70,7 @@ export default function Header() {
             <div className="flex items-center gap-5 lg:gap-10">
               <Link href="/pages/profile">
                 <div
-                  className={`border border-white rounded-full p-1 pr-10 flex gap-4 items-center cursor-pointer hover:bg-[#85929eaa] transition-colors duration-500 ease-in-out ${
+                  className={`border dark:border-white border-black rounded-full p-1 pr-10 flex gap-4 items-center cursor-pointer hover:bg-[#85929eaa] transition-colors duration-500 ease-in-out ${
                     pathname === "/pages/profile" ? "bg-[#85929eaa]" : ""
                   }`}
                 >
@@ -79,31 +80,35 @@ export default function Header() {
                     alt="profile image"
                   ></Image>
                   <div>
-                    <p className="text-[20px] font-medium text-white">
+                    <p className="text-[20px] font-medium dark:text-white">
                       My Profile
                     </p>
-                    <p className="text-[16px] font-medium text-white">{userData?.balance}৳</p>
+                    <p className="text-[16px] font-medium dark:text-white">
+                      {userData?.balance}৳
+                    </p>
                   </div>
                 </div>
               </Link>
 
-              <svg
-                onClick={handleShowNotification}
-                width="38"
-                height="41"
-                viewBox="0 0 38 41"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className={`hover:scale-110 duration-300 ease-in-out`}
-              >
-                <path
-                  d="M25.1995 31.511C29.2364 31.033 33.2029 30.0803 37.0165 28.6727C33.7868 25.0951 32.0022 20.4447 32.0093 15.625V14C32.0093 10.5522 30.6397 7.24559 28.2017 4.80761C25.7638 2.36964 22.4571 1 19.0093 1C15.5615 1 12.2549 2.36964 9.81695 4.80761C7.37897 7.24559 6.00933 10.5522 6.00933 14V15.625C6.01587 20.445 4.23047 25.0954 1 28.6727C4.75483 30.0593 8.71333 31.0235 12.8192 31.511M25.1995 31.511C21.0871 31.9988 16.9315 31.9988 12.8192 31.511M25.1995 31.511C25.5117 32.4857 25.5894 33.5204 25.4261 34.5307C25.2628 35.5411 24.8633 36.4987 24.26 37.3254C23.6567 38.1522 22.8667 38.8248 21.9543 39.2885C21.0418 39.7522 20.0328 39.9939 19.0093 39.9939C17.9859 39.9939 16.9768 39.7522 16.0644 39.2885C15.152 38.8248 14.362 38.1522 13.7587 37.3254C13.1554 36.4987 12.7558 35.5411 12.5926 34.5307C12.4293 33.5204 12.5069 32.4857 12.8192 31.511"
-                  stroke="white"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
+             
+                <svg
+                  onClick={handleShowNotification}
+                  width="38"
+                  height="41"
+                  viewBox="0 0 38 41"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className={`hover:scale-110 duration-300 ease-in-out `}
+                >
+                  <path
+                    d="M25.1995 31.511C29.2364 31.033 33.2029 30.0803 37.0165 28.6727C33.7868 25.0951 32.0022 20.4447 32.0093 15.625V14C32.0093 10.5522 30.6397 7.24559 28.2017 4.80761C25.7638 2.36964 22.4571 1 19.0093 1C15.5615 1 12.2549 2.36964 9.81695 4.80761C7.37897 7.24559 6.00933 10.5522 6.00933 14V15.625C6.01587 20.445 4.23047 25.0954 1 28.6727C4.75483 30.0593 8.71333 31.0235 12.8192 31.511M25.1995 31.511C21.0871 31.9988 16.9315 31.9988 12.8192 31.511M25.1995 31.511C25.5117 32.4857 25.5894 33.5204 25.4261 34.5307C25.2628 35.5411 24.8633 36.4987 24.26 37.3254C23.6567 38.1522 22.8667 38.8248 21.9543 39.2885C21.0418 39.7522 20.0328 39.9939 19.0093 39.9939C17.9859 39.9939 16.9768 39.7522 16.0644 39.2885C15.152 38.8248 14.362 38.1522 13.7587 37.3254C13.1554 36.4987 12.7558 35.5411 12.5926 34.5307C12.4293 33.5204 12.5069 32.4857 12.8192 31.511"
+                    stroke={isDarkMode?"white":"black"}
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+             
               <div
                 className={`absolute bg-[#292929] shadow-[#0000003d] top-[102px] right-4 w-[380px] overflow-hidden  rounded-b-md space-y-2 ${
                   notificationShow ? "h-[340px] p-4" : "h-[0px]"

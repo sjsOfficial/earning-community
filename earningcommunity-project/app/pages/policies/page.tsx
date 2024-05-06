@@ -3,7 +3,7 @@ import React from "react";
 export default function page() {
   return (
     <div className="container mx-auto pt-4 md:pt-40">
-      <div className="text-white mx-8">
+      <div className="dark:text-white text-black mx-8">
         <ol className="list-decimal mb-8">
           <li className="mb-4">
             <strong>**Monetization Guidelines**:</strong>

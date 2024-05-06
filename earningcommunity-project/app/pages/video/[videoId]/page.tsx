@@ -10,12 +10,19 @@ export default function Video() {
   const { videoId } = useParams();
   const [data, setData] = useState<videoTypes>();
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const [related, setRelated] = useState<videoTypes[]>();
 
   useEffect(() => {
     getApi("/apis/user/video", {
-      videoId: videoId
+      videoId: videoId,
     }).then((res) => {
       setData(res.data);
+      console.log(res.data);
+    });
+    getApi("/apis/user/related", {
+      videoId: videoId,
+    }).then((res) => {
+      setRelated(res.data);
     });
   }, []);
   useEffect(() => {
@@ -73,23 +80,19 @@ export default function Video() {
     // Add your logic here
   };
 
-  if (!data) {
+  if (!data || !related) {
     return <LoaderScreen />;
   }
   return (
     <div className="container mx-auto px-2  pt-4 md:pt-[100px]">
-      {isLoggedIn ? (
-        <div
-          className="fb-video"
-          data-href={data.videoUrl}
-          data-width="500"
-          data-allowfullscreen="true"
-          onPlaying={handlePlaying}
-          onPause={handlePause}
-        ></div>
-      ) : (
-        <button onClick={handleLogin}>Login with Facebook</button>
-      )}
+      <div
+        className="fb-video w-[500px] h-[500px]"
+        data-href={data.videoUrl}
+        data-width="500"
+        data-height="500"
+        data-allowfullscreen="true"
+        data-autoplay="true" // Add this attribute to enable autoplay
+      ></div>
     </div>
   );
 }

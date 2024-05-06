@@ -12,9 +12,8 @@ import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import useFcmToken from "@/hooks/useFcmToken";
-import { toast } from "react-toastify";
 import { AuthProvider } from "./providers/AuthProvider";
-import LoaderScreen from "./admin/(DashboardLayout)/components/shared/LoaderScreen";
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -107,7 +106,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <DataProvider>
           <AuthProvider>
-            <div className="dark:bg-darkBg bg-lightBg  transition-colors duration-500 ease-in-out">
+            <div className="dark:bg-darkBg bg-lightBg transition-colors duration-500 ease-in-out">
               <div className="hidden md:block">
                 {pathname.split("/")[1] === "admin" || <Header></Header>}
               </div>
