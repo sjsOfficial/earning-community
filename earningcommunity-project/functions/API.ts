@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 
 const API = axios.create({
     headers: {
-        Authorization: `Bearer ${Cookies.get('token')}`,
+        Authorization: `Bearer ${window?.localStorage.getItem('token')}`,
         PUSH_TOKEN: Cookies.get('fcm'),
         IP: Cookies.get('ip'),
         OS: Cookies.get('os'),

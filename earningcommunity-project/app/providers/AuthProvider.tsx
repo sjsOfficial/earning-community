@@ -69,7 +69,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
       const response = await fetch("/apis/user/details", {
         method: "GET",
         headers: {
-          Authorization: `Bearer ${Cookies.get("token")}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
       if (response.ok) {
@@ -98,8 +98,8 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 
   // useEffect hook to fetch user data when component mounts
   useEffect(() => {
-    Cookies.get("token") && fetchUserData();
-    if (!Cookies.get("token")) {
+    localStorage.getItem("token") && fetchUserData();
+    if (!localStorage.getItem("token")) {
       setIsLoading(false);
     }
   }, [reload]);
