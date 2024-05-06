@@ -61,7 +61,7 @@ const SignUpPage: React.FC = () => {
       });
       if (res.statusText == "OK") {
         localStorage.removeItem("token");
-        localStorage.setItem("token", res.data.token);
+        Cookies.set("token", res.data.token);
         toast.update(toastId, {
           render: "Number authorize",
           type: "success",

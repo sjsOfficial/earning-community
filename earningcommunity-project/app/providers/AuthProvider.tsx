@@ -22,7 +22,7 @@ export interface AuthContextType {
   withdrawData: withdrawDataTypes;
   setPurchasePackageData: (v: any) => void;
   setWithdrawData: (v: any) => void;
-  topData:any;
+  topData: any;
   setTopData: (v: any) => void;
 }
 
@@ -37,8 +37,8 @@ const AuthContext = createContext<AuthContextType>({
   withdrawData: { totalWithdraw: 0, percentageLastMonthWithdraw: 0 },
   setPurchasePackageData: () => {},
   setWithdrawData: () => {},
-  topData:undefined,
-  setTopData:()=>{}
+  topData: undefined,
+  setTopData: () => {},
 });
 
 interface AuthProviderProps {
@@ -59,17 +59,18 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     totalWithdraw: 0,
     percentageLastMonthWithdraw: 0,
   });
-  const [topData, setTopData] = useState()
+  const [topData, setTopData] = useState();
 
   // Function to fetch user data from API
   const fetchUserData = async () => {
     try {
       setIsLoading(true);
+      //localStorage.setItem("userToken", Cookies.get("token") as string);
       // Make API request to fetch user data
       const response = await fetch("/apis/user/details", {
         method: "GET",
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          Authorization: `Bearer ${Cookies.get("token")}`,
         },
       });
       if (response.ok) {
@@ -98,31 +99,31 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 
   // useEffect hook to fetch user data when component mounts
   useEffect(() => {
-    localStorage.getItem("token") && fetchUserData();
-    if (!localStorage.getItem("token")) {
+    Cookies.get("token") && fetchUserData();
+    if (!Cookies.get("token")) {
       setIsLoading(false);
     }
   }, [reload]);
- 
+
   useEffect(() => {
     if (isAdmin) {
-      loadAdminData()
+      loadAdminData();
     }
   }, [isAdmin]);
-  const loadAdminData=async()=>{
+  const loadAdminData = async () => {
     try {
-      const packageData=await getApi("/apis/admin/purchase")
+      const packageData = await getApi("/apis/admin/purchase");
       setPurchasePackageData(packageData.data);
-      const withdrawData=await putApi("/apis/admin/withdraw")
+      const withdrawData = await putApi("/apis/admin/withdraw");
       setWithdrawData(withdrawData.data);
-      const topData=await getApi("/apis/admin/top")
+      const topData = await getApi("/apis/admin/top");
       setTopData(topData.data);
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
-      console.error(error)
+      console.error(error);
     }
-  }
+  };
 
   // Context value
   const contextValue: AuthContextType = {
@@ -136,7 +137,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     setPurchasePackageData,
     setWithdrawData,
     topData,
-    setTopData
+    setTopData,
   };
 
   return (
