@@ -66,6 +66,41 @@ export default function MobileNav() {
             </p>
           </div>
         </Link>
+        <Link href="/pages/packages">
+          <div className="flex flex-col items-center ">
+            
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 20 22"
+              className={` ${
+                pathName === "/pages/packages"
+                  ? "text-[#E3A832]"
+                  : "text-darkText dark:text-white"
+              }`}
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M20.5 7.27783L12 12.0001M12 12.0001L3.49997 7.27783M12 12.0001L12 21.5001M21 12.0001V7.94153C21 7.59889 21 7.42757 20.9495 7.27477C20.9049 7.13959 20.8318 7.01551 20.7354 6.91082C20.6263 6.79248 20.4766 6.70928 20.177 6.54288L12.777 2.43177C12.4934 2.27421 12.3516 2.19543 12.2015 2.16454C12.0685 2.13721 11.9315 2.13721 11.7986 2.16454C11.6484 2.19543 11.5066 2.27421 11.223 2.43177L3.82297 6.54288C3.52345 6.70928 3.37368 6.79248 3.26463 6.91082C3.16816 7.01551 3.09515 7.13959 3.05048 7.27477C3 7.42757 3 7.59889 3 7.94153V16.0586C3 16.4013 3 16.5726 3.05048 16.7254C3.09515 16.8606 3.16816 16.9847 3.26463 17.0893C3.37368 17.2077 3.52346 17.2909 3.82297 17.4573L11.223 21.5684C11.5066 21.726 11.6484 21.8047 11.7986 21.8356C11.9315 21.863 12.0685 21.863 12.2015 21.8356C12.3516 21.8047 12.4934 21.726 12.777 21.5684L13 21.4445M7.5 4.50008L16.5 9.50008M22 21.5001L21 20.5001M22 18.0001C22 19.6569 20.6569 21.0001 19 21.0001C17.3431 21.0001 16 19.6569 16 18.0001C16 16.3432 17.3431 15.0001 19 15.0001C20.6569 15.0001 22 16.3432 22 18.0001Z"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+
+            <p
+              className={`${
+                pathName === "/pages/packages"
+                  ? "text-[#E3A832]"
+                  : "text-darkText dark:text-white"
+              } font-normal text-[12px]  mt-1`}
+            >
+              Package
+            </p>
+          </div>
+        </Link>
         <Link href="/pages/category">
           <div className="flex flex-col items-center ">
             <svg
@@ -165,40 +200,6 @@ export default function MobileNav() {
               } font-normal text-[12px]  mt-1`}
             >
               My Profile
-            </p>
-          </div>
-        </Link>
-        <Link href="/pages/account">
-          <div className="flex flex-col items-center ">
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 15 18"
-              className={` ${
-                pathName === "/pages/account"
-                  ? "text-[#E3A832]"
-                  : "text-darkText dark:text-white"
-              }`}
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M11.2143 4.55556C11.2143 5.49855 10.823 6.40292 10.1264 7.06971C9.42983 7.73651 8.48509 8.11111 7.5 8.11111C6.51491 8.11111 5.57017 7.73651 4.8736 7.06971C4.17704 6.40292 3.78571 5.49855 3.78571 4.55556C3.78571 3.61256 4.17704 2.70819 4.8736 2.0414C5.57017 1.3746 6.51491 1 7.5 1C8.48509 1 9.42983 1.3746 10.1264 2.0414C10.823 2.70819 11.2143 3.61256 11.2143 4.55556ZM7.5 10.7778C5.77609 10.7778 4.12279 11.4333 2.90381 12.6002C1.68482 13.7671 1 15.3498 1 17H14C14 15.3498 13.3152 13.7671 12.0962 12.6002C10.8772 11.4333 9.22391 10.7778 7.5 10.7778Z"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-
-            <p
-              className={`${
-                pathName === "/pages/account"
-                  ? "text-[#E3A832]"
-                  : "text-darkText dark:text-white"
-              } font-normal text-[12px]  mt-1`}
-            >
-              Account
             </p>
           </div>
         </Link>
