@@ -33,7 +33,7 @@ const LoginPage: React.FC = () => {
           type: "success",
           isLoading: false,
         });
-        Cookies.set("token", res.data.userToken);
+        Cookies.set("token", res.data.userToken,{expires:120});
         window.location.href = "/";
       }
     } catch (error: any | AxiosError | TypeError) {
