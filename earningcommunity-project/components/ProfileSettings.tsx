@@ -1,7 +1,7 @@
 "use client";
-import { getApi } from "@/functions/API";
+import { getApi, putApi } from "@/functions/API";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import Cookies from "js-cookie";
 import dp from "../public/dp.png";
@@ -17,7 +17,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { brotliDecompress } from "zlib";
+import { AxiosError } from "axios";
 
 const style = {
   position: "absolute" as "absolute",
@@ -30,20 +30,24 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
-const gender = [
-  {
-    value: "Male",
-    label: "Male",
-  },
-  {
-    value: "Female",
-    label: "Female",
-  },
-];
 
 export default function ProfileSettings() {
-  const { userData } = useAuth();
+  const { userData, reloadAuth } = useAuth();
   // console.log(userData);
+  const [age, setAge] = useState<Number>();
+  const [fullName, setFullName] = useState("");
+  const [birthday, setBirthday] = useState("");
+  const [gender, setGender] = useState("Male");
+
+  useEffect(() => {
+    if (userData) {
+      setFullName(userData.name);
+      setGender(userData.gender);
+      const birthDate: Date = new Date(`${userData.age}`);
+      const age: number = calculateAge(birthDate);
+      setAge(age);
+    }
+  }, [userData]);
   const [openLogOutDialouge, setSpenLogOutDialouge] = React.useState(false);
   const [openEditProfile, setOpenEditProfile] = React.useState(false);
   const [openUpdatePhone, setOpenUpdatePhone] = React.useState(false);
@@ -54,7 +58,19 @@ export default function ProfileSettings() {
     setSpenLogOutDialouge(!openLogOutDialouge);
   const handleOpenUpdatePassword = () =>
     setOpenUpdatePassword(!openUpdatePassword);
+  function calculateAge(birthDate: Date): number {
+    const currentDate: Date = new Date();
 
+    // Calculate the difference in milliseconds between the current date and the birth date
+    const differenceInMillis: number =
+      currentDate.getTime() - birthDate.getTime();
+
+    // Convert milliseconds to years
+    const millisecondsPerYear: number = 1000 * 60 * 60 * 24 * 365.25;
+    const age: number = Math.floor(differenceInMillis / millisecondsPerYear);
+
+    return age;
+  }
   const handleLogOut = async () => {
     handleOpenLogOutDialouge();
     const toastId = toast.loading("Please wait...");
@@ -80,6 +96,35 @@ export default function ProfileSettings() {
       }, 2000);
     }
   };
+  const handleProfileUpdate = async () => {
+    const toastId = toast.loading("Please wait...");
+    try {
+      const res = await putApi("/apis/user/details", {
+        name: fullName,
+        gender: gender,
+        age: birthday,
+      });
+      reloadAuth();
+      toast.update(toastId, {
+        render: "Update successful",
+        type: "success",
+        isLoading: false,
+      });
+    } catch (error: any | AxiosError | TypeError) {
+      handleOpenEditProfile();
+      toast.update(toastId, {
+        render: error.response.data.error,
+        type: "error",
+        isLoading: false,
+      });
+    } finally {
+      setTimeout(() => {
+        toast.dismiss(toastId);
+      }, 2000);
+      handleOpenEditProfile();
+    }
+  };
+
   return (
     <div className="lg:col-span-2 bg-[#85929E] p-3 lg:p-4 xl:p-10 rounded-lg">
       <div className="flex  flex-col md:flex-row w-full">
@@ -193,7 +238,7 @@ export default function ProfileSettings() {
               Age
             </p>
             <p className="text-[#ffffff] text-[14px] lg:text-[16px] xl:text-[20px] font-normal">
-              1000000
+              {age?.toString()}
             </p>
           </div>
           <div>
@@ -350,12 +395,17 @@ export default function ProfileSettings() {
               id="standard-basic"
               label="Full Name"
               variant="standard"
+              value={fullName}
+              onChange={(e) => setFullName(e.target.value)}
             />
             <TextField
               color="success"
               id="standard-basic"
               label="Birthday"
               variant="standard"
+              value={birthday}
+              onChange={(e) => setBirthday(e.target.value)}
+              placeholder="MM-DD-YYYY"
             />
             <TextField
               variant="standard"
@@ -364,15 +414,17 @@ export default function ProfileSettings() {
               label="Gender"
               defaultValue="Male"
               helperText="Please select your gender"
+              value={gender}
+              onChange={(e) => setGender(e.target.value)}
             >
-              {gender.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
+              {["Male", "Female", "Other"].map((option) => (
+                <MenuItem key={option} value={option}>
+                  {option}
                 </MenuItem>
               ))}
             </TextField>
             <div
-              onClick={handleOpenEditProfile}
+              onClick={handleProfileUpdate}
               className="bg-[#2E4053] rounded-[10px] text-center py-2 cursor-pointer  hover:scale-105 duration-300"
             >
               Update Now
