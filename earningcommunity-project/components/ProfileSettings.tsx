@@ -1,5 +1,5 @@
 "use client";
-import { getApi, putApi } from "@/functions/API";
+import { getApi,  postApi,  putApi } from "@/functions/API";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -38,6 +38,9 @@ export default function ProfileSettings() {
   const [fullName, setFullName] = useState("");
   const [birthday, setBirthday] = useState("");
   const [gender, setGender] = useState("Male");
+  const [oldPassword, setOldPassword] = useState("");
+  const [password, setpassword] = useState("");
+  const [rewritePassword, setRewritePassword] = useState("");
 
   useEffect(() => {
     if (userData) {
@@ -122,6 +125,38 @@ export default function ProfileSettings() {
         toast.dismiss(toastId);
       }, 2000);
       handleOpenEditProfile();
+    }
+  };
+  const handleUpdatePassword = async () => {
+    if (password != rewritePassword) {
+      return;
+    }
+    const toastId = toast.loading("Please wait...");
+    try {
+      const res = await postApi("/apis/user/change-password", {
+        newPassword: password,
+        oldPassword: oldPassword,
+      });
+      
+      reloadAuth();
+      toast.update(toastId, {
+        render: "Update successful",
+        type: "success",
+        isLoading: false,
+      });
+      handleOpenUpdatePassword();
+    } catch (error: any | AxiosError | TypeError) {
+      toast.update(toastId, {
+        render: error.response.data.error,
+        type: "error",
+        isLoading: false,
+      });
+      handleOpenUpdatePassword();
+    } finally {
+      setTimeout(() => {
+        toast.dismiss(toastId);
+      }, 2000);
+      handleOpenUpdatePassword();
     }
   };
 
@@ -517,18 +552,27 @@ export default function ProfileSettings() {
           </Typography>
           <div className="flex flex-col mt-4 space-y-4">
             <TextField
+            type="password"
+              value={oldPassword}
+              onChange={(e) => setOldPassword(e.target.value)}
               color="success"
               id="standard-basic"
               label="Old Password"
               variant="standard"
             />
             <TextField
+            type="password"
+              value={password}
+              onChange={(e) => setpassword(e.target.value)}
               color="success"
               id="standard-basic"
               label="New Password"
               variant="standard"
             />
             <TextField
+            type="password"
+              value={rewritePassword}
+              onChange={(e) => setRewritePassword(e.target.value)}
               color="success"
               id="standard-basic"
               label="Confirm Password"
@@ -536,7 +580,7 @@ export default function ProfileSettings() {
             />
 
             <div
-              onClick={handleOpenUpdatePassword}
+              onClick={handleUpdatePassword}
               className="bg-[#2E4053] rounded-[10px] text-center py-2 cursor-pointer hover:scale-105 duration-300"
             >
               Update Password
