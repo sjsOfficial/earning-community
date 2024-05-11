@@ -2,8 +2,13 @@
 import LoaderScreen from "@/app/admin/(DashboardLayout)/components/shared/LoaderScreen";
 import { useData } from "@/app/providers/DataProvider";
 import WalletHistoryCard from "@/components/WalletHistoryCard";
+import { getApi, postApi } from "@/functions/API";
+import useAuth from "@/hooks/useAuth";
+import walletTypes from "@/types/walletTypes";
 import { Box, MenuItem, Modal, TextField, Typography } from "@mui/material";
-import React from "react";
+import { AxiosError } from "axios";
+import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 const style = {
   position: "absolute" as "absolute",
   top: "50%",
@@ -16,20 +21,72 @@ const style = {
   p: 4,
 };
 export default function Wallets() {
-  const wallet = [
-    {
-      value: "Bkash",
-      label: "Bkash",
-    },
-    {
-      value: "Nagad",
-      label: "Nagad",
-    },
-  ];
+  const { reloadAuth } = useAuth();
+  const [wallet, setWallet] = useState<walletTypes[]>([]);
+  const [selectedWallet, setSelectedWallet] = useState<walletTypes>();
+  const [walletHolderName, setWalletHolderName] = useState("");
+  const [walletNumber, setWalletNumber] = useState("");
   const [openWallet, setOpenWallet] = React.useState(false);
   const handleOpenWallet = () => setOpenWallet(!openWallet);
-
   const { userWalletHistory } = useData();
+  const handleSelectWallet = (event) => {
+    const selectedName = event.target.value;
+    const selectedOption = wallet.find(
+      (option) => option.name === selectedName
+    );
+    setSelectedWallet(selectedOption);
+  };
+  useEffect(() => {
+    const getWallet = async () => {
+      try {
+        const res = await getApi("/apis/wallets");
+        setWallet(res.data);
+      } catch (error) {
+        console.log(error.response.data.error);
+      }
+    };
+    getWallet();
+  }, []);
+
+  const handleCreateWallet = async () => {
+    if (!walletHolderName  && !selectedWallet && !walletNumber) {
+      return alert("Fill up all field");
+    }
+    const toastId = toast.loading("Please wait...");
+    try {
+      const res = await postApi("/apis/user/wallets", {
+        number: walletNumber,
+        walletHolderName: walletHolderName,
+        wallet: {
+          name: selectedWallet?.name,
+          id: selectedWallet?.id,
+          icon: selectedWallet?.icon,
+          cashout: selectedWallet?.cashout,
+          payment: selectedWallet?.payment,
+        },
+      });
+
+      reloadAuth();
+      toast.update(toastId, {
+        render: "Added successful",
+        type: "success",
+        isLoading: false,
+      });
+      handleOpenWallet();
+    } catch (error: any | AxiosError | TypeError) {
+      toast.update(toastId, {
+        render: error.response.data.error,
+        type: "error",
+        isLoading: false,
+      });
+      handleOpenWallet();
+    } finally {
+      setTimeout(() => {
+        toast.dismiss(toastId);
+      }, 2000);
+      handleOpenWallet();
+    }
+  };
   return (
     <div className="bg-[#85929E] mx-2 rounded-[10px] ">
       <div className="flex items-center justify-between p-4">
@@ -94,12 +151,14 @@ export default function Wallets() {
               id="standard-basic"
               label="Wallet Holder Name"
               variant="standard"
+              onChange={(e)=>setWalletHolderName(e.target.value)}
             />
             <TextField
               color="success"
               id="standard-basic"
               label="Wallet Number"
               variant="standard"
+              onChange={(e)=>setWalletNumber(e.target.value)}
             />
             <TextField
               variant="standard"
@@ -108,15 +167,16 @@ export default function Wallets() {
               label="Select Wallet Type"
               defaultValue="Bkash"
               helperText="Please select your wallet"
+              onChange={handleSelectWallet}
             >
-              {wallet.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
+              {wallet?.map((option) => (
+                <MenuItem key={option.id} value={option.name}>
+                  {option.name}
                 </MenuItem>
               ))}
             </TextField>
             <div
-              onClick={handleOpenWallet}
+              onClick={handleCreateWallet}
               className="bg-[#2E4053] rounded-[10px] text-center py-2 cursor-pointer  hover:scale-105 duration-300"
             >
               Update Now
