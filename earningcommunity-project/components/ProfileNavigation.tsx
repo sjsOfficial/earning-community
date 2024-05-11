@@ -153,12 +153,6 @@ export default function ProfileNavigation() {
               variant="standard"
             />
             <TextField
-              color="success"
-              id="standard-basic"
-              label="Your Password"
-              variant="standard"
-            />
-            <TextField
               variant="standard"
               id="standard-basic"
               select
