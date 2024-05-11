@@ -27,15 +27,13 @@ const LoginPage: React.FC = () => {
         password: password,
       });
 
-      if (res.statusText == "OK") {
-        toast.update(toastId, {
-          render: "Login successful",
-          type: "success",
-          isLoading: false,
-        });
-        Cookies.set("token", res.data.userToken,{expires:120});
-        window.location.href = "/";
-      }
+      toast.update(toastId, {
+        render: "Login successful",
+        type: "success",
+        isLoading: false,
+      });
+      Cookies.set("token", res.data.userToken,{expires:120});
+      window.location.href = "/";
     } catch (error: any | AxiosError | TypeError) {
       toast.update(toastId, {
         render: error.response.data.error,

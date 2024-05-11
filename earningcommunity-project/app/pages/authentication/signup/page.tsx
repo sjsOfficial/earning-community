@@ -59,16 +59,14 @@ const SignUpPage: React.FC = () => {
         OTP: "000000",
         key: key,
       });
-      if (res.statusText == "OK") {
-        localStorage.removeItem("token");
-        Cookies.set("token", res.data.token,{expires:120});
-        toast.update(toastId, {
-          render: "Number authorize",
-          type: "success",
-          isLoading: false,
-        });
-        router.push("/pages/authentication/signup/signupForm");
-      }
+      localStorage.removeItem("token");
+      Cookies.set("token", res.data.token, { expires: 120 });
+      toast.update(toastId, {
+        render: "Number authorize",
+        type: "success",
+        isLoading: false,
+      });
+      router.push("/pages/authentication/signup/signupForm");
     } catch (error: any | AxiosError | TypeError) {
       toast.update(toastId, {
         render: error.response.data.error,

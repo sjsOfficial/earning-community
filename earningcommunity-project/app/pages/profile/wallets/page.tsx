@@ -7,7 +7,7 @@ import useAuth from "@/hooks/useAuth";
 import walletTypes from "@/types/walletTypes";
 import { Box, MenuItem, Modal, TextField, Typography } from "@mui/material";
 import { AxiosError } from "axios";
-import React, { useEffect, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 const style = {
   position: "absolute" as "absolute",
@@ -29,7 +29,7 @@ export default function Wallets() {
   const [openWallet, setOpenWallet] = React.useState(false);
   const handleOpenWallet = () => setOpenWallet(!openWallet);
   const { userWalletHistory } = useData();
-  const handleSelectWallet = (event) => {
+  const handleSelectWallet = (event:any) => {
     const selectedName = event.target.value;
     const selectedOption = wallet.find(
       (option) => option.name === selectedName
@@ -41,7 +41,7 @@ export default function Wallets() {
       try {
         const res = await getApi("/apis/wallets");
         setWallet(res.data);
-      } catch (error) {
+      } catch (error:any) {
         console.log(error.response.data.error);
       }
     };

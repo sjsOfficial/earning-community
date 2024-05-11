@@ -31,15 +31,13 @@ const SignUpFrom: React.FC = () => {
         token: token,
       });
 
-      if (res.statusText == "OK") {
-        Cookies.set("token", res.data.userToken);
-        toast.update(toastId, {
-          render: "Registration successful",
-          type: "success",
-          isLoading: false,
-        });
-        window.location.href = "/";
-      }
+      Cookies.set("token", res.data.userToken);
+      toast.update(toastId, {
+        render: "Registration successful",
+        type: "success",
+        isLoading: false,
+      });
+      window.location.href = "/";
     } catch (error: any | AxiosError | TypeError) {
       toast.update(toastId, {
         render: error.response.data.error,
