@@ -42,6 +42,13 @@ export default function Footer() {
       <div className="bg-[#000000]">
         <div className="container mx-auto px-2 grid grid-cols-1 md:grid-cols-2 py-[30px] md:py-[60px] gap-4 md:gap-8 lg:gap-20">
           <div>
+            <Link href="/">
+              <Image
+                className="h-[70px] md:h-auto"
+                src={require("../../public/logo.svg")}
+                alt="logo"
+              ></Image>
+            </Link>
             <p className="text-[20px] md:text-[24px] font-normal md:font-medium text-[#FFFFFF]">
               About US
             </p>
@@ -58,7 +65,6 @@ export default function Footer() {
               Participate in tournaments, collaborate with fellow creators, and
               engage with your audience to maximize your earnings potential.
             </p>
-            
           </div>
           <div className="flex justify-between">
             <div className="flex flex-col">
@@ -145,10 +151,9 @@ export default function Footer() {
             </div>
           </div>
           <p className="text-[20px] md:text-[24px] font-normal text-[#FFFFFF] mb-[50px] md:mb-0">
-              2024@ All rights reserved by Earning Community
-            </p>
+            2024@ All rights reserved by Earning Community
+          </p>
         </div>
-        
       </div>
     </div>
   );
