@@ -113,41 +113,30 @@ export default function Footer() {
                 Internal Links
               </p>
               <Link
-                href="/"
+                href="/pages/privacy-policy"
                 className="text-[16px] md:text-[20px] font-normal text-[#E3A832] mb-[10px]  md:mb-[15px] hover:text-[#ffcc65] transition-colors duration-300 ease-in-out"
               >
                 Privacy Policy
               </Link>
               <Link
-                href="/"
+                href="/pages/account-policy"
                 className="text-[16px] md:text-[20px] font-normal text-[#E3A832] mb-[10px]  md:mb-[15px] hover:text-[#ffcc65] transition-colors duration-300 ease-in-out"
               >
                 Account Policy
               </Link>
               <Link
-                href="/"
+                href="/pages/paymentsPolicyes"
                 className="text-[16px] md:text-[20px] font-normal text-[#E3A832] mb-[10px]  md:mb-[15px] hover:text-[#ffcc65] transition-colors duration-300 ease-in-out"
               >
                 Payment Policy
               </Link>
               <Link
-                href="/"
+                href="/pages/package-policy"
                 className="text-[16px] md:text-[20px] font-normal text-[#E3A832] mb-[10px]  md:mb-[15px] hover:text-[#ffcc65] transition-colors duration-300 ease-in-out"
               >
                 Package Policy
               </Link>
-              <Link
-                href="/"
-                className="text-[16px] md:text-[20px] font-normal text-[#E3A832] mb-[10px]  md:mb-[15px] hover:text-[#ffcc65] transition-colors duration-300 ease-in-out"
-              >
-                External Links
-              </Link>
-              <Link
-                href="/"
-                className="text-[16px] md:text-[20px] font-normal text-[#E3A832] mb-[10px]  md:mb-[15px] hover:text-[#ffcc65] transition-colors duration-300 ease-in-out"
-              >
-                External Links
-              </Link>
+              
             </div>
           </div>
           <p className="text-[20px] md:text-[24px] font-normal text-[#FFFFFF] mb-[50px] md:mb-0">
