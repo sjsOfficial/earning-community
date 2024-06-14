@@ -16,7 +16,7 @@ export default function Footer() {
               src={require("../../public/youtube.svg")}
               alt="logo"
             ></Image>
-            <Image
+            {/* <Image
               className="h-10 w-10 md:h-16 md:w-16"
               src={require("../../public/whatsapp.svg")}
               alt="logo"
@@ -25,7 +25,7 @@ export default function Footer() {
               className="h-10 w-10 md:h-16 md:w-16"
               src={require("../../public/telegram.svg")}
               alt="logo"
-            ></Image>
+            ></Image> */}
             <Image
               className="h-10 w-10 md:h-16 md:w-16"
               src={require("../../public/facebook.svg")}
