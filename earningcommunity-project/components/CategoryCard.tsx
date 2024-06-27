@@ -4,7 +4,7 @@ import React from "react";
 
 const CategoryCard: React.FC<CategoryCardProps> = ({ data }) => {
   return (
-    <div className="bg-[#85929E] rounded-[10px] px-2 md:px-10 py-2 md:py-4 flex gap-1 justify-between items-center">
+    <div className="bg-gradient-to-b from-green-400  to-pink-500  rounded-[10px] px-2 md:px-10 py-2 md:py-4 flex gap-1 justify-between items-center">
       <div className="flex gap-1 md:gap-6 items-center">
         <Image
           className="h-[40px] md:h-[60px] lg:h-[100px] w-[40px] md:w-[60px] lg:w-[120px]"

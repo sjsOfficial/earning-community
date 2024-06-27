@@ -4,7 +4,7 @@ import React from "react";
 export default function AppDownload() {
   return (
     <div className="px-2">
-      <div className="bg-[#85929E] p-6 md:p-10 flex flex-col md:flex-row gap-2 md:gap-6 items-center md:justify-between  rounded-[10px] container mx-auto my-8 md:my-10">
+      <div className="bg-gradient-to-r from-green-400 via-black to-pink-500  p-6 md:p-10 flex flex-col md:flex-row gap-2 md:gap-6 items-center md:justify-between  rounded-[10px] container mx-auto my-8 md:my-10">
         <Image
           className="h-[250px] md:h-[350px] lg:h-[420px] w-[250px] md:w-[350px] lg:w-[420px]"
           alt="App Download"
