@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken"
 import md5 from "md5"
 import prisma from "@/libs/prisma";
 import { encrypt } from "@/functions/JWT";
+import getCookies from "@/functions/getCookies";
 const secret = process.env.SECRET || "cluster0"
 
 
@@ -39,15 +40,7 @@ const GET = async (request: NextRequest) => {
 
 const POST = async (request: NextRequest) => {
     const pushToken = request.headers.get("PUSH_TOKEN");
-    const ip = request.headers.get("IP")
-    const os = request.headers.get("OS")
-    const deviceId = request.headers.get("DEVICE_ID");
-    // if (!pushToken) {
-    //     return NextResponse.json({ error: "Please give notification permission" }, { status: 404 })
-    // }
-    if ( !ip || !os || !deviceId) {
-        return NextResponse.json({ error: "Headers not found" }, { status: 404 })
-    }
+   
     const { name, password, token } = await request.json() as requestTypes
 
     if (!name || !password || !token) {
@@ -60,6 +53,10 @@ const POST = async (request: NextRequest) => {
         return NextResponse.json({ error: "Password field is between 6 to 20 character" }, { status: 404 })
     }
     try {
+        const sessions=await getCookies(request)
+        if (!sessions.ip || !sessions.os || !sessions.id) {
+            return NextResponse.json({ error: "Headers not found" }, { status: 404 })
+        }
         const { number } = jwt.verify(token, secret) as tokenTypes
         const oldUser = await prisma.users.findUnique({
             where: { phone: number }
@@ -67,9 +64,9 @@ const POST = async (request: NextRequest) => {
         if (oldUser) {
             return NextResponse.json({ error: "Phone number has already been used" }, { status: 404 })
         }
-        const data = `${ip}+${os}+${deviceId}`
+        const data = `${sessions.ip}+${sessions.os}+${sessions.id}`
         const encryptedPassword = md5(password);
-        const deviceToken = md5(data)
+        const deviceToken = data
         const user = await prisma.users.create({
             data: {
                 name: name,
@@ -77,7 +74,7 @@ const POST = async (request: NextRequest) => {
                 password: encryptedPassword,
                 deviceId: deviceToken,
                 pushToken: pushToken || '',
-                device: os
+                device: sessions.os
             }
         })
 

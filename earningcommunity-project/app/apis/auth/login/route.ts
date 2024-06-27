@@ -6,6 +6,7 @@ import prisma from "@/libs/prisma";
 import getUser from "@/functions/getUser";
 import userTypes from "@/types/userTypes";
 import { encrypt } from "@/functions/JWT";
+import getCookies from "@/functions/getCookies";
 const secret = process.env.SECRET || "cluster0"
 
 interface loginTypes {
@@ -16,17 +17,7 @@ interface loginTypes {
 
 const POST = async (request: NextRequest) => {
     const pushToken = request.headers.get("PUSH_TOKEN");
-    const ip = request.headers.get("IP")
-    const os = request.headers.get("OS")
-    const deviceId = request.headers.get("DEVICE_ID");
-
-    // if (!pushToken) {
-    //     return NextResponse.json({ error: "Please give notification permission" }, { status: 404 })
-    // }
-
-    if (!ip || !os || !deviceId) {
-        return NextResponse.json({ error: "Headers not found" }, { status: 404 })
-    }
+    
     const { phone, password } = await request.json() as loginTypes
 
 
@@ -34,9 +25,14 @@ const POST = async (request: NextRequest) => {
         return NextResponse.json({ error: "Invalid phone number and password" }, { status: 404 })
     }
     try {
+        const sessions=await getCookies(request)
+        if (!sessions.ip || !sessions.os || !sessions.id) {
+            return NextResponse.json({ error: "Headers not found" }, { status: 404 })
+        }
         const encryptedPassword = md5(password);
-        const data = `${ip}+${os}+${deviceId}`
-        const deviceToken = md5(data)
+        const data = `${sessions.ip}+${sessions.os}+${sessions.id}`
+        const deviceToken = data
+        //console.log(data)
         const user = await prisma.users.findUnique({
             where: {
                 phone: phone,
@@ -50,7 +46,7 @@ const POST = async (request: NextRequest) => {
             const newUser = await prisma.users.update({
                 where: { id: user.id },
                 data: {
-                    device: os,
+                    device: sessions.os,
                     deviceId: deviceToken,
                     pushToken: pushToken
                 }
