@@ -16,7 +16,7 @@ export default function Home() {
   return (
     <main className="">
       <HomeSlider></HomeSlider>
-      <Search></Search>
+      {/* <Search></Search> */}
       <JoinUs></JoinUs>
       <Packages></Packages>
       <History></History>
