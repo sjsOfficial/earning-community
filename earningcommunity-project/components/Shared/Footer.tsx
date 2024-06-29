@@ -90,13 +90,13 @@ export default function Footer() {
                 Legacy Control
               </Link> */}
               <Link
-                href="/"
+                href="/pages/instant-cash"
                 className="text-[16px] md:text-[20px] font-normal text-[#E3A832] mb-[10px]  md:mb-[15px] hover:text-[#ffcc65] transition-colors duration-300 ease-in-out"
               >
                 Instant Cash
               </Link>
               <Link
-                href="/"
+                href="/pages/partnership-offer"
                 className="text-[16px] md:text-[20px] font-normal text-[#E3A832] mb-[10px]  md:mb-[15px] hover:text-[#ffcc65] transition-colors duration-300 ease-in-out"
               >
                 Partnership Offer
