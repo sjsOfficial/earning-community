@@ -1,3 +1,4 @@
+'use client'
 import Image from "next/image";
 import React from "react";
 
@@ -28,8 +29,10 @@ export default function AppDownload() {
               Awesome Experience in Android Device{" "}
             </h1>
             <div className="flex justify-center md:justify-end">
-              <div className="w-[200px] md:w-[250px] mt-2 md:mt-6 h-[40px] md:h-[50px] flex justify-center items-center bg-[#2E4053] rounded-[10px]  text-[18px] md:text-[24px] font-medium">
-                Download Now
+              <div onClick={()=>alert('Comming Soon!')} className="hidden md:block py-2 md:py-4 bg-[#2E4053] px-4 hover:bg-[#1b2a3e] rounded-[10px] max-w-[350px] cursor-pointer transition-colors duration-500 ease-in-out">
+                <p className="text-[#FFFFFF] font-medium teext-[14px] md:text-[20px] text-center">
+                  Download Now!
+                </p>
               </div>
             </div>
           </div>

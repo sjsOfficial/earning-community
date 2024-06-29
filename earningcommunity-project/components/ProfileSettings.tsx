@@ -1,5 +1,5 @@
 "use client";
-import { getApi,  postApi,  putApi } from "@/functions/API";
+import { getApi, postApi, putApi } from "@/functions/API";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -9,6 +9,7 @@ import useAuth from "@/hooks/useAuth";
 import {
   Box,
   Button,
+  CircularProgress,
   Dialog,
   DialogActions,
   DialogTitle,
@@ -32,6 +33,7 @@ const style = {
 };
 
 export default function ProfileSettings() {
+  const [loading, setLoading] = useState(false);
   const { userData, reloadAuth } = useAuth();
   // console.log(userData);
   const [age, setAge] = useState<Number>();
@@ -77,8 +79,9 @@ export default function ProfileSettings() {
   const handleLogOut = async () => {
     handleOpenLogOutDialouge();
     const toastId = toast.loading("Please wait...");
-
+    
     try {
+      setLoading(true);
       await getApi("/apis/user/logout");
       Cookies.remove("token");
       toast.update(toastId, {
@@ -86,6 +89,7 @@ export default function ProfileSettings() {
         type: "success",
         isLoading: false,
       });
+      setLoading(false);
       window.location.href = "/";
     } catch (error: any) {
       toast.update(toastId, {
@@ -93,6 +97,7 @@ export default function ProfileSettings() {
         type: "error",
         isLoading: false,
       });
+      setLoading(false);
     } finally {
       setTimeout(() => {
         toast.dismiss(toastId);
@@ -137,7 +142,7 @@ export default function ProfileSettings() {
         newPassword: password,
         oldPassword: oldPassword,
       });
-      
+
       reloadAuth();
       toast.update(toastId, {
         render: "Update successful",
@@ -403,7 +408,11 @@ export default function ProfileSettings() {
         <DialogActions>
           <Button onClick={handleOpenLogOutDialouge}>Cancel</Button>
           <Button onClick={handleLogOut} autoFocus>
-            Log Out
+            {loading ? (
+              <CircularProgress color="secondary" />
+            ) : (
+              "Log Out"
+            )}
           </Button>
         </DialogActions>
       </Dialog>
@@ -552,7 +561,7 @@ export default function ProfileSettings() {
           </Typography>
           <div className="flex flex-col mt-4 space-y-4">
             <TextField
-            type="password"
+              type="password"
               value={oldPassword}
               onChange={(e) => setOldPassword(e.target.value)}
               color="success"
@@ -561,7 +570,7 @@ export default function ProfileSettings() {
               variant="standard"
             />
             <TextField
-            type="password"
+              type="password"
               value={password}
               onChange={(e) => setpassword(e.target.value)}
               color="success"
@@ -570,7 +579,7 @@ export default function ProfileSettings() {
               variant="standard"
             />
             <TextField
-            type="password"
+              type="password"
               value={rewritePassword}
               onChange={(e) => setRewritePassword(e.target.value)}
               color="success"

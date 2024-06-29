@@ -185,13 +185,13 @@ const SignUpPage: React.FC = () => {
               {phone.length == 11 ? (
                 <p
                   onClick={handleVarifyNumber}
-                  className={`underline text-[#006216] text-[16px] font-normal cursor-pointer hover:text-[#1d4025]`}
+                  className={`underline text-red-700 text-[16px] font-normal cursor-pointer hover:text-red-900`}
                 >
                   Verify Now
                 </p>
               ) : (
                 <p
-                  className={`underline text-[#006216] text-[16px] font-normal cursor-not-allowed opacity-75`}
+                  className={`underline text-[#006216] text-[16px] font-normal cursor-not-allowed opacity-50`}
                 >
                   Verify Now
                 </p>
@@ -232,15 +232,21 @@ const SignUpPage: React.FC = () => {
           </div>
 
           <div className="my-[10px]">
-            <div
-              onClick={handleVarifyOTP}
-              className={`bg-[#2E4053] hover:bg-[#233140] text-white font-medium py-2 px-4 rounded-md w-full ${
-                !isOpenInputOTP
-                  ? "cursor-not-allowed opacity-70"
-                  : "cursor-pointer"
-              }`}
-            >
-              Verify OTP
+            <div>
+              {!isOpenInputOTP ? (
+                <div
+                  className={`bg-[#2E4053] hover:bg-[#233140] text-center text-white font-medium py-2 px-4 rounded-md w-full cursor-not-allowed opacity-70`}
+                >
+                  Verify OTP
+                </div>
+              ) : (
+                <div
+                  onClick={handleVarifyOTP}
+                  className={`bg-[#2E4053] hover:bg-[#233140] text-center text-white font-medium py-2 px-4 rounded-md w-full cursor-pointer`}
+                >
+                  Verify OTP
+                </div>
+              )}
             </div>
           </div>
           <Link
