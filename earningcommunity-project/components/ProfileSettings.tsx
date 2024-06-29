@@ -78,10 +78,11 @@ export default function ProfileSettings() {
   }
   const handleLogOut = async () => {
     handleOpenLogOutDialouge();
+    setLoading(true);
     const toastId = toast.loading("Please wait...");
     
     try {
-      setLoading(true);
+     
       await getApi("/apis/user/logout");
       Cookies.remove("token");
       toast.update(toastId, {
