@@ -66,29 +66,29 @@ export default function Footer() {
               engage with your audience to maximize your earnings potential.
             </p>
           </div>
-          <div className="flex justify-between">
+          <div className="flex justify-between md:pt-[156px]">
             <div className="flex flex-col">
               <p className="text-[20px] md:text-[24px] font-normal md:font-medium text-[#FFFFFF] mb-[10px] md:mb-[30px]">
                 About US
               </p>
-              <Link
+              {/* <Link
                 href="/"
                 className="text-[16px] md:text-[20px] font-normal text-[#E3A832] mb-[10px]  md:mb-[15px] hover:text-[#ffcc65] transition-colors duration-300 ease-in-out"
               >
                 Community News
-              </Link>
-              <Link
+              </Link> */}
+              {/* <Link
                 href="/"
                 className="text-[16px] md:text-[20px] font-normal text-[#E3A832] mb-[10px]  md:mb-[15px] hover:text-[#ffcc65] transition-colors duration-300 ease-in-out"
               >
                 Empower Documents
-              </Link>
-              <Link
+              </Link> */}
+              {/* <Link
                 href="/"
                 className="text-[16px] md:text-[20px] font-normal text-[#E3A832] mb-[10px]  md:mb-[15px] hover:text-[#ffcc65] transition-colors duration-300 ease-in-out"
               >
                 Legacy Control
-              </Link>
+              </Link> */}
               <Link
                 href="/"
                 className="text-[16px] md:text-[20px] font-normal text-[#E3A832] mb-[10px]  md:mb-[15px] hover:text-[#ffcc65] transition-colors duration-300 ease-in-out"
@@ -101,12 +101,12 @@ export default function Footer() {
               >
                 Partnership Offer
               </Link>
-              <Link
+              {/* <Link
                 href="/"
                 className="text-[16px] md:text-[20px] font-normal text-[#E3A832] mb-[10px]  md:mb-[15px] hover:text-[#ffcc65] transition-colors duration-300 ease-in-out"
               >
                 Recent Reviews
-              </Link>
+              </Link> */}
             </div>
             <div className="text-end flex flex-col">
               <p className="text-[20px] md:text-[24px] font-normal md:font-medium text-[#FFFFFF] mb-[10px] md:mb-[30px]">
@@ -125,7 +125,7 @@ export default function Footer() {
                 Account Policy
               </Link>
               <Link
-                href="/pages/paymentsPolicyes"
+                href="/pages/PPolicy"
                 className="text-[16px] md:text-[20px] font-normal text-[#E3A832] mb-[10px]  md:mb-[15px] hover:text-[#ffcc65] transition-colors duration-300 ease-in-out"
               >
                 Payment Policy
